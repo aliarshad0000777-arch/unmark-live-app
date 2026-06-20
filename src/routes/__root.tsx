@@ -77,18 +77,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Clear Canvas is a web app that removes watermarks from images with a premium, minimalist UI." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Clear Canvas is a web app that removes watermarks from images with a premium, minimalist UI." },
+      
+      /* --- SEO Tags Start --- */
+      { title: "Unmark AI - Best AI Watermark & Object Remover" },
+      { name: "description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
+      { name: "keywords", content: "AI watermark remover, remove watermark, unmark ai, remove object from photo, free AI image editor, AI tool" },
+      { name: "author", content: "Unmark AI" },
+      
+      /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
+      { property: "og:title", content: "Unmark AI - Best AI Watermark & Object Remover" },
+      { property: "og:description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Clear Canvas is a web app that removes watermarks from images with a premium, minimalist UI." },
+      { property: "og:url", content: "https://www.unmark-ai.com/" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
+      
+      /* --- Twitter Cards --- */
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Unmark AI - Best AI Watermark & Object Remover" },
+      { name: "twitter:description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
+      /* --- SEO Tags End --- */
     ],
     links: [
       {
