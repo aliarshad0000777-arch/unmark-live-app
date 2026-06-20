@@ -78,27 +78,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       
-      /* --- SEO Tags Start --- */
-      { title: "Unmark AI - Best AI Watermark & Object Remover" },
-      { name: "description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
-      { name: "keywords", content: "AI watermark remover, remove watermark, unmark ai, remove object from photo, free AI image editor, AI tool" },
+      /* --- NEW CLICK-MAGNET SEO TAGS --- */
+      { title: "Gemini Watermark Remover: Free, Unlimited & No Sign-up" },
+      { name: "description", content: "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!" },
+      { name: "keywords", content: "Gemini watermark remover, remove Gemini logo, free watermark remover, no signup, unlimited AI eraser, Nano Banana remover" },
       { name: "author", content: "Unmark AI" },
       
       /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
-      { property: "og:title", content: "Unmark AI - Best AI Watermark & Object Remover" },
-      { property: "og:description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
+      { property: "og:title", content: "Gemini Watermark Remover: Free & No Sign-up" },
+      { property: "og:description", content: "Easily remove Gemini watermarks and logos instantly. 100% Free, unlimited use, and no registration needed." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       
       /* --- Twitter Cards --- */
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Unmark AI - Best AI Watermark & Object Remover" },
-      { name: "twitter:description", content: "Unmark AI is a fast and powerful tool to easily remove watermarks, logos, text, and unwanted objects from your images using advanced AI technology." },
+      { name: "twitter:title", content: "Gemini Watermark Remover: Free & Unlimited" },
+      { name: "twitter:description", content: "Remove Gemini watermarks for free. Unlimited use, no sign-up needed." },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       /* --- SEO Tags End --- */
     ],
     links: [
+      /* --- WEBSITE ICON (SVG FAVICON) --- */
+      {
+        rel: "icon",
+        type: "image/svg+xml",
+        href: "/favicon.svg",
+      },
       {
         rel: "stylesheet",
         href: appCss,
