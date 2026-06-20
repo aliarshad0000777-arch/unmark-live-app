@@ -78,23 +78,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       
-      /* --- NEW CLICK-MAGNET SEO TAGS --- */
-      { title: "Gemini Watermark Remover: Free, Unlimited & No Sign-up" },
-      { name: "description", content: "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!" },
-      { name: "keywords", content: "Gemini watermark remover, remove Gemini logo, free watermark remover, no signup, unlimited AI eraser, Nano Banana remover" },
+      /* --- HIGHLY OPTIMIZED SEO TITLE --- */
+      { title: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
+      
+      /* --- LONG, DETAILED & POWERFUL DESCRIPTION (COMPETITOR KILLER) --- */
+      { 
+        name: "description", 
+        content: "Unmark AI is the best free Gemini watermark remover. Instantly erase Nano Banana logos, text, and AI watermarks from images while keeping original HD quality. 100% free to use, unlimited processing, no sign-up, and no hidden fees. Fast cleanup for JPG & PNG!" 
+      },
+      
+      /* --- HIGH-RANKING KEYWORDS --- */
+      { 
+        name: "keywords", 
+        content: "Gemini watermark remover, Nano Banana logo remover, free AI watermark eraser, remove logo from image, no signup, unlimited, HD quality, JPG, PNG" 
+      },
       { name: "author", content: "Unmark AI" },
       
       /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
-      { property: "og:title", content: "Gemini Watermark Remover: Free & No Sign-up" },
-      { property: "og:description", content: "Easily remove Gemini watermarks and logos instantly. 100% Free, unlimited use, and no registration needed." },
+      { property: "og:title", content: "Unmark - Gemini Watermark Remover (Free & Unlimited)" },
+      { property: "og:description", content: "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free, HD quality and unlimited." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       
       /* --- Twitter Cards --- */
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Gemini Watermark Remover: Free & Unlimited" },
-      { name: "twitter:description", content: "Remove Gemini watermarks for free. Unlimited use, no sign-up needed." },
+      { name: "twitter:title", content: "Unmark - Gemini Watermark Remover" },
+      { name: "twitter:description", content: "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free, HD quality and unlimited." },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       /* --- SEO Tags End --- */
     ],

@@ -6,16 +6,27 @@ import { LanguageProvider } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Unmark — AI Watermark Remover" },
+      /* --- HIGHLY OPTIMIZED SEO TITLE --- */
+      { title: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
+      
+      /* --- POWERFUL DESCRIPTION FOR HIGHER CTR --- */
       {
         name: "description",
         content:
-          "Remove watermarks from images in one click with AI. Fast, free, pixel-perfect cleanup.",
+          "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!",
       },
-      { property: "og:title", content: "Unmark — AI Watermark Remover" },
+      
+      /* --- HIGH-RANKING KEYWORDS --- */
+      { 
+        name: "keywords", 
+        content: "Unmark AI, Gemini watermark remover, Nano Banana remover, free AI watermark eraser, remove logo online, no signup, unlimited" 
+      },
+
+      /* --- SOCIAL MEDIA (OPEN GRAPH) TAGS --- */
+      { property: "og:title", content: "Unmark - Gemini Watermark Remover (Free & Unlimited)" },
       {
         property: "og:description",
-        content: "AI-powered watermark removal that preserves every detail.",
+        content: "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free and unlimited.",
       },
     ],
   }),
