@@ -15,13 +15,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import { inpaintBottomRight, fileToImage } from "@/lib/inpaint";
-import {
-  HowItWorks,
-  Features,
-  FAQ,
-  Footer,
-  LanguageSwitcher,
-} from "./landing-sections";
+import { HowItWorks, Features, FAQ, Footer, LanguageSwitcher } from "./landing-sections";
 import { useI18n } from "@/lib/i18n";
 
 type ProcessedImage = {
@@ -111,9 +105,7 @@ export function WatermarkRemover() {
   const handleCopy = async () => {
     if (!image) return;
     try {
-      await navigator.clipboard.write([
-        new ClipboardItem({ "image/png": image.blob }),
-      ]);
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": image.blob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch (e) {
@@ -137,8 +129,7 @@ export function WatermarkRemover() {
             "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
           backgroundSize: "44px 44px",
           color: theme === "dark" ? "#1f2937" : "#cbd5e1",
-          maskImage:
-            "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
         }}
       />
       <div
