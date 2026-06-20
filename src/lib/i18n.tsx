@@ -81,8 +81,14 @@ const EN: Dict = {
     step: "Step",
     steps: [
       { title: "Upload your image", desc: "Drop a PNG, JPG, or WebP — any aspect ratio works." },
-      { title: "Auto-magic processing", desc: "Runs 100% locally with our smart micro-scaling engine." },
-      { title: "Download in high-res", desc: "Get a pixel-perfect, watermark-free image instantly." },
+      {
+        title: "Auto-magic processing",
+        desc: "Runs 100% locally with our smart micro-scaling engine.",
+      },
+      {
+        title: "Download in high-res",
+        desc: "Get a pixel-perfect, watermark-free image instantly.",
+      },
     ],
   },
   features: {
@@ -93,7 +99,10 @@ const EN: Dict = {
       desc: "Every pixel is processed directly in your browser. Your images never leave your device — no uploads, no servers, no tracking.",
     },
     free: { title: "100% Free", desc: "No paywall, no limits, no signup." },
-    quality: { title: "No quality loss", desc: "Smart micro-scaling preserves every pixel of detail." },
+    quality: {
+      title: "No quality loss",
+      desc: "Smart micro-scaling preserves every pixel of detail.",
+    },
     ratio: {
       title: "Every aspect ratio",
       desc: "Portrait, landscape, square — the engine adapts automatically to give you a clean frame every time.",
@@ -103,9 +112,18 @@ const EN: Dict = {
     tag: "FAQ",
     title: "Frequently asked",
     items: [
-      { q: "Is it really free?", a: "Yes — Unmark is 100% free forever. No signup, no credit card, no hidden limits." },
-      { q: "Are my images safe?", a: "Absolutely. Everything runs locally in your browser. No data is sent to our servers — your images never leave your device." },
-      { q: "Does it reduce image quality?", a: "No. We use a smart micro-scaling technique to preserve 100% of the original pixels while removing the watermark." },
+      {
+        q: "Is it really free?",
+        a: "Yes — Unmark is 100% free forever. No signup, no credit card, no hidden limits.",
+      },
+      {
+        q: "Are my images safe?",
+        a: "Absolutely. Everything runs locally in your browser. No data is sent to our servers — your images never leave your device.",
+      },
+      {
+        q: "Does it reduce image quality?",
+        a: "No. We use a smart micro-scaling technique to preserve 100% of the original pixels while removing the watermark.",
+      },
     ],
   },
   footer: {
@@ -167,9 +185,18 @@ const ES: Dict = {
     subtitle: "Tres pasos. Sin cuentas. Sin subir archivos a un servidor.",
     step: "Paso",
     steps: [
-      { title: "Sube tu imagen", desc: "Arrastra un PNG, JPG o WebP — cualquier proporción funciona." },
-      { title: "Procesamiento automático", desc: "100% local con nuestro motor de micro-escalado inteligente." },
-      { title: "Descarga en alta resolución", desc: "Obtén una imagen sin marca de agua, pixel-perfect, al instante." },
+      {
+        title: "Sube tu imagen",
+        desc: "Arrastra un PNG, JPG o WebP — cualquier proporción funciona.",
+      },
+      {
+        title: "Procesamiento automático",
+        desc: "100% local con nuestro motor de micro-escalado inteligente.",
+      },
+      {
+        title: "Descarga en alta resolución",
+        desc: "Obtén una imagen sin marca de agua, pixel-perfect, al instante.",
+      },
     ],
   },
   features: {
@@ -190,9 +217,18 @@ const ES: Dict = {
     tag: "FAQ",
     title: "Preguntas frecuentes",
     items: [
-      { q: "¿Es realmente gratis?", a: "Sí — Unmark es 100% gratis para siempre. Sin registro, sin tarjeta, sin límites ocultos." },
-      { q: "¿Mis imágenes están seguras?", a: "Totalmente. Todo se ejecuta en tu navegador. No enviamos datos a servidores — tus imágenes nunca salen de tu dispositivo." },
-      { q: "¿Reduce la calidad de la imagen?", a: "No. Usamos micro-escalado inteligente para conservar el 100% de los píxeles originales." },
+      {
+        q: "¿Es realmente gratis?",
+        a: "Sí — Unmark es 100% gratis para siempre. Sin registro, sin tarjeta, sin límites ocultos.",
+      },
+      {
+        q: "¿Mis imágenes están seguras?",
+        a: "Totalmente. Todo se ejecuta en tu navegador. No enviamos datos a servidores — tus imágenes nunca salen de tu dispositivo.",
+      },
+      {
+        q: "¿Reduce la calidad de la imagen?",
+        a: "No. Usamos micro-escalado inteligente para conservar el 100% de los píxeles originales.",
+      },
     ],
   },
   footer: {
@@ -254,9 +290,18 @@ const FR: Dict = {
     subtitle: "Trois étapes. Sans compte. Sans envoi vers un serveur.",
     step: "Étape",
     steps: [
-      { title: "Importez votre image", desc: "Déposez un PNG, JPG ou WebP — tout format fonctionne." },
-      { title: "Traitement automatique", desc: "100% local grâce à notre moteur de micro-mise à l’échelle." },
-      { title: "Téléchargez en haute résolution", desc: "Obtenez une image sans filigrane, parfaite au pixel près." },
+      {
+        title: "Importez votre image",
+        desc: "Déposez un PNG, JPG ou WebP — tout format fonctionne.",
+      },
+      {
+        title: "Traitement automatique",
+        desc: "100% local grâce à notre moteur de micro-mise à l’échelle.",
+      },
+      {
+        title: "Téléchargez en haute résolution",
+        desc: "Obtenez une image sans filigrane, parfaite au pixel près.",
+      },
     ],
   },
   features: {
@@ -277,9 +322,18 @@ const FR: Dict = {
     tag: "FAQ",
     title: "Questions fréquentes",
     items: [
-      { q: "Est-ce vraiment gratuit ?", a: "Oui — Unmark est 100% gratuit pour toujours. Sans inscription, sans carte, sans limite cachée." },
-      { q: "Mes images sont-elles en sécurité ?", a: "Absolument. Tout s’exécute dans votre navigateur. Aucune donnée n’est envoyée à nos serveurs." },
-      { q: "Cela réduit-il la qualité ?", a: "Non. Notre micro-scaling préserve 100% des pixels d’origine." },
+      {
+        q: "Est-ce vraiment gratuit ?",
+        a: "Oui — Unmark est 100% gratuit pour toujours. Sans inscription, sans carte, sans limite cachée.",
+      },
+      {
+        q: "Mes images sont-elles en sécurité ?",
+        a: "Absolument. Tout s’exécute dans votre navigateur. Aucune donnée n’est envoyée à nos serveurs.",
+      },
+      {
+        q: "Cela réduit-il la qualité ?",
+        a: "Non. Notre micro-scaling préserve 100% des pixels d’origine.",
+      },
     ],
   },
   footer: {
