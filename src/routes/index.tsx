@@ -6,10 +6,10 @@ import { LanguageProvider } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      /* --- HIGHLY OPTIMIZED SEO TITLE --- */
+      /* --- HIGHLY OPTIMIZED SEO TITLE (Kept exactly as requested) --- */
       { title: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
 
-      /* --- POWERFUL DESCRIPTION FOR HIGHER CTR --- */
+      /* --- POWERFUL DESCRIPTION FOR HIGHER CTR (Kept exactly as requested) --- */
       {
         name: "description",
         content:
@@ -24,11 +24,21 @@ export const Route = createFileRoute("/")({
       },
 
       /* --- SOCIAL MEDIA (OPEN GRAPH) TAGS --- */
-      { property: "og:title", content: "Unmark - Gemini Watermark Remover (Free & Unlimited)" },
+      { property: "og:title", content: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
       {
         property: "og:description",
         content:
-          "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free and unlimited.",
+          "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!",
+      },
+      { property: "og:type", content: "website" },
+
+      /* --- TWITTER CARDS (Added for maximum social reach) --- */
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
+      {
+        name: "twitter:description",
+        content:
+          "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!",
       },
     ],
   }),

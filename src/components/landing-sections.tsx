@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import {
   Upload,
   Wand2,
@@ -18,14 +19,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { LANGUAGES, useI18n } from "@/lib/i18n";
 
 const STEP_ICONS = [Upload, Wand2, Download];
@@ -185,34 +178,6 @@ export function FAQ() {
   );
 }
 
-function LegalDialog({
-  trigger,
-  title,
-  body,
-}: {
-  trigger: React.ReactNode;
-  title: string;
-  body: string[];
-}) {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="max-w-lg border-slate-200/70 bg-white/80 backdrop-blur-2xl dark:border-white/10 dark:bg-[#0b0b0b]/80">
-        <DialogHeader>
-          <DialogTitle className="text-lg font-semibold tracking-tight">{title}</DialogTitle>
-          <DialogDescription asChild>
-            <div className="mt-3 max-h-[60vh] space-y-3 overflow-y-auto text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              {body.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 export function Footer() {
   const { t } = useI18n();
   const linkClass =
@@ -227,24 +192,13 @@ export function Footer() {
           {t.footer.copy}
         </div>
         <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <LegalDialog
-            title={t.legal.privacy.title}
-            body={t.legal.privacy.body}
-            trigger={
-              <button type="button" className={linkClass}>
-                {t.footer.privacy}
-              </button>
-            }
-          />
-          <LegalDialog
-            title={t.legal.terms.title}
-            body={t.legal.terms.body}
-            trigger={
-              <button type="button" className={linkClass}>
-                {t.footer.terms}
-              </button>
-            }
-          />
+          {/* AdSense Standard Links */}
+          <Link to="/privacy-policy" className={linkClass}>
+            {t.footer.privacy}
+          </Link>
+          <Link to="/terms" className={linkClass}>
+            {t.footer.terms}
+          </Link>
           <a href="mailto:ahmedlagend786@gmail.com" className={linkClass}>
             {t.footer.contact}
           </a>

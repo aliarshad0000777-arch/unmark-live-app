@@ -80,29 +80,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
 
       /* --- HIGHLY OPTIMIZED SEO TITLE --- */
-      { title: "Unmark - Gemini Watermark Remover | Free & No Sign-up" },
+      { title: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
 
-      /* --- LONG, DETAILED & POWERFUL DESCRIPTION (COMPETITOR KILLER) --- */
+      /* --- LONG, DETAILED & POWERFUL DESCRIPTION --- */
       {
         name: "description",
         content:
-          "Unmark AI is the best free Gemini watermark remover. Instantly erase Nano Banana logos, text, and AI watermarks from images while keeping original HD quality. 100% free to use, unlimited processing, no sign-up, and no hidden fees. Fast cleanup for JPG & PNG!",
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
 
       /* --- HIGH-RANKING KEYWORDS --- */
       {
         name: "keywords",
         content:
-          "Gemini watermark remover, Nano Banana logo remover, free AI watermark eraser, remove logo from image, no signup, unlimited, HD quality, JPG, PNG",
+          "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Gemini image watermark remover",
       },
       { name: "author", content: "Unmark AI" },
 
       /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
-      { property: "og:title", content: "Unmark - Gemini Watermark Remover (Free & Unlimited)" },
+      { property: "og:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
       {
         property: "og:description",
         content:
-          "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free, HD quality and unlimited.",
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/" },
@@ -114,11 +114,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
       /* --- Twitter Cards --- */
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Unmark - Gemini Watermark Remover" },
+      { name: "twitter:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
       {
         name: "twitter:description",
         content:
-          "Instantly remove Gemini watermarks and Nano Banana logos with AI. No registration needed, completely free, HD quality and unlimited.",
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
       {
         name: "twitter:image",
@@ -138,13 +138,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      /* --- GOOGLE ADSENSE VERIFICATION SCRIPT --- */
+      /* --- GOOGLE ADSENSE PRECONNECT SCRIPT --- */
       {
         rel: "preconnect",
         href: "https://pagead2.googlesyndication.com",
       },
     ],
     scripts: [
+      /* --- GOOGLE ADSENSE VERIFICATION SCRIPT --- */
       {
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1857120699307089",
         async: true,
