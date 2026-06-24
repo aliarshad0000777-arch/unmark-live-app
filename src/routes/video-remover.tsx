@@ -3,7 +3,7 @@ import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play, VolumeX
+  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
@@ -135,7 +135,7 @@ const VIDEO_DICT = {
     faq2q: "Cela fonctionne-t-il avec Google Veo et Gemini ?",
     faq2a: "Absolument ! Calibré mathématiquement pour détecter Veo et Gemini.",
     faq3q: "Cela réduit-il la qualité ou supprime-t-il l'audio ?",
-    faq3a: "Non, nous conservons votre audio d'origine et la résolution exacte."
+    faq3a: "No, nous conservons votre audio d'origine et la résolution exacte."
   }
 };
 
@@ -244,7 +244,8 @@ function VideoRemoverPage() {
     formData.append('height', meta.height.toString());
 
     try {
-      const response = await fetch('http://localhost:3001/process-video', {
+      const response = await fetch('https://unmark-backend.onrender.com/process-video', 
+      {
         method: 'POST',
         body: formData,
       });
@@ -426,12 +427,6 @@ function VideoRemoverPage() {
                 {videoUrl && !resultUrl && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center py-4">
                     <video src={videoUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10" />
-                    
-                    {/* --- SECURITY DISCLAIMER BADGE --- */}
-                    <div className="mt-4 flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-50 px-3 py-1.5 text-[11px] font-semibold text-orange-700 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-400">
-                      <VolumeX className="h-3.5 w-3.5" />
-                      Preview audio muted for browser security. Sound is preserved.
-                    </div>
                   </motion.div>
                 )}
                 
@@ -441,12 +436,6 @@ function VideoRemoverPage() {
                       <CheckCircle2 className="w-5 h-5" /> Cleaned by Unmark
                     </div>
                     <video src={resultUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-emerald-500/30" />
-                    
-                    {/* --- SECURITY DISCLAIMER BADGE --- */}
-                    <div className="mt-4 flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-50 px-3 py-1.5 text-[11px] font-semibold text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
-                      <VolumeX className="h-3.5 w-3.5" />
-                      Preview audio muted. Full sound available upon download.
-                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
