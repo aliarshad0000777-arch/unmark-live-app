@@ -148,6 +148,56 @@ type WatermarkType = 'veo' | 'gemini';
 interface VideoMeta { width: number; height: number; }
 
 export const Route = createFileRoute('/video-remover')({
+  head: () => ({
+    meta: [
+      /* --- HIGHLY OPTIMIZED SEO TITLE --- */
+      { title: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
+
+      /* --- LONG, DETAILED & POWERFUL DESCRIPTION --- */
+      {
+        name: "description",
+        content:
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+      },
+
+      /* --- HIGH-RANKING KEYWORDS --- */
+      {
+        name: "keywords",
+        content:
+          "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Gemini image watermark remover",
+      },
+      { name: "author", content: "Unmark AI" },
+
+      /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
+      { property: "og:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
+      {
+        property: "og:description",
+        content:
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.unmark-ai.com/video-remover" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
+      },
+
+      /* --- Twitter Cards --- */
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
+      {
+        name: "twitter:description",
+        content:
+          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
+      },
+    ],
+  }),
   component: VideoRemoverRoute,
 });
 
@@ -531,7 +581,50 @@ function VideoRemoverPage() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// NEW: BEFORE & AFTER SHOWCASE WITH REAL VIDEOS (Strict 9:16)
+// NEW: SMART INTERACTIVE VIDEO CARD (Handles Hover & Touch)
+// ─────────────────────────────────────────────────────────────
+function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title: string, icon: React.ReactNode, beforeSrc: string, afterSrc: string, delay?: number }) {
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  return (
+    <motion.div initial={{ opacity: 0, x: delay ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: delay || 0 }} className="flex flex-col gap-4 items-center">
+      <div className="flex items-center gap-3 mb-2 w-full max-w-[300px] justify-center">
+        {icon}
+        <h3 className="text-xl font-bold">{title}</h3>
+      </div>
+      
+      {/* Strict 9:16 Mobile Portrait Frame with Touch/Hover Logic */}
+      <div 
+        className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 shadow-xl ring-4 ring-black/5 dark:ring-white/5 cursor-pointer select-none"
+        onMouseEnter={() => setIsRevealed(true)}
+        onMouseLeave={() => setIsRevealed(false)}
+        onTouchStart={() => setIsRevealed(true)}
+        onTouchEnd={() => setIsRevealed(false)}
+        onTouchCancel={() => setIsRevealed(false)}
+      >
+        <video src={beforeSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+        <div className={`absolute inset-0 bg-black/60 transition-opacity duration-500 z-10 ${isRevealed ? "opacity-100" : "opacity-0"}`} />
+        <video src={afterSrc} autoPlay loop muted playsInline className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`} />
+        
+        <div className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`}>
+          <div className={`flex flex-col items-center gap-2 transform transition-transform duration-500 ${isRevealed ? "translate-y-0" : "translate-y-4"}`}>
+            <div className="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg"><CheckCircle2 className="w-7 h-7" /></div>
+            <span className="font-bold text-white text-lg tracking-wide drop-shadow-md">Watermark Removed</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Smart Device-Aware Instruction Text */}
+      <p className="text-sm text-center text-slate-500 font-medium mt-2">
+        <span className="hidden sm:inline">Hover to see processed result</span>
+        <span className="inline sm:hidden">Press & hold to see result</span>
+      </p>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// UPDATED: BEFORE & AFTER SHOWCASE (Uses Smart Video Component)
 // ─────────────────────────────────────────────────────────────
 function BeforeAfterSection() {
   return (
@@ -539,52 +632,25 @@ function BeforeAfterSection() {
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 text-center">
         <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">The Magic</span>
         <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">See it in action</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">We perfectly detect and erase watermarks from popular AI generation platforms without degrading your masterpiece.</p>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">Interact with the videos below to see how we perfectly detect and erase watermarks without degrading your masterpiece.</p>
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-10">
         
-        {/* Gemini Showcase */}
-        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex flex-col gap-4 items-center">
-          <div className="flex items-center gap-3 mb-2 w-full max-w-[300px] justify-center">
-            <div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>
-            <h3 className="text-xl font-bold">Google Gemini</h3>
-          </div>
-          {/* Strict 9:16 Mobile-style container */}
-          <div className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 group shadow-xl ring-4 ring-black/5 dark:ring-white/5">
-             <video src="/showcase/gemini-before.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
-             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-             <video src="/showcase/gemini-after.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
-             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none">
-                <div className="flex flex-col items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg"><CheckCircle2 className="w-7 h-7" /></div>
-                  <span className="font-bold text-white text-lg tracking-wide drop-shadow-md">Watermark Removed</span>
-                </div>
-             </div>
-          </div>
-          <p className="text-sm text-center text-slate-500 font-medium mt-2">Hover to see processed result</p>
-        </motion.div>
+        <ShowcaseVideoCard 
+          title="Google Gemini"
+          icon={<div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>}
+          beforeSrc="/showcase/gemini-before.mp4"
+          afterSrc="/showcase/gemini-after.mp4"
+        />
 
-        {/* Veo Showcase */}
-        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="flex flex-col gap-4 items-center">
-          <div className="flex items-center gap-3 mb-2 w-full max-w-[300px] justify-center">
-            <div className="p-2 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-lg"><Video className="w-5 h-5" /></div>
-            <h3 className="text-xl font-bold">Google Veo</h3>
-          </div>
-          {/* Strict 9:16 Mobile-style container */}
-          <div className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 group shadow-xl ring-4 ring-black/5 dark:ring-white/5">
-             <video src="/showcase/veo-before.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
-             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-             <video src="/showcase/veo-after.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
-             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none">
-                <div className="flex flex-col items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg"><CheckCircle2 className="w-7 h-7" /></div>
-                  <span className="font-bold text-white text-lg tracking-wide drop-shadow-md">Watermark Removed</span>
-                </div>
-             </div>
-          </div>
-          <p className="text-sm text-center text-slate-500 font-medium mt-2">Hover to see processed result</p>
-        </motion.div>
+        <ShowcaseVideoCard 
+          title="Google Veo"
+          icon={<div className="p-2 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-lg"><Video className="w-5 h-5" /></div>}
+          beforeSrc="/showcase/veo-before.mp4"
+          afterSrc="/showcase/veo-after.mp4"
+          delay={0.2}
+        />
 
       </div>
     </section>
