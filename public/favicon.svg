@@ -1,25 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Blue Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1A73E8" />
       <stop offset="100%" stop-color="#1155cc" />
     </linearGradient>
   </defs>
   
-  <!-- Blue Rounded Background (Squircle) -->
-  <rect width="16" height="16" rx="140" fill="url(#bgGrad)" />
+  <rect width="512" height="512" rx="140" fill="url(#bgGrad)" />
   
-  <!-- Icon Elements Group -->
   <g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
     
-    <!-- Main Hollow AI Sparkle (Center) -->
     <path d="M 256 120 C 256 210, 210 256, 120 256 C 210 256, 256 302, 256 392 C 256 302, 302 256, 392 256 C 302 256, 256 210, 256 120 Z" stroke-width="40" />
     
-    <!-- Top Right Plus Sign (+) -->
     <path d="M 375 130 L 375 180 M 350 155 L 400 155" stroke-width="36" />
     
-    <!-- Bottom Left Hollow Circle -->
     <circle cx="155" cy="365" r="24" stroke-width="36" />
     
   </g>
