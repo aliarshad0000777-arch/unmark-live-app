@@ -13,8 +13,19 @@ export const Route = createFileRoute('/terms')({
         name: "description", 
         content: "Read the Terms of Service for Unmark AI. Understand your responsibilities, copyright rules, and service agreements for using our free AI tools." 
       },
+      /* --- OPEN GRAPH (SOCIAL SEO) --- */
       { property: "og:title", content: "Terms of Service | Unmark AI" },
+      { property: "og:description", content: "Read the Terms of Service for Unmark AI. Understand your responsibilities, copyright rules, and service agreements for using our free AI tools." },
+      /* Yahan www. add kar diya gaya hai */
+      { property: "og:url", content: "https://www.unmark-ai.com/terms" },
+      /* --- ROBOTS INSTRUCTION --- */
+      { name: "robots", content: "index, follow" }
     ],
+    links: [
+      /* --- CANONICAL URL (PREVENTS DUPLICATE CONTENT ISSUES) --- */
+      /* Yahan www. add kar diya gaya hai */
+      { rel: "canonical", href: "https://www.unmark-ai.com/terms" }
+    ]
   }),
   component: TermsPage,
 });

@@ -13,8 +13,19 @@ export const Route = createFileRoute('/privacy-policy')({
         name: "description", 
         content: "Read the Unmark AI Privacy Policy. Learn about our secure processing, zero-retention video server rules, and 100% local image processing." 
       },
+      /* --- OPEN GRAPH (SOCIAL SEO) --- */
       { property: "og:title", content: "Privacy Policy | Unmark AI" },
+      { property: "og:description", content: "Read the Unmark AI Privacy Policy. Learn about our secure processing, zero-retention video server rules, and 100% local image processing." },
+      /* Yahan www. add kar diya gaya hai */
+      { property: "og:url", content: "https://www.unmark-ai.com/privacy-policy" },
+      /* --- ROBOTS INSTRUCTION --- */
+      { name: "robots", content: "index, follow" }
     ],
+    links: [
+      /* --- CANONICAL URL (PREVENTS DUPLICATE CONTENT ISSUES) --- */
+      /* Yahan www. add kar diya gaya hai */
+      { rel: "canonical", href: "https://www.unmark-ai.com/privacy-policy" }
+    ]
   }),
   component: PrivacyPolicyPage,
 });

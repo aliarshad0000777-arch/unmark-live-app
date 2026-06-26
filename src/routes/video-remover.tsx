@@ -176,6 +176,7 @@ export const Route = createFileRoute('/video-remover')({
           "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
       { property: "og:type", content: "website" },
+      /* --- YAHAN WWW. ADD KIYA HAI --- */
       { property: "og:url", content: "https://www.unmark-ai.com/video-remover" },
       {
         property: "og:image",
@@ -196,7 +197,13 @@ export const Route = createFileRoute('/video-remover')({
         content:
           "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
       },
+      /* --- ROBOTS INSTRUCTION --- */
+      { name: "robots", content: "index, follow" }
     ],
+    links: [
+      /* --- CANONICAL URL (PREVENTS DUPLICATE CONTENT ISSUES) --- */
+      { rel: "canonical", href: "https://www.unmark-ai.com/video-remover" }
+    ]
   }),
   component: VideoRemoverRoute,
 });
@@ -451,6 +458,7 @@ function VideoRemoverPage() {
               {(!file) && (
                 <button onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <Film className="h-8 w-8 text-blue-500" />
                   </div>

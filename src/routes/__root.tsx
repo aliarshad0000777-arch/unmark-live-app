@@ -80,7 +80,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
 
       /* --- GLOBAL FALLBACK SEO --- */
-      /* Note: specific pages (like index.tsx and video-remover.tsx) will override this automatically */
       { title: "Unmark AI | Free AI Watermark Remover Tools" },
       {
         name: "description",
@@ -88,10 +87,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "The ultimate suite of free AI tools to seamlessly remove watermarks from images and videos. 100% free, private, and lightning-fast.",
       },
       { name: "author", content: "Unmark AI" },
+
+      /* --- OPEN GRAPH (SOCIAL MEDIA SEO) --- */
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Unmark AI | Free AI Watermark Remover Tools" },
+      { property: "og:description", content: "The ultimate suite of free AI tools to seamlessly remove watermarks from images and videos. 100% free, private, and lightning-fast." },
+      /* --- YAHAN WWW. ADD KIYA HAI --- */
+      { property: "og:url", content: "https://www.unmark-ai.com" },
+      { property: "og:site_name", content: "Unmark AI" },
     ],
     links: [
-      /* --- WEBSITE ICON (SVG FAVICON) --- */
+      /* --- GLOBAL CANONICAL URL --- */
+      { rel: "canonical", href: "https://www.unmark-ai.com" },
+
+      /* --- BULLETPROOF WEBSITE ICON (SVG FAVICON) --- */
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "shortcut icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
+
+      /* --- STYLESHEET --- */
       { rel: "stylesheet", href: appCss },
       
       /* --- GOOGLE ADSENSE PRECONNECT SCRIPT --- */
