@@ -24,7 +24,7 @@ const VIDEO_DICT = {
     processing: "Processing video on secure engine...",
     btnRemove: "Remove Watermark",
     btnCancel: "Cancel",
-    badgePro: "100% FREE", // Changed from PRO AI
+    badgePro: "100% FREE", 
     menuImage: "Image Watermark Remover",
     menuVideo: "Video Watermark Remover",
     hiwTag: "WORKFLOW",
@@ -157,14 +157,14 @@ export const Route = createFileRoute('/video-remover')({
       {
         name: "description",
         content:
-          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
 
       /* --- HIGH-RANKING KEYWORDS --- */
       {
         name: "keywords",
         content:
-          "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Gemini image watermark remover",
+          "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Unmark AI video",
       },
       { name: "author", content: "Unmark AI" },
 
@@ -173,10 +173,9 @@ export const Route = createFileRoute('/video-remover')({
       {
         property: "og:description",
         content:
-          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
       { property: "og:type", content: "website" },
-      /* --- YAHAN WWW. ADD KIYA HAI --- */
       { property: "og:url", content: "https://www.unmark-ai.com/video-remover" },
       {
         property: "og:image",
@@ -190,7 +189,7 @@ export const Route = createFileRoute('/video-remover')({
       {
         name: "twitter:description",
         content:
-          "Looking for a free AI video and image watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
+          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
       },
       {
         name: "twitter:image",
@@ -201,7 +200,7 @@ export const Route = createFileRoute('/video-remover')({
       { name: "robots", content: "index, follow" }
     ],
     links: [
-      /* --- CANONICAL URL (PREVENTS DUPLICATE CONTENT ISSUES) --- */
+      /* --- CANONICAL URL FOR VIDEO PAGE --- */
       { rel: "canonical", href: "https://www.unmark-ai.com/video-remover" }
     ]
   }),
