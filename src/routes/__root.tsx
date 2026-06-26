@@ -121,8 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
     links: [
-      /* --- GLOBAL CANONICAL URL --- */
-      { rel: "canonical", href: "https://www.unmark-ai.com" },
+      /* --- CANONICAL REMOVED FROM ROOT TO PREVENT CLASHES ON CHILD PAGES --- */
 
       /* --- FORCE GOOGLE TO UPDATE FAVICON (CACHE BUSTING) --- */
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },

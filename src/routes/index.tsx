@@ -31,6 +31,7 @@ export const Route = createFileRoute("/")({
           "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.unmark-ai.com/" },
 
       /* --- TWITTER CARDS (Added for maximum social reach) --- */
       { name: "twitter:card", content: "summary_large_image" },
@@ -41,6 +42,10 @@ export const Route = createFileRoute("/")({
           "Easily remove Gemini watermarks, Nano Banana logos, and text from images online. 100% free, unlimited use, and no sign-up required. Try Unmark AI now!",
       },
     ],
+    links: [
+      /* --- EXPLICIT CANONICAL URL FOR HOMEPAGE (FIXES THE CLASH) --- */
+      { rel: "canonical", href: "https://www.unmark-ai.com/" }
+    ]
   }),
   component: Index,
 });
