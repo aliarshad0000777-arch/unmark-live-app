@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
   <defs>
     <!-- Background Blue Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -8,7 +8,7 @@
   </defs>
   
   <!-- Blue Rounded Background (Squircle) -->
-  <rect width="512" height="512" rx="140" fill="url(#bgGrad)" />
+  <rect width="16" height="16" rx="140" fill="url(#bgGrad)" />
   
   <!-- Icon Elements Group -->
   <g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
