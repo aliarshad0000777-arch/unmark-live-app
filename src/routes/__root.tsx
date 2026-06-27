@@ -76,66 +76,25 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
+      /* --- ONLY STRICT GLOBAL TECHNICAL METADATA --- */
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
-
-      /* --- GLOBAL FALLBACK SEO --- */
-      { title: "Unmark AI | Free AI Watermark Remover Tools" },
-      {
-        name: "description",
-        content:
-          "The ultimate suite of free AI tools to seamlessly remove watermarks from Google Gemini images and Veo videos. 100% free, private, and lightning-fast.",
-      },
-      {
-        name: "keywords",
-        content:
-          "AI watermark remover, free watermark remover, remove Gemini watermark, remove Veo video watermark, clean AI images, Unmark AI",
-      },
       { name: "author", content: "Unmark AI" },
-      { name: "robots", content: "index, follow" },
-
-      /* --- OPEN GRAPH (SOCIAL MEDIA SEO) --- */
-      { property: "og:type", content: "website" },
-      { property: "og:title", content: "Unmark AI | Free AI Watermark Remover Tools" },
-      { property: "og:description", content: "The ultimate suite of free AI tools to seamlessly remove watermarks from Google Gemini images and Veo videos. 100% free, private, and lightning-fast." },
-      { property: "og:url", content: "https://www.unmark-ai.com" },
-      { property: "og:site_name", content: "Unmark AI" },
-      {
-        property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
-      },
-
-      /* --- TWITTER CARDS --- */
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Unmark AI | Free AI Watermark Remover Tools" },
-      {
-        name: "twitter:description",
-        content:
-          "The ultimate suite of free AI tools to seamlessly remove watermarks from Google Gemini images and Veo videos. 100% free, private, and lightning-fast.",
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
-      },
     ],
     links: [
-      /* --- CANONICAL REMOVED FROM ROOT TO PREVENT CLASHES ON CHILD PAGES --- */
-
       /* --- FORCE GOOGLE TO UPDATE FAVICON (CACHE BUSTING) --- */
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
       { rel: "shortcut icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
       { rel: "apple-touch-icon", href: "/favicon.svg?v=2" },
 
-      /* --- STYLESHEET --- */
+      /* --- GLOBAL STYLESHEET --- */
       { rel: "stylesheet", href: appCss },
       
       /* --- GOOGLE ADSENSE PRECONNECT SCRIPT --- */
       { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
     ],
     scripts: [
-      /* --- GOOGLE ADSENSE VERIFICATION SCRIPT --- */
+      /* --- GOOGLE ADSENSE VERIFICATION SCRIPT (APPLIES SITE-WIDE) --- */
       {
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1857120699307089",
         async: true,

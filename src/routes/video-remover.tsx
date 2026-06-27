@@ -3,7 +3,8 @@ import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play
+  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play,
+  Type, FileText, Clapperboard, PlaySquare, Zap, Lock
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
@@ -146,6 +147,18 @@ const getTranslation = (langCode: string | undefined) => {
 
 type WatermarkType = 'veo' | 'gemini';
 interface VideoMeta { width: number; height: number; }
+
+// ─────────────────────────────────────────────────────────────
+// DATA: COMING SOON TOOLS
+// ─────────────────────────────────────────────────────────────
+const UPCOMING_TOOLS = [
+  { name: "Text to Image", icon: Type, color: "text-pink-500", bg: "bg-pink-500/10" },
+  { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
+  { name: "Text to Video", icon: Clapperboard, color: "text-purple-500", bg: "bg-purple-500/10" },
+  { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
+  { name: "AI Image Enhancer", icon: Zap, color: "text-yellow-500", bg: "bg-yellow-500/10" },
+  { name: "AI Video Enhancer", icon: Wand2, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10" },
+];
 
 export const Route = createFileRoute('/video-remover')({
   head: () => ({
@@ -349,7 +362,8 @@ function VideoRemoverPage() {
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
               className="fixed left-0 top-0 bottom-0 w-80 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col"
             >
-              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
+              {/* Menu Header */}
+              <div className="flex shrink-0 items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30">
                     <Sparkles className="h-4 w-4" />
@@ -360,25 +374,56 @@ function VideoRemoverPage() {
                   <X className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                 </button>
               </div>
-              <div className="flex flex-col p-4 gap-2">
-                <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Our Free Tools</span>
-                <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
-                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><ImageIcon className="h-4 w-4" /></div>
-                    {vt.menuImage}
+              
+              {/* Scrollable Tools List */}
+              <div className="flex-1 overflow-y-auto px-4 py-6">
+                
+                {/* Active Free Tools */}
+                <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Our Free Tools</span>
+                <div className="flex flex-col gap-2">
+                  <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><ImageIcon className="h-4 w-4" /></div>
+                      {vt.menuImage}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                  <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-blue-700 dark:text-blue-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/20 text-blue-600 dark:text-blue-400"><Film className="h-4 w-4" /></div>
+                      {vt.menuVideo}
+                    </div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                  </Link>
+                </div>
+
+                {/* Professional 'Coming Soon' Section */}
+                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
+                  <div className="flex items-center justify-between px-3 mb-4">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Coming Soon</span>
+                    <span className="flex h-5 items-center rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 text-[9px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+                      Future Tools
+                    </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 transition">
-                  <div className="flex items-center gap-3 text-sm font-medium text-blue-700 dark:text-blue-400">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/20 text-blue-600 dark:text-blue-400"><Film className="h-4 w-4" /></div>
-                    {vt.menuVideo}
+                  <div className="flex flex-col gap-1">
+                    {UPCOMING_TOOLS.map((tool) => (
+                      <div key={tool.name} className="group flex items-center justify-between p-3 rounded-xl opacity-60 cursor-not-allowed hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
+                        <div className="flex items-center gap-3 text-sm font-medium text-slate-500 dark:text-slate-400">
+                          <div className={`flex h-8 w-8 items-center justify-center rounded-md ${tool.bg} ${tool.color}`}>
+                            <tool.icon className="h-4 w-4" />
+                          </div>
+                          {tool.name}
+                        </div>
+                        <Lock className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
+                      </div>
+                    ))}
                   </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                </Link>
+                </div>
+
               </div>
               
-              <div className="mt-auto p-6 text-center border-t border-slate-100 dark:border-white/5">
+              {/* Menu Footer */}
+              <div className="shrink-0 p-6 text-center border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
                  <div className="flex items-center justify-center gap-2 mb-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
                     <span className="text-xs font-bold text-slate-600 dark:text-slate-300">Engineered for Privacy & Speed</span>
