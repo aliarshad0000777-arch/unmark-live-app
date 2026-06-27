@@ -481,6 +481,20 @@ function WatermarkRemoverPage() {
           <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">
             {vt.heroSub}
           </p>
+
+          {/* 🚀 NEW: DIRECT SEO LINK FOR VIDEO PAGE (FOR FAST GOOGLE INDEXING) 🚀 */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link 
+              to="/video-remover" 
+              className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-105 hover:shadow-indigo-500/40"
+              title="Remove watermark from AI Videos"
+            >
+              <Film className="w-4 h-4" />
+              Try Video Watermark Remover
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
         </motion.div>
 
         {/* Upload Box */}
