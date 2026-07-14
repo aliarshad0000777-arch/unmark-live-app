@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
   Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play,
@@ -163,57 +164,22 @@ const UPCOMING_TOOLS = [
 export const Route = createFileRoute('/video-remover')({
   head: () => ({
     meta: [
-      /* --- HIGHLY OPTIMIZED SEO TITLE --- */
       { title: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-
-      /* --- LONG, DETAILED & POWERFUL DESCRIPTION --- */
-      {
-        name: "description",
-        content:
-          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
-      },
-
-      /* --- HIGH-RANKING KEYWORDS --- */
-      {
-        name: "keywords",
-        content:
-          "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Unmark AI video",
-      },
+      { name: "description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
+      { name: "keywords", content: "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Unmark AI video" },
       { name: "author", content: "Unmark AI" },
-
-      /* --- Open Graph (Facebook, WhatsApp, LinkedIn) --- */
       { property: "og:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-      {
-        property: "og:description",
-        content:
-          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
-      },
+      { property: "og:description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/video-remover" },
-      {
-        property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
-      },
-
-      /* --- Twitter Cards --- */
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-      {
-        name: "twitter:description",
-        content:
-          "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!",
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png",
-      },
-      /* --- ROBOTS INSTRUCTION --- */
+      { name: "twitter:description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       { name: "robots", content: "index, follow" }
     ],
     links: [
-      /* --- CANONICAL URL FOR VIDEO PAGE --- */
       { rel: "canonical", href: "https://www.unmark-ai.com/video-remover" }
     ]
   }),
@@ -242,6 +208,8 @@ function VideoRemoverPage() {
   const [file, setFile] = useState<File | null>(null);
   const [meta, setMeta] = useState<VideoMeta | null>(null);
   const [watermark, setWatermark] = useState<WatermarkType>('gemini');
+  
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
@@ -280,6 +248,7 @@ function VideoRemoverPage() {
       setMeta(m);
       setVideoUrl(URL.createObjectURL(f));
       setStatus('idle');
+      setUploadProgress(0);
     } catch (e: any) {
       setError(e.message || 'Failed to load video metadata.');
       setStatus('error');
@@ -297,6 +266,7 @@ function VideoRemoverPage() {
     setResultUrl(null);
     setError(null);
     setStatus('idle');
+    setUploadProgress(0);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -305,6 +275,7 @@ function VideoRemoverPage() {
     setError(null);
     setResultUrl(null);
     setStatus('processing');
+    setUploadProgress(0);
 
     const formData = new FormData();
     formData.append('video', file);
@@ -313,23 +284,36 @@ function VideoRemoverPage() {
     formData.append('height', meta.height.toString());
 
     try {
-      const response = await fetch('https://unmark-backend.onrender.com/process-video', 
-      {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await axios.post(
+        'https://tilioi-unmark-ai-engine.hf.space/process-video',
+        formData,
+        {
+          responseType: 'blob',
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.total) {
+              const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              setUploadProgress(percentCompleted);
+            }
+          },
+        }
+      );
 
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(errText || 'Server processing failed');
-      }
-
-      const blob = await response.blob();
+      const blob = response.data;
       setResultUrl(URL.createObjectURL(blob));
       setStatus('done');
+      setUploadProgress(100);
+
     } catch (e: any) {
       console.error("Backend Error:", e);
-      setError(`Server Error: ${e.message}. (Make sure 'node server.js' is running in terminal)`);
+      let errorMessage = "Server processing failed";
+      
+      if (e.response && e.response.data instanceof Blob) {
+         errorMessage = await e.response.data.text();
+      } else if (e.message) {
+         errorMessage = e.message;
+      }
+
+      setError(`Server Error: ${errorMessage}. (Make sure backend is running)`);
       setStatus('error');
     }
   };
@@ -513,14 +497,37 @@ function VideoRemoverPage() {
                 </button>
               )}
 
+              {/* 🚀 THE FIX: PREMIUM LIVE PROGRESS BAR UI */}
               {status === 'processing' && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 bg-white/90 backdrop-blur-md dark:bg-[#0a0a0a]/90">
-                  <div className="relative flex items-center justify-center">
-                    <div className="absolute w-24 h-24 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-8">
+                  <div className="relative flex items-center justify-center mb-2">
+                    <div className="absolute w-20 h-20 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
                     <Loader2 className="h-10 w-10 animate-spin text-blue-500 relative z-10" />
                   </div>
-                  <div className="text-base font-semibold text-slate-700 dark:text-slate-200 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent animate-pulse">
-                    {vt.processing}
+                  
+                  <div className="w-full max-w-[300px]">
+                    <div className="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
+                      <span>{uploadProgress < 100 ? 'Uploading securely...' : 'Removing Watermark...'}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
+                    </div>
+                    
+                    {/* Track */}
+                    <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-3 overflow-hidden shadow-inner">
+                      {/* Filler */}
+                      <div 
+                        className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
+                        style={{ width: `${uploadProgress}%` }}
+                      >
+                        {/* Shimmer effect inside the bar */}
+                        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <p className="text-xs text-center text-slate-500 dark:text-slate-400 font-medium">
+                      {uploadProgress < 100 
+                        ? 'Please keep this tab open during upload.' 
+                        : 'Our AI engine is processing your video...'}
+                    </p>
                   </div>
                 </div>
               )}
@@ -622,12 +629,59 @@ function VideoRemoverPage() {
         )}
       </main>
 
-      {/* Premium Sections */}
+      {/* Premium Sections & AdSense Integration */}
       <BeforeAfterSection />
+      
+      {/* 🚀 ADDED: Top AdSense Slot */}
+      <AdSensePlaceholder text="Top Banner Ad Slot (Responsive)" />
+      
       <VideoHowItWorks />
       <VideoFeatures />
+      
+      {/* 🚀 ADDED: In-Article AdSense Slot */}
+      <AdSensePlaceholder text="Mid Content Ad Slot (In-Article)" />
+      
       <VideoFAQ />
+      
+      {/* 🚀 ADDED: SEO Optimized Content Section */}
+      <SeoArticleSection />
+      
       <Footer />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// NEW COMPONENT: SEO CONTENT SECTION
+// ─────────────────────────────────────────────────────────────
+function SeoArticleSection() {
+  return (
+    <section className="relative mx-auto max-w-4xl px-4 py-16 text-slate-600 dark:text-slate-400">
+      <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">The Ultimate AI Video Watermark Remover</h2>
+        <p className="mb-6 leading-relaxed">
+          As AI video generation tools like <strong>Google Veo</strong> and <strong>Gemini</strong> become increasingly popular, creators are looking for ways to use these clips in professional projects. However, the embedded watermarks can disrupt the cinematic experience. Unmark Video is engineered specifically to <em>remove Veo watermarks</em> and clean Gemini-generated media without compromising on frame rate, audio sync, or visual fidelity.
+        </p>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 mt-8">Why Ad-Supported Free Tools Win</h3>
+        <p className="leading-relaxed">
+          We believe in keeping premium AI utilities accessible to everyone. By supporting our platform through non-intrusive advertisements, we can offer robust backend processing completely free of charge. No subscriptions, no hidden limits—just seamless <strong>AI video watermark removal</strong> directly in your browser.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// NEW COMPONENT: ADSENSE PLACEHOLDER
+// ─────────────────────────────────────────────────────────────
+function AdSensePlaceholder({ text = "Advertisement Space" }: { text?: string }) {
+  return (
+    <div className="w-full max-w-5xl mx-auto my-6 px-4">
+      <div className="relative overflow-hidden rounded-2xl border-2 border-dashed border-slate-300 dark:border-white/10 bg-slate-100/50 dark:bg-white/[0.02] py-8 flex items-center justify-center">
+        <span className="text-sm font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500">
+          {text}
+        </span>
+      </div>
     </div>
   );
 }
