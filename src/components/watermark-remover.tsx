@@ -1,3 +1,5 @@
+"use client";
+
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,41 +15,60 @@ import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // ==========================================
+// 🚀 ADSTERRA GLOBAL SCRIPTS (INTERSTITIAL)
+// ==========================================
+function AdGlobalScripts() {
+  useEffect(() => {
+    // Interstitial Ad Script
+    // Ye script automatically website par full-screen ad show karegi (with close button)
+    if (!document.querySelector('script[src*="e6d7472a0c457c2b15096f82485f2a8a.js"]')) {
+      const script = document.createElement("script");
+      script.src = "https://pl30381056.effectivecpmnetwork.com/e6/d7/47/e6d7472a0c457c2b15096f82485f2a8a.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+  return null;
+}
+
+// ==========================================
 // 📢 ADSTERRA AD COMPONENTS (FULLY OPTIMIZED)
 // ==========================================
 
-// 1. 728x90 Banner
+// 1. 728x90 Banner - Made fully responsive for Mobile & Laptop
 function AdBanner728x90() {
   return (
-    <div className="hidden md:flex justify-center items-center w-full min-h-[90px] my-6">
-      <iframe
-        title="Adsterra 728x90"
-        width="728"
-        height="90"
-        frameBorder="0"
-        scrolling="no"
-        srcDoc={`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
-            </head>
-            <body>
-              <script type="text/javascript">
-                atOptions = {
-                  'key' : '9b8822b87a33da031aa2351cb92a123d',
-                  'format' : 'iframe',
-                  'height' : 90,
-                  'width' : 728,
-                  'params' : {}
-                };
-              </script>
-              <script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script>
-            </body>
-          </html>
-        `}
-        className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
-      />
+    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
+      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar">
+        <iframe
+          title="Adsterra 728x90"
+          width="728"
+          height="90"
+          frameBorder="0"
+          scrolling="no"
+          srcDoc={`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
+              </head>
+              <body>
+                <script type="text/javascript">
+                  atOptions = {
+                    'key' : '9b8822b87a33da031aa2351cb92a123d',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script>
+              </body>
+            </html>
+          `}
+          className="bg-slate-50/50 dark:bg-white/5"
+        />
+      </div>
     </div>
   );
 }
@@ -55,40 +76,42 @@ function AdBanner728x90() {
 // 2. 300x250 Banner
 function AdBanner300x250() {
   return (
-    <div className="flex justify-center items-center w-full min-h-[250px] my-10">
-      <iframe
-        title="Adsterra 300x250"
-        width="300"
-        height="250"
-        frameBorder="0"
-        scrolling="no"
-        srcDoc={`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
-            </head>
-            <body>
-              <script type="text/javascript">
-                atOptions = {
-                  'key' : '8334e8ec678967ec9dd522989d8d95ea',
-                  'format' : 'iframe',
-                  'height' : 250,
-                  'width' : 300,
-                  'params' : {}
-                };
-              </script>
-              <script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script>
-            </body>
-          </html>
-        `}
-        className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
-      />
+    <div className="flex justify-center items-center w-full min-h-[250px] my-10 overflow-hidden">
+      <div className="max-w-full overflow-hidden rounded-lg">
+        <iframe
+          title="Adsterra 300x250"
+          width="300"
+          height="250"
+          frameBorder="0"
+          scrolling="no"
+          srcDoc={`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
+              </head>
+              <body>
+                <script type="text/javascript">
+                  atOptions = {
+                    'key' : '8334e8ec678967ec9dd522989d8d95ea',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                  };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script>
+              </body>
+            </html>
+          `}
+          className="bg-slate-50/50 dark:bg-white/5"
+        />
+      </div>
     </div>
   );
 }
 
-// 3. Native Banner
+// 3. Native Banner (Perfect position above the tool)
 function AdNativeBanner() {
   useEffect(() => {
     if (!document.getElementById("adsterra-native")) {
@@ -101,7 +124,7 @@ function AdNativeBanner() {
     }
   }, []);
   return (
-    <div className="w-full flex justify-center items-center my-12 px-4">
+    <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
       <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
     </div>
   );
@@ -285,6 +308,8 @@ export function WatermarkRemover() {
   return (
     <ThemeProvider>
       <LanguageProvider>
+        {/* Inject Interstitial Ad Globally */}
+        <AdGlobalScripts />
         <WatermarkRemoverPage />
       </LanguageProvider>
     </ThemeProvider>
@@ -316,6 +341,15 @@ function WatermarkRemoverPage() {
       }
     };
   }, [image?.beforeUrl]);
+
+  // ==========================================
+  // 💸 SMARTLINK TRIGGER LOGIC
+  // ==========================================
+  const triggerSmartlink = () => {
+    if (typeof window !== "undefined") {
+      window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
+    }
+  };
 
   const handleFiles = useCallback((files: FileList | File[] | null) => {
     if (!files || files.length === 0) return;
@@ -422,6 +456,7 @@ function WatermarkRemoverPage() {
   }, []);
 
   const reset = () => {
+    triggerSmartlink(); // Open smartlink on click
     if (image) {
       URL.revokeObjectURL(image.beforeUrl);
       URL.revokeObjectURL(image.afterUrl);
@@ -436,6 +471,7 @@ function WatermarkRemoverPage() {
   const triggerPicker = () => fileInputRef.current?.click();
 
   const handleDownload = () => {
+    triggerSmartlink(); // Open smartlink on click
     if (!image) return;
     const a = document.createElement("a");
     a.href = image.afterUrl;
@@ -446,6 +482,7 @@ function WatermarkRemoverPage() {
   };
 
   const handleCopy = async () => {
+    triggerSmartlink(); // Open smartlink on click
     if (!image) return;
     try {
       await navigator.clipboard.write([new ClipboardItem({ [image.blob.type]: image.blob })]);
@@ -458,14 +495,13 @@ function WatermarkRemoverPage() {
   };
 
   const handleDownloadZip = () => {
+    triggerSmartlink(); // Open smartlink on click
     handleDownload(); // Falls back to standard download
   };
 
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
-      {/* AdSocialBar component call has been cleanly removed since it is now globally handled inside root index.tsx */}
-
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
         style={{
           backgroundImage: "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
@@ -577,7 +613,7 @@ function WatermarkRemoverPage() {
 
       <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
         
-        {/* ADSTERRA 728x90 LEADERBOARD BANNER */}
+        {/* ADSTERRA 728x90 LEADERBOARD BANNER - Top */}
         <AdBanner728x90 />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
@@ -598,191 +634,167 @@ function WatermarkRemoverPage() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-4xl mx-auto">
-          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFiles(e.target.files)} />
+        {/* UPLOAD / RESULT SECTION */}
+        <div className="relative mx-auto max-w-4xl mt-8">
+          
+          {/* Native Ad Banner - Placed perfectly above tool */}
+          <AdNativeBanner />
 
-          <div onDragOver={(e) => { e.preventDefault(); setDragOver(true); }} onDragLeave={() => setDragOver(false)} onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }} className={`relative overflow-hidden rounded-[2rem] border bg-white shadow-2xl transition-all duration-300 dark:bg-[#0a0a0a] ${dragOver ? "border-blue-500 ring-4 ring-blue-500/20 shadow-blue-500/20" : "border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20"}`}>
-            <div className="relative flex min-h-[400px] sm:min-h-[500px] w-full flex-col items-center justify-center bg-slate-50/50 p-6 sm:p-10 dark:bg-white/[0.02]">
+          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-2 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/50 mt-6">
+            <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#0a0a0a] border border-slate-100 dark:border-white/5">
               
-              {!image && !loading && (
-                <button type="button" onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <UploadCloud className="h-8 w-8 text-blue-500" />
-                  </div>
-                  <div className="text-lg font-semibold">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-400 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></div>
-                  <div className="text-sm flex items-center gap-2 text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-1.5 rounded-full"><ImageIcon className="h-4 w-4" /> {vt.dropHint}</div>
-                </button>
-              )}
-
-              {loading && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 text-center">
-                  <div className="relative flex items-center justify-center mb-6">
-                    <div className="absolute w-24 h-24 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                    <Loader2 className="h-10 w-10 animate-spin text-blue-500 relative z-10" />
-                  </div>
-                  
-                  <div className="w-full max-w-[300px]">
-                    <div className="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
-                      <span>{uploadProgress < 100 ? 'Uploading Image...' : 'Reconstructing Pixels...'}</span>
-                      <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
-                    </div>
-                    
-                    <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-4 overflow-hidden shadow-inner">
-                      <div 
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
-                        style={{ width: `${uploadProgress}%` }}
-                      >
-                        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
-                      </div>
-                    </div>
-                    
-                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                      {vt.processingSub}
-                    </p>
-                  </div>
+              {error && (
+                <div className="m-4 flex items-center gap-3 rounded-xl bg-red-50 p-4 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+                  <AlertTriangle className="h-5 w-5 shrink-0" />
+                  <p className="text-sm font-medium">{error}</p>
+                  <button onClick={() => setError(null)} className="ml-auto"><X className="h-4 w-4" /></button>
                 </div>
               )}
 
-              <AnimatePresence mode="wait">
-                {image && !loading && (
-                  <motion.img key={view + image.beforeUrl} src={view === "before" ? image.beforeUrl : image.afterUrl} alt={view} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="max-h-[65vh] sm:max-h-[70vh] w-auto object-contain rounded-xl shadow-lg ring-1 ring-black/5 dark:ring-white/10" />
-                )}
-              </AnimatePresence>
+              {!image && !loading ? (
+                <div
+                  onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }}
+                  onClick={triggerPicker}
+                  className={`group flex min-h-[400px] cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] ${dragOver ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-500/10' : 'border-slate-200 dark:border-white/10'}`}
+                >
+                  <div className="mb-6 rounded-full bg-slate-100 p-4 group-hover:scale-110 transition-transform dark:bg-white/5">
+                    <UploadCloud className="h-10 w-10 text-slate-400 dark:text-slate-500" />
+                  </div>
+                  <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-500 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></p>
+                  <p className="mt-2 text-sm text-slate-500">{vt.dropHint}</p>
+                  <input type="file" ref={fileInputRef} className="hidden" accept="image/jpeg,image/png,image/webp" onChange={(e) => handleFiles(e.target.files)} />
+                </div>
+              ) : loading ? (
+                <div className="flex min-h-[400px] flex-col items-center justify-center p-8 text-center">
+                  <Loader2 className="mb-6 h-12 w-12 animate-spin text-blue-600 dark:text-blue-500" />
+                  <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{vt.processing}</p>
+                  <p className="mt-2 max-w-sm text-sm text-slate-500">{vt.processingSub}</p>
+                  <div className="mt-6 w-full max-w-xs overflow-hidden rounded-full bg-slate-100 dark:bg-white/10 h-2">
+                    <div className="h-full bg-blue-600 transition-all duration-300 dark:bg-blue-500" style={{ width: `${uploadProgress}%` }} />
+                  </div>
+                  <p className="mt-2 text-xs font-medium text-slate-400">{uploadProgress}%</p>
+                </div>
+              ) : image ? (
+                <div className="flex flex-col md:flex-row border-t border-slate-100 dark:border-white/5">
+                  {/* Left: Image Viewer */}
+                  <div className="flex-1 p-6 flex flex-col overflow-hidden">
+                    <div className="mb-6 flex justify-center">
+                      <div className="inline-flex rounded-xl bg-slate-100 p-1 dark:bg-white/5">
+                        <button onClick={() => setView("before")} className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${view === "before" ? 'bg-white text-slate-900 shadow-sm dark:bg-[#222] dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleBefore}</button>
+                        <button onClick={() => setView("after")} className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${view === "after" ? 'bg-white text-blue-600 shadow-sm dark:bg-[#222] dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleAfter}</button>
+                      </div>
+                    </div>
+                    <div className="relative mx-auto max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-black/50">
+                      <img src={view === "before" ? image.beforeUrl : image.afterUrl} alt="Processed result" className="w-full h-auto object-contain max-h-[500px]" />
+                    </div>
+                  </div>
+
+                  {/* Right: Actions */}
+                  <div className="w-full md:w-80 border-t md:border-t-0 md:border-l border-slate-100 bg-slate-50/50 p-6 dark:border-white/5 dark:bg-black/20 flex flex-col gap-4">
+                    <button onClick={handleDownload} className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:bg-blue-700 hover:shadow-blue-500/40">
+                      <Download className="h-5 w-5" /> {vt.btnDownload}
+                    </button>
+                    <button onClick={handleCopy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                      {copied ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> : <Copy className="h-5 w-5" />}
+                      {copied ? vt.btnCopied : vt.btnCopy}
+                    </button>
+                    <button onClick={handleDownloadZip} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                      <FileArchive className="h-5 w-5" /> {vt.btnZip}
+                    </button>
+                    <div className="my-2 h-px w-full bg-slate-200 dark:bg-white/10" />
+                    <button onClick={reset} className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3.5 text-sm font-bold text-slate-600 transition-all hover:bg-slate-200 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20">
+                      <Plus className="h-5 w-5" /> {vt.btnAddMore}
+                    </button>
+                    
+                    {/* Ad Banner inside results sidebar */}
+                    <div className="mt-auto pt-4 flex justify-center w-full overflow-hidden">
+                      <AdBanner300x250 />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
+        </div>
 
-          {image && !loading && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex justify-center">
-              <div className="relative flex items-center rounded-full border border-slate-200/50 bg-white/80 p-1.5 shadow-md backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/80">
-                {(["before", "after"] as const).map((option) => (
-                  <button type="button" key={option} onClick={() => setView(option)} className="relative z-10 w-32 rounded-full px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors">
-                    <span className={view === option ? "relative z-10 text-white" : "relative z-10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}>{option === "before" ? vt.toggleBefore : vt.toggleAfter}</span>
-                    {view === option && (<motion.span layoutId="image-pill-active" transition={{ type: "spring", stiffness: 380, damping: 32 }} className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md" />)}
-                  </button>
-                ))}
+        {/* ============================================================== */}
+        {/* NEW AD PLACEMENT: Below Tool, Above How It Works (Moved from FAQ) */}
+        {/* ============================================================== */}
+        <div className="mt-12 mb-8">
+          <AdBanner728x90 />
+        </div>
+
+        {/* HOW IT WORKS */}
+        <div className="mt-16 border-t border-slate-200/50 pt-24 dark:border-white/5">
+          <div className="mb-16 text-center">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{vt.hiwTitle}</h2>
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">{vt.hiwSub}</p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {[
+              { icon: UploadCloud, title: vt.s1Title, desc: vt.s1Desc },
+              { icon: Wand2, title: vt.s2Title, desc: vt.s2Desc },
+              { icon: Download, title: vt.s3Title, desc: vt.s3Desc },
+            ].map((step, i) => (
+              <div key={i} className="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111]">
+                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"><step.icon className="h-6 w-6" /></div>
+                <h3 className="mb-3 text-lg font-bold">{step.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{step.desc}</p>
               </div>
-            </motion.div>
-          )}
-        </motion.div>
+            ))}
+          </div>
+        </div>
 
-        {error && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex flex-col items-start gap-2 max-w-3xl mx-auto rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm text-red-700 dark:text-red-400 shadow-sm">
-            <div className="flex items-center gap-2 font-bold text-base"><AlertTriangle className="h-5 w-5 shrink-0" /> Error</div>
-            <span className="opacity-90 leading-relaxed">{error}</span>
-          </motion.div>
-        )}
+        {/* FEATURES */}
+        <div className="mt-32 rounded-3xl bg-slate-900 px-6 py-24 text-center sm:px-16 overflow-hidden relative">
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at center, #3b82f6 0%, transparent 70%)" }} />
+          <div className="relative z-10">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-400">{vt.featTag}</span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">{vt.featTitle}</h2>
+            <div className="mt-16 grid gap-8 sm:grid-cols-2 text-left">
+              {[
+                { icon: Frame, title: vt.f1Title, desc: vt.f1Desc },
+                { icon: Zap, title: vt.f2Title, desc: vt.f2Desc },
+                { icon: ShieldCheck, title: vt.f3Title, desc: vt.f3Desc },
+                { icon: ImageIcon, title: vt.f4Title, desc: vt.f4Desc },
+              ].map((feat, i) => (
+                <div key={i} className="flex gap-4 rounded-2xl bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
+                  <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400"><feat.icon className="h-6 w-6" /></div>
+                  <div>
+                    <h3 className="mb-2 text-lg font-bold text-white">{feat.title}</h3>
+                    <p className="text-sm text-slate-400 leading-relaxed">{feat.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-        {/* ======================================= */}
-        {/* ACTION BUTTONS */}
-        {/* ======================================= */}
-        {image && !loading && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex flex-wrap items-center justify-center gap-4 max-w-3xl mx-auto">
-            
-            <button type="button" onClick={handleDownload} className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-emerald-500/25 transition hover:scale-[1.02] hover:shadow-emerald-500/40 active:scale-95">
-              <Download className="h-5 w-5" /> {vt.btnDownload}
-            </button>
-            
-            <button type="button" onClick={handleCopy} className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-8 py-4 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5 active:scale-95">
-              {copied ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> : <Copy className="h-5 w-5 text-blue-500" />} {copied ? vt.btnCopied : vt.btnCopy}
-            </button>
-            
-            <button type="button" onClick={handleDownloadZip} className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-8 py-4 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5 active:scale-95">
-              <FileArchive className="h-5 w-5 text-indigo-500" /> {vt.btnZip}
-            </button>
-            
-            <button type="button" onClick={reset} className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-8 py-4 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5 active:scale-95">
-              <Plus className="h-5 w-5" /> {vt.btnAddMore}
-            </button>
-
-          </motion.div>
-        )}
-
-        {/* ADSTERRA 300x250 MEDIUM RECTANGLE BANNER */}
-        <AdBanner300x250 />
+        {/* FAQ - (728x90 Banner removed from here) */}
+        <div className="mx-auto mt-32 max-w-3xl">
+          <div className="mb-12 text-center">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{vt.faqTitle}</h2>
+          </div>
+          <Accordion type="single" collapsible className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-2 shadow-sm dark:border-white/10 dark:bg-[#111]">
+            {[
+              { q: vt.faq1q, a: vt.faq1a, val: "item-1" },
+              { q: vt.faq2q, a: vt.faq2a, val: "item-2" },
+              { q: vt.faq3q, a: vt.faq3a, val: "item-3" },
+            ].map((faq) => (
+              <AccordionItem key={faq.val} value={faq.val} className="border-b-slate-100 dark:border-b-white/5 last:border-0">
+                <AccordionTrigger className="text-left text-base font-semibold hover:no-underline py-6 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{faq.q}</AccordionTrigger>
+                <AccordionContent className="text-slate-600 dark:text-slate-400 pb-6 leading-relaxed text-sm">{faq.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
 
       </main>
-
-      <ImageBeforeAfterSection />
-      <ImageHowItWorks />
-      <ImageFeatures />
-      
-      {/* ADSTERRA NATIVE BANNER */}
-      <AdNativeBanner />
-
-      <ImageFAQ />
       <Footer />
     </div>
-  );
-}
-
-function ShowcaseCard({ title, icon, beforeSrc, afterSrc, delay }: { title: string, icon: React.ReactNode, beforeSrc: string, afterSrc: string, delay?: number }) {
-  const [isRevealed, setIsRevealed] = useState(false);
-  return (
-    <motion.div initial={{ opacity: 0, x: delay ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: delay || 0 }} className="flex flex-col gap-4 items-center">
-      <div className="flex items-center gap-3 mb-2 w-full max-w-[300px] justify-center">{icon}<h3 className="text-xl font-bold">{title}</h3></div>
-      <div className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 shadow-xl ring-4 ring-black/5 dark:ring-white/5 cursor-pointer select-none" onMouseEnter={() => setIsRevealed(true)} onMouseLeave={() => setIsRevealed(false)} onTouchStart={() => setIsRevealed(true)} onTouchEnd={() => setIsRevealed(false)} onTouchCancel={() => setIsRevealed(false)}>
-        <img src={beforeSrc} alt={`${title} Before`} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-        <div className={`absolute inset-0 bg-black/40 transition-opacity duration-500 z-10 backdrop-blur-sm ${isRevealed ? "opacity-100" : "opacity-0"}`} />
-        <img src={afterSrc} alt={`${title} After`} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`} />
-        <div className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`}><div className={`flex flex-col items-center gap-2 transform transition-transform duration-500 ${isRevealed ? "translate-y-0" : "translate-y-4"}`}><div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-lg"><ImageIcon className="w-7 h-7" /></div><span className="font-bold text-white text-lg tracking-wide drop-shadow-md">Cleaned Locally</span></div></div>
-      </div>
-      <p className="text-sm text-center text-slate-500 font-medium mt-2"><span className="hidden sm:inline">Hover to reveal comparison</span><span className="inline sm:hidden">Press & hold to reveal</span></p>
-    </motion.div>
-  );
-}
-
-function ImageBeforeAfterSection() {
-  return (
-    <section className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28 border-t border-slate-200 dark:border-white/5 bg-white/40 dark:bg-white/[0.01]">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 text-center"><span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Image Magic</span><h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">Flawless Pixel Reconstruction</h2><p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">Interact with the images below to see how our local AI model seamlessly erases watermarks and intelligently repaints the missing background.</p></motion.div>
-      <div className="grid md:grid-cols-2 gap-10"><ShowcaseCard title="Gemini Portrait Setup" icon={<div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>} beforeSrc="/showcase/image-gemini-before.png" afterSrc="/showcase/image-gemini-after.png" /><ShowcaseCard title="Gemini Concept Image" icon={<div className="p-2 bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-lg"><Wand2 className="w-5 h-5" /></div>} beforeSrc="/showcase/image-ai-before.png" afterSrc="/showcase/image-ai-after.png" delay={0.2} /></div>
-    </section>
-  );
-}
-
-function ImageHowItWorks() {
-  const { lang } = useI18n();
-  const vt = getTranslation(lang);
-  const steps = [{ title: vt.s1Title, desc: vt.s1Desc, icon: UploadCloud }, { title: vt.s2Title, desc: vt.s2Desc, icon: Wand2 }, { title: vt.s3Title, desc: vt.s3Desc, icon: Download }];
-  return (
-    <section className="relative mx-auto max-w-6xl px-4 py-20 sm:py-32">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center"><span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span><h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-4xl">{vt.hiwTitle}</h2><p className="mx-auto mt-4 max-w-md text-base text-slate-500 dark:text-slate-400">{vt.hiwSub}</p></motion.div>
-      <div className="grid gap-6 sm:grid-cols-3">{steps.map((s, i) => (<motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: i * 0.15 }} className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:border-blue-200 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-white/20"><div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 group-hover:scale-110 transition-transform"><s.icon className="h-6 w-6" /></div><div className="mb-2 text-xs font-bold uppercase tracking-wider text-blue-500">STEP {i + 1}</div><div className="text-xl font-bold mb-2">{s.title}</div><p className="text-base text-slate-500 dark:text-slate-400 leading-relaxed">{s.desc}</p></motion.div>))}</div>
-    </section>
-  );
-}
-
-function ImageFeatures() {
-  const { lang } = useI18n();
-  const vt = getTranslation(lang);
-  return (
-    <section className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-transparent">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center"><span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.featTag}</span><h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">{vt.featTitle}</h2></motion.div>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:grid-rows-2">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="sm:col-span-2 sm:row-span-2 group relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-gradient-to-br from-white to-blue-50/50 p-10 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01]"><div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30"><ShieldCheck className="h-6 w-6" /></div><h3 className="mt-8 text-3xl font-bold tracking-tight">{vt.f1Title}</h3><p className="mt-3 max-w-lg text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{vt.f1Desc}</p><div aria-hidden className="pointer-events-none absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" /></motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow"><div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Sparkles className="h-5 w-5 text-indigo-500" /></div><h3 className="mt-5 text-xl font-bold">{vt.f2Title}</h3><p className="mt-2 text-base text-slate-500 dark:text-slate-400">{vt.f2Desc}</p></motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow"><div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Gauge className="h-5 w-5 text-emerald-500" /></div><h3 className="mt-5 text-xl font-bold">{vt.f3Title}</h3><p className="mt-2 text-base text-slate-500 dark:text-slate-400">{vt.f3Desc}</p></motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] sm:col-span-3 hover:shadow-lg transition-shadow"><div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6"><div><div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5 mb-5"><Frame className="h-5 w-5 text-blue-500" /></div><h3 className="text-xl font-bold">{vt.f4Title}</h3><p className="mt-2 max-w-xl text-base text-slate-500 dark:text-slate-400">{vt.f4Desc}</p></div><div className="flex gap-3 flex-wrap">{["PNG", "JPG", "WEBP"].map((r) => (<div key={r} className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">{r}</div>))}</div></div></motion.div>
-      </div>
-    </section>
-  );
-}
-
-function ImageFAQ() {
-  const { lang } = useI18n();
-  const vt = getTranslation(lang);
-  const faqs = [{ q: vt.faq1q, a: vt.faq1a }, { q: vt.faq2q, a: vt.faq2a }, { q: vt.faq3q, a: vt.faq3a }];
-  return (
-    <section className="relative mx-auto max-w-4xl px-4 py-20 sm:py-32">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14 text-center"><span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span><h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">{vt.faqTitle}</h2></motion.div>
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-        <Accordion type="single" collapsible className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.02]">
-          {faqs.map((it, i) => (
-            <AccordionItem key={it.q} value={`item-${i}`} className={i === faqs.length - 1 ? "border-0 px-8 py-2" : "border-b border-slate-200 px-8 py-2 dark:border-white/10"}><AccordionTrigger className="text-base font-bold hover:no-underline hover:text-blue-600 transition-colors py-5">{it.q}</AccordionTrigger><AccordionContent className="text-base text-slate-500 dark:text-slate-400 pb-6 leading-relaxed">{it.a}</AccordionContent></AccordionItem>
-          ))}
-        </Accordion>
-      </motion.div>
-    </section>
   );
 }
