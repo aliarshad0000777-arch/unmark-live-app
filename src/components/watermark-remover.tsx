@@ -15,23 +15,6 @@ import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // ==========================================
-// 🚀 ADSTERRA GLOBAL SCRIPTS (INTERSTITIAL)
-// ==========================================
-function AdGlobalScripts() {
-  useEffect(() => {
-    // Interstitial Ad Script
-    // Ye script automatically website par full-screen ad show karegi (with close button)
-    if (!document.querySelector('script[src*="e6d7472a0c457c2b15096f82485f2a8a.js"]')) {
-      const script = document.createElement("script");
-      script.src = "https://pl30381056.effectivecpmnetwork.com/e6/d7/47/e6d7472a0c457c2b15096f82485f2a8a.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-  return null;
-}
-
-// ==========================================
 // 📢 ADSTERRA AD COMPONENTS (FULLY OPTIMIZED)
 // ==========================================
 
@@ -308,8 +291,6 @@ export function WatermarkRemover() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Inject Interstitial Ad Globally */}
-        <AdGlobalScripts />
         <WatermarkRemoverPage />
       </LanguageProvider>
     </ThemeProvider>
@@ -720,7 +701,7 @@ function WatermarkRemoverPage() {
         </div>
 
         {/* ============================================================== */}
-        {/* NEW AD PLACEMENT: Below Tool, Above How It Works (Moved from FAQ) */}
+        {/* NEW AD PLACEMENT: Below Tool, Above How It Works               */}
         {/* ============================================================== */}
         <div className="mt-12 mb-8">
           <AdBanner728x90 />
