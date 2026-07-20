@@ -5,32 +5,39 @@ import { LanguageProvider } from "@/lib/i18n";
 import { useEffect } from "react";
 
 // --- PROFESSIONAL GLOBAL AD INJECTOR FOR SPA ---
-// Ye component ensure karega ke Adsterra ka script sirf ek dafa load ho
-// aur React hydration ya routing mein koi masla na kare.
-const GlobalAdsterraScript = () => {
+// Ye component ensure karega ke Adsterra ke scripts (Social Bar + Interstitial) 
+// sirf ek dafa load hon aur React hydration ya routing mein koi masla na karein.
+const GlobalAdsterraScripts = () => {
   useEffect(() => {
-    const scriptSrc = "//pl30342756.effectivecpmnetwork.com/39/08/28/39082802d3120406758973a8b6e5b23b.js";
+    // 1. SOCIAL BAR AD SCRIPT
+    const socialScriptSrc = "//pl30342756.effectivecpmnetwork.com/39/08/28/39082802d3120406758973a8b6e5b23b.js";
     
-    // Check agar script pehle se injected hai to dubara na kare
-    if (document.querySelector(`script[src="${scriptSrc}"]`)) {
-      return;
+    // Check agar Social script pehle se injected hai to dubara na kare
+    if (!document.querySelector(`script[src="${socialScriptSrc}"]`)) {
+      const socialScript = document.createElement("script");
+      socialScript.type = "text/javascript";
+      socialScript.src = socialScriptSrc;
+      socialScript.async = true;
+      // Social Bar ads ko hamesha <body> ke end mein append karna zyada behtar hota hai
+      document.body.appendChild(socialScript);
     }
 
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = scriptSrc;
-    script.async = true;
+    // 2. INTERSTITIAL AD SCRIPT
+    const interstitialScriptSrc = "https://pl30381056.effectivecpmnetwork.com/e6/d7/47/e6d7472a0c457c2b15096f82485f2a8a.js";
     
-    // Social Bar ads ko hamesha <body> ke end mein append karna zyada behtar hota hai
-    document.body.appendChild(script);
+    // Check agar Interstitial script pehle se injected hai to dubara na kare
+    if (!document.querySelector(`script[src="${interstitialScriptSrc}"]`)) {
+      const interstitialScript = document.createElement("script");
+      interstitialScript.type = "text/javascript";
+      interstitialScript.src = interstitialScriptSrc;
+      interstitialScript.async = true;
+      // Interstitial (Full Screen) ads ko hamesha <head> mein lagana chahiye
+      document.head.appendChild(interstitialScript);
+    }
 
-    // Optional Cleanup: Agar component unmount ho (SPA routing ke waqt)
-    return () => {
-      const injectedScript = document.querySelector(`script[src="${scriptSrc}"]`);
-      if (injectedScript) {
-        injectedScript.remove();
-      }
-    };
+    // Cleanup Note: SPAs (React) mein ad scripts ko unmount par remove nahi karna chahiye, 
+    // warna next page par ads freez ho jate hain. Isliye cleanup ko empty rakha hai.
+    return () => {};
   }, []);
 
   return null;
@@ -102,8 +109,8 @@ function Index() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Adsterra Social Bar Global Injector */}
-        <GlobalAdsterraScript />
+        {/* Adsterra Global Injector (Handles both Social Bar & Interstitial) */}
+        <GlobalAdsterraScripts />
         
         <WatermarkRemover />
       </LanguageProvider>

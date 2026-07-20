@@ -15,42 +15,17 @@ import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // ==========================================
-// 🎯 CUSTOM HOOK: PERFECT AD RESPONSIVENESS
-// ==========================================
-function useResponsiveScale(baseWidth: number) {
-  const [scale, setScale] = useState(1);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const updateScale = () => {
-      // 32px minus for padding on mobile screens
-      const containerWidth = Math.min(window.innerWidth - 32, 1200); 
-      if (containerWidth < baseWidth) {
-        setScale(containerWidth / baseWidth);
-      } else {
-        setScale(1);
-      }
-    };
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, [baseWidth]);
-  return scale;
-}
-
-// ==========================================
 // 🚀 ADSTERRA GLOBAL SCRIPTS (INTERSTITIAL)
 // ==========================================
 function AdGlobalScripts() {
   useEffect(() => {
-    // Injecting Interstitial Ad into <head> for guaranteed execution in React SPAs
-    const scriptId = "adsterra-interstitial";
-    if (typeof window !== "undefined" && !document.getElementById(scriptId)) {
+    // Interstitial Ad Script
+    // Ye script automatically website par full-screen ad show karegi (with close button)
+    if (!document.querySelector('script[src*="e6d7472a0c457c2b15096f82485f2a8a.js"]')) {
       const script = document.createElement("script");
-      script.id = scriptId;
-      script.type = "text/javascript";
       script.src = "https://pl30381056.effectivecpmnetwork.com/e6/d7/47/e6d7472a0c457c2b15096f82485f2a8a.js";
       script.async = true;
-      document.head.appendChild(script);
+      document.body.appendChild(script);
     }
   }, []);
   return null;
@@ -60,12 +35,11 @@ function AdGlobalScripts() {
 // 📢 ADSTERRA AD COMPONENTS (FULLY OPTIMIZED)
 // ==========================================
 
-// 1. 728x90 Banner - Scaled Responsively for Mobile
+// 1. 728x90 Banner - Made fully responsive for Mobile & Laptop
 function AdBanner728x90() {
-  const scale = useResponsiveScale(728);
   return (
-    <div className="flex justify-center items-center w-full my-6 overflow-hidden transition-all duration-300" style={{ height: 90 * scale }}>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 728, height: 90 }}>
+    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
+      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar">
         <iframe
           title="Adsterra 728x90"
           width="728"
@@ -92,19 +66,18 @@ function AdBanner728x90() {
               </body>
             </html>
           `}
-          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+          className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
     </div>
   );
 }
 
-// 2. 300x250 Banner - Scaled Responsively
+// 2. 300x250 Banner
 function AdBanner300x250() {
-  const scale = useResponsiveScale(300);
   return (
-    <div className="flex justify-center items-center w-full my-4 overflow-hidden transition-all duration-300" style={{ height: 250 * scale }}>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 300, height: 250 }}>
+    <div className="flex justify-center items-center w-full min-h-[250px] my-10 overflow-hidden">
+      <div className="max-w-full overflow-hidden rounded-lg">
         <iframe
           title="Adsterra 300x250"
           width="300"
@@ -131,14 +104,14 @@ function AdBanner300x250() {
               </body>
             </html>
           `}
-          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+          className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
     </div>
   );
 }
 
-// 3. Native Banner
+// 3. Native Banner (Perfect position above the tool)
 function AdNativeBanner() {
   useEffect(() => {
     if (!document.getElementById("adsterra-native")) {
@@ -335,7 +308,7 @@ export function WatermarkRemover() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Global Injection for Interstitial Ads */}
+        {/* Inject Interstitial Ad Globally */}
         <AdGlobalScripts />
         <WatermarkRemoverPage />
       </LanguageProvider>
@@ -460,6 +433,7 @@ function WatermarkRemoverPage() {
             } else if (e.message) {
                errorMessage = e.message;
             }
+
             setError(errorMessage);
           } finally {
             setLoading(false);
@@ -482,7 +456,7 @@ function WatermarkRemoverPage() {
   }, []);
 
   const reset = () => {
-    // 1. Tool action executed
+    triggerSmartlink(); // Open smartlink on click
     if (image) {
       URL.revokeObjectURL(image.beforeUrl);
       URL.revokeObjectURL(image.afterUrl);
@@ -492,48 +466,37 @@ function WatermarkRemoverPage() {
     setError(null);
     setUploadProgress(0);
     if (fileInputRef.current) fileInputRef.current.value = "";
-    
-    // 2. Redirect/Ad logic trigger
-    triggerSmartlink(); 
   };
 
   const triggerPicker = () => fileInputRef.current?.click();
 
   const handleDownload = () => {
+    triggerSmartlink(); // Open smartlink on click
     if (!image) return;
-    
-    // 1. Photo wahi ki wahi download
     const a = document.createElement("a");
     a.href = image.afterUrl;
     a.download = "unmark-gemini-clean.jpg";
     document.body.appendChild(a);
     a.click();
     a.remove();
-    
-    // 2. Phir redirect/open smartlink
-    triggerSmartlink(); 
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
+    triggerSmartlink(); // Open smartlink on click
     if (!image) return;
-    
-    // Using promise approach to avoid Safari/Firefox blocking
-    navigator.clipboard.write([new ClipboardItem({ [image.blob.type]: image.blob })])
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Clipboard access denied by browser.");
-      });
-      
-    // Trigger ad exactly after initiating copy
-    triggerSmartlink(); 
+    try {
+      await navigator.clipboard.write([new ClipboardItem({ [image.blob.type]: image.blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch (e) {
+      console.error(e);
+      setError("Clipboard access denied by browser.");
+    }
   };
 
   const handleDownloadZip = () => {
-    handleDownload(); // Includes smartlink trigger inside
+    triggerSmartlink(); // Open smartlink on click
+    handleDownload(); // Falls back to standard download
   };
 
   return (
@@ -650,7 +613,7 @@ function WatermarkRemoverPage() {
 
       <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
         
-        {/* ADSTERRA 728x90 LEADERBOARD BANNER - Fully Mobile Responsive */}
+        {/* ADSTERRA 728x90 LEADERBOARD BANNER - Top */}
         <AdBanner728x90 />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
@@ -674,7 +637,7 @@ function WatermarkRemoverPage() {
         {/* UPLOAD / RESULT SECTION */}
         <div className="relative mx-auto max-w-4xl mt-8">
           
-          {/* Native Ad Banner - Scaled perfectly above the tool */}
+          {/* Native Ad Banner - Placed perfectly above tool */}
           <AdNativeBanner />
 
           <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-2 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/50 mt-6">
@@ -756,9 +719,9 @@ function WatermarkRemoverPage() {
           </div>
         </div>
 
-        {/* ========================================================================= */}
-        {/* NEW AD PLACEMENT: Moved from FAQ to Below Tool / Above Workflow           */}
-        {/* ========================================================================= */}
+        {/* ============================================================== */}
+        {/* NEW AD PLACEMENT: Below Tool, Above How It Works (Moved from FAQ) */}
+        {/* ============================================================== */}
         <div className="mt-12 mb-8">
           <AdBanner728x90 />
         </div>
@@ -810,8 +773,8 @@ function WatermarkRemoverPage() {
           </div>
         </div>
 
-        {/* FAQ - Banner removed from here */}
-        <div className="mx-auto mt-32 mb-16 max-w-3xl">
+        {/* FAQ - (728x90 Banner removed from here) */}
+        <div className="mx-auto mt-32 max-w-3xl">
           <div className="mb-12 text-center">
             <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span>
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{vt.faqTitle}</h2>
