@@ -5,38 +5,43 @@ import { LanguageProvider } from "@/lib/i18n";
 import { useEffect } from "react";
 
 // --- PROFESSIONAL GLOBAL AD INJECTOR FOR SPA ---
-// Ye component ensure karega ke Adsterra ke scripts (Social Bar + Interstitial) 
+// Ye component ensure karega ke aapke ads (Social Bar + Adcash Video) 
 // sirf ek dafa load hon aur React hydration ya routing mein koi masla na karein.
-const GlobalAdsterraScripts = () => {
+const GlobalAdScripts = () => {
   useEffect(() => {
-    // 1. SOCIAL BAR AD SCRIPT
+    // ==========================================
+    // 1. ADSTERRA SOCIAL BAR AD SCRIPT
+    // ==========================================
     const socialScriptSrc = "//pl30342756.effectivecpmnetwork.com/39/08/28/39082802d3120406758973a8b6e5b23b.js";
     
-    // Check agar Social script pehle se injected hai to dubara na kare
+    // Safely check if script is already injected
     if (!document.querySelector(`script[src="${socialScriptSrc}"]`)) {
       const socialScript = document.createElement("script");
       socialScript.type = "text/javascript";
       socialScript.src = socialScriptSrc;
       socialScript.async = true;
-      // Social Bar ads ko hamesha <body> ke end mein append karna zyada behtar hota hai
       document.body.appendChild(socialScript);
     }
 
-    // 2. INTERSTITIAL AD SCRIPT
-    const interstitialScriptSrc = "https://pl30381056.effectivecpmnetwork.com/e6/d7/47/e6d7472a0c457c2b15096f82485f2a8a.js";
-    
-    // Check agar Interstitial script pehle se injected hai to dubara na kare
-    if (!document.querySelector(`script[src="${interstitialScriptSrc}"]`)) {
-      const interstitialScript = document.createElement("script");
-      interstitialScript.type = "text/javascript";
-      interstitialScript.src = interstitialScriptSrc;
-      interstitialScript.async = true;
-      // Interstitial (Full Screen) ads ko hamesha <head> mein lagana chahiye
-      document.head.appendChild(interstitialScript);
+    // ==========================================
+    // 2. ADCASH VIDEO / FLOATING AD SCRIPT
+    // ==========================================
+    // Adsterra Interstitial has been completely removed.
+    if (!document.getElementById("adcash-autotag")) {
+      const adcashScript = document.createElement("script");
+      adcashScript.id = "adcash-autotag";
+      adcashScript.type = "text/javascript";
+      
+      // React mein inline JavaScript inject karne ka secure tareeqa
+      adcashScript.innerHTML = `
+        window.aclib = window.aclib || [];
+        aclib.runAutoTag({
+            zoneId: '4c35k7kjzg',
+        });
+      `;
+      document.body.appendChild(adcashScript);
     }
 
-    // Cleanup Note: SPAs (React) mein ad scripts ko unmount par remove nahi karna chahiye, 
-    // warna next page par ads freez ho jate hain. Isliye cleanup ko empty rakha hai.
     return () => {};
   }, []);
 
@@ -109,8 +114,8 @@ function Index() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Adsterra Global Injector (Handles both Social Bar & Interstitial) */}
-        <GlobalAdsterraScripts />
+        {/* Global Injector (Handles Adsterra Social Bar & Adcash Video Ads) */}
+        <GlobalAdScripts />
         
         <WatermarkRemover />
       </LanguageProvider>
