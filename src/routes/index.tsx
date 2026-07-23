@@ -5,8 +5,8 @@ import { LanguageProvider } from "@/lib/i18n";
 import { useEffect } from "react";
 
 // --- PROFESSIONAL GLOBAL AD INJECTOR FOR SPA ---
-// Ye component ensure karega ke aapke ads (Social Bar + Adcash Video) 
-// sirf ek dafa load hon aur React hydration ya routing mein koi masla na karein.
+// Ye component ensure karega ke aapke sabhi ads safely inject hon 
+// aur React hydration ya page routing ke doran crash na hon.
 const GlobalAdScripts = () => {
   useEffect(() => {
     // ==========================================
@@ -14,7 +14,7 @@ const GlobalAdScripts = () => {
     // ==========================================
     const socialScriptSrc = "//pl30342756.effectivecpmnetwork.com/39/08/28/39082802d3120406758973a8b6e5b23b.js";
     
-    // Safely check if script is already injected
+    // Check agar Social script pehle se injected hai to dubara na kare
     if (!document.querySelector(`script[src="${socialScriptSrc}"]`)) {
       const socialScript = document.createElement("script");
       socialScript.type = "text/javascript";
@@ -24,22 +24,44 @@ const GlobalAdScripts = () => {
     }
 
     // ==========================================
-    // 2. ADCASH VIDEO / FLOATING AD SCRIPT
+    // 2. ADCASH MAIN LIBRARY SCRIPT (Engine)
     // ==========================================
-    // Adsterra Interstitial has been completely removed.
-    if (!document.getElementById("adcash-autotag")) {
-      const adcashScript = document.createElement("script");
-      adcashScript.id = "adcash-autotag";
-      adcashScript.type = "text/javascript";
+    // Ye file dono Video Slider aur Interstitial ads ko chalane ke liye zaroori hai.
+    // Isey hum <head> mein place kar rahe hain as per Adcash recommendation.
+    if (!document.getElementById("aclib")) {
+      const aclibScript = document.createElement("script");
+      aclibScript.id = "aclib";
+      aclibScript.type = "text/javascript";
+      aclibScript.src = "//acscdn.com/script/aclib.js";
+      aclibScript.async = true;
+      document.head.appendChild(aclibScript);
+    }
+
+    // ==========================================
+    // 3. ADCASH VIDEO SLIDER & INTERSTITIAL TAGS
+    // ==========================================
+    // Hum dono tags ko ek hi block mein run kar rahe hain for maximum performance.
+    if (!document.getElementById("adcash-tags")) {
+      const adcashTags = document.createElement("script");
+      adcashTags.id = "adcash-tags";
+      adcashTags.type = "text/javascript";
       
-      // React mein inline JavaScript inject karne ka secure tareeqa
-      adcashScript.innerHTML = `
+      // React mein inline JS chalane ka professional tareeqa
+      adcashTags.innerHTML = `
         window.aclib = window.aclib || [];
-        aclib.runAutoTag({
-            zoneId: '4c35k7kjzg',
+        
+        // Trigger Video Slider Ad (Bottom Floating Video)
+        aclib.runVideoSlider({
+            zoneId: '11799942',
+        });
+
+        // Trigger Interstitial Ad (Full Screen Overlay)
+        aclib.runInterstitial({
+            zoneId: '11799974',
         });
       `;
-      document.body.appendChild(adcashScript);
+      // Ad execution script hamesha <body> mein aani chahiye
+      document.body.appendChild(adcashTags);
     }
 
     return () => {};
@@ -114,7 +136,7 @@ function Index() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Global Injector (Handles Adsterra Social Bar & Adcash Video Ads) */}
+        {/* Global Injector (Handles Adsterra Social Bar + Adcash Interstitial & Video Ads) */}
         <GlobalAdScripts />
         
         <WatermarkRemover />
