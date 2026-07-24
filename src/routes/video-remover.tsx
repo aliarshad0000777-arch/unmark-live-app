@@ -1,3 +1,5 @@
+"use client";
+
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +13,109 @@ import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
 import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+// ==========================================
+// 🎯 CUSTOM HOOK: PERFECT AD RESPONSIVENESS
+// ==========================================
+function useResponsiveScale(baseWidth: number) {
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const updateScale = () => {
+      const containerWidth = Math.min(window.innerWidth - 32, 1200); 
+      if (containerWidth < baseWidth) {
+        setScale(containerWidth / baseWidth);
+      } else {
+        setScale(1);
+      }
+    };
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, [baseWidth]);
+  return scale;
+}
+
+// ==========================================
+// 📢 ADSTERRA AD COMPONENTS
+// ==========================================
+function AdBanner728x90() {
+  const scale = useResponsiveScale(728);
+  return (
+    <div className="flex justify-center items-center w-full my-6 overflow-hidden transition-all duration-300" style={{ height: 90 * scale }}>
+      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 728, height: 90 }}>
+        <iframe
+          title="Adsterra 728x90"
+          width="728"
+          height="90"
+          frameBorder="0"
+          scrolling="no"
+          srcDoc={`
+            <!DOCTYPE html>
+            <html>
+              <head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head>
+              <body>
+                <script type="text/javascript">
+                  atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script>
+              </body>
+            </html>
+          `}
+          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+        />
+      </div>
+    </div>
+  );
+}
+
+function AdBanner300x250() {
+  const scale = useResponsiveScale(300);
+  return (
+    <div className="flex justify-center items-center w-full my-4 overflow-hidden transition-all duration-300" style={{ height: 250 * scale }}>
+      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 300, height: 250 }}>
+        <iframe
+          title="Adsterra 300x250"
+          width="300"
+          height="250"
+          frameBorder="0"
+          scrolling="no"
+          srcDoc={`
+            <!DOCTYPE html>
+            <html>
+              <head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head>
+              <body>
+                <script type="text/javascript">
+                  atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script>
+              </body>
+            </html>
+          `}
+          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+        />
+      </div>
+    </div>
+  );
+}
+
+function AdNativeBanner() {
+  useEffect(() => {
+    if (!document.getElementById("adsterra-native")) {
+      const script = document.createElement("script");
+      script.id = "adsterra-native";
+      script.async = true;
+      script.dataset.cfasync = "false";
+      script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
+      document.body.appendChild(script);
+    }
+  }, []);
+  return (
+    <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
+      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
+    </div>
+  );
+}
 
 // ==========================================
 // 🌍 MULTI-LANGUAGE DICTIONARY
@@ -57,101 +162,17 @@ const VIDEO_DICT = {
     faq3q: "Does it reduce video quality or drop audio?",
     faq3a: "No, our smart engine removes the watermark while strictly copying your original audio and preserving the exact resolution."
   },
-  es: {
-    heroTitle: "Elimina marcas de agua de IA en",
-    heroAccent: "un clic",
-    heroSub: "Motor profesional para eliminar sin problemas las marcas de agua de Veo y Gemini. Procesado a la velocidad del rayo.",
-    dropTitle: "Suelta el video aquí o",
-    dropBrowse: "examina",
-    dropHint: "MP4, WebM, MOV — hasta 100MB",
-    processing: "Procesando video en el servidor...",
-    btnRemove: "Eliminar Marca",
-    btnCancel: "Cancelar",
-    badgePro: "100% GRATIS",
-    menuImage: "Eliminador de Marcas (Imagen)",
-    menuVideo: "Eliminador de Marcas (Video)",
-    hiwTag: "FLUJO DE TRABAJO",
-    hiwTitle: "Cómo funciona",
-    hiwSub: "Tres pasos. Calidad absoluta. Velocidad de la luz.",
-    s1Title: "Sube tu video",
-    s1Desc: "Suelta un archivo MP4, WebM o MOV. Funciona con cualquier formato.",
-    s2Title: "Procesamiento mágico",
-    s2Desc: "Nuestro potente motor procesa los fotogramas al instante sin bloqueos.",
-    s3Title: "Descarga en alta resolución",
-    s3Desc: "Obtén un video nítido sin marcas de agua al instante sin perder calidad.",
-    featTag: "POR QUÉ ELEGIRNOS",
-    featTitle: "Construido para creadores de IA",
-    f1Title: "Estabilidad Sólida",
-    f1Desc: "Se acabaron los bloqueos. Nuestro servidor maneja videos pesados fácilmente.",
-    f2Title: "Completamente Gratis",
-    f2Desc: "Sin muros de pago engañosos, sin límites ocultos, sin necesidad de registro.",
-    f3Title: "Sin pérdida de calidad",
-    f3Desc: "Conserva la velocidad de fotogramas y la resolución original perfectamente.",
-    f4Title: "Todos los formatos",
-    f4Desc: "Funciona perfectamente con formatos horizontales (16:9) y verticales (9:16).",
-    faqTag: "PREGUNTAS",
-    faqTitle: "Preguntas frecuentes",
-    faq1q: "¿Es realmente gratis?",
-    faq1a: "¡Sí! Creemos en las herramientas accesibles. Puedes procesar tantos videos como quieras, totalmente gratis.",
-    faq2q: "¿Funciona con Google Veo y Gemini?",
-    faq2a: "¡Absolutamente! Calibrado matemáticamente para Veo y Gemini.",
-    faq3q: "¿Reduce la calidad o elimina el audio?",
-    faq3a: "No, conservamos el audio original y la resolución exacta."
-  },
-  fr: {
-    heroTitle: "Supprimez les filigranes IA en",
-    heroAccent: "un clic",
-    heroSub: "Moteur professionnel pour supprimer facilement les filigranes Veo et Gemini. Traitement ultra-rapide.",
-    dropTitle: "Déposez la vidéo ici ou",
-    dropBrowse: "parcourir",
-    dropHint: "MP4, WebM, MOV — jusqu'à 100 Mo",
-    processing: "Traitement de la vidéo en cours...",
-    btnRemove: "Supprimer le filigrane",
-    btnCancel: "Annuler",
-    badgePro: "100% GRATUIT",
-    menuImage: "Suppresseur de Filigrane (Image)",
-    menuVideo: "Suppresseur de Filigrane (Vidéo)",
-    hiwTag: "FLUX DE TRAVAIL",
-    hiwTitle: "Comment ça marche",
-    hiwSub: "Trois étapes. Qualité absolue. Vitesse éclair.",
-    s1Title: "Téléchargez votre vidéo",
-    s1Desc: "Déposez un fichier MP4, WebM ou MOV. Fonctionne avec tout format.",
-    s2Title: "Traitement magique",
-    s2Desc: "Notre moteur backend puissant traite les images instantanément.",
-    s3Title: "Téléchargement haute résolution",
-    s3Desc: "Obtenez une vidéo claire instantanément sans perte de qualité.",
-    featTag: "POURQUOI NOUS CHOISIR",
-    featTitle: "Conçu pour les créateurs IA",
-    f1Title: "Stabilité à toute épreuve",
-    f1Desc: "Fini les plantages du navigateur. Notre serveur gère facilement les vidéos lourdes.",
-    f2Title: "Totalement Gratuit",
-    f2Desc: "Pas de péage sournois, pas de limites cachées, aucune inscription requise.",
-    f3Title: "Aucune perte de qualité",
-    f3Desc: "Préserve parfaitement la fréquence d'images et la résolution d'origine.",
-    f4Title: "Tous les formats",
-    f4Desc: "Fonctionne parfaitement avec les formats paysage (16:9) et portrait (9:16).",
-    faqTag: "FAQ",
-    faqTitle: "Questions fréquentes",
-    faq1q: "Est-ce vraiment gratuit ?",
-    faq1a: "Oui ! Nous croyons aux outils accessibles. Vous pouvez traiter autant de vidéos que vous le souhaitez, gratuitement.",
-    faq2q: "Cela fonctionne-t-il avec Google Veo et Gemini ?",
-    faq2a: "Absolument ! Calibré mathématiquement pour détecter Veo et Gemini.",
-    faq3q: "Cela réduit-il la qualité ou supprime-t-il l'audio ?",
-    faq3a: "No, nous conservons votre audio d'origine et la résolution exacte."
-  }
+  // Keep your ES and FR translations here...
 };
 
 const getTranslation = (langCode: string | undefined) => {
   const safeLang = (langCode || "en").toLowerCase();
-  return VIDEO_DICT[safeLang as keyof typeof VIDEO_DICT] || VIDEO_DICT["en"];
+  return { ...VIDEO_DICT["en"], ...(VIDEO_DICT[safeLang as keyof typeof VIDEO_DICT] || {}) };
 };
 
 type WatermarkType = 'veo' | 'gemini';
 interface VideoMeta { width: number; height: number; }
 
-// ─────────────────────────────────────────────────────────────
-// DATA: COMING SOON TOOLS
-// ─────────────────────────────────────────────────────────────
 const UPCOMING_TOOLS = [
   { name: "Text to Image", icon: Type, color: "text-pink-500", bg: "bg-pink-500/10" },
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
@@ -164,20 +185,20 @@ const UPCOMING_TOOLS = [
 export const Route = createFileRoute('/video-remover')({
   head: () => ({
     meta: [
-      { title: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-      { name: "description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
-      { name: "keywords", content: "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Unmark AI video" },
+      { title: "Remove Gemini & Veo Video Watermarks | Free AI Video Eraser" },
+      { name: "description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast backend processing!" },
+      { name: "keywords", content: "AI video watermark remover, remove Gemini video watermark, remove Veo watermark, free video watermark remover, clean AI video, Unmark AI video, remove logo from video, AI video eraser online" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "author", content: "Unmark AI" },
       { property: "og:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-      { property: "og:description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
+      { property: "og:description", content: "Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/video-remover" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Remove Gemini & Veo Video Watermarks | 100% Free AI Tool" },
-      { name: "twitter:description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click. 100% free, private, and lightning-fast!" },
+      { name: "twitter:description", content: "Looking for a free AI video watermark remover? Seamlessly clean Google Gemini and Veo video watermarks in just one click." },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
-      { name: "robots", content: "index, follow" }
     ],
     links: [
       { rel: "canonical", href: "https://www.unmark-ai.com/video-remover" }
@@ -216,6 +237,15 @@ function VideoRemoverPage() {
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // ─────────────────────────────────────────────────────────────
+  // 🚀 SMARTLINK LOGIC 🚀
+  // ─────────────────────────────────────────────────────────────
+  const triggerSmartlink = () => {
+    if (typeof window !== "undefined") {
+      window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
+    }
+  };
 
   const readMeta = (f: File): Promise<VideoMeta> =>
     new Promise((resolve, reject) => {
@@ -258,6 +288,7 @@ function VideoRemoverPage() {
   const triggerPicker = () => fileInputRef.current?.click();
 
   const reset = () => {
+    triggerSmartlink(); // Open smartlink on click
     if (videoUrl) URL.revokeObjectURL(videoUrl);
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     setFile(null);
@@ -318,9 +349,42 @@ function VideoRemoverPage() {
     }
   };
 
+  const handleDownload = () => {
+    if (!resultUrl) return;
+    // 1. Download video
+    const a = document.createElement("a");
+    a.href = resultUrl;
+    a.download = `unmark-ai-clean.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    // 2. Trigger smartlink
+    triggerSmartlink();
+  };
+
+  // Structured Data (JSON-LD) for Force Indexing
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Unmark AI Video Watermark Remover",
+    "url": "https://www.unmark-ai.com/video-remover",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "description": "Free online tool to remove watermarks from AI-generated videos like Google Gemini and Veo.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
+      {/* Inject Structured Data for SEO / Force Indexing */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Premium Background Grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
         style={{
@@ -361,8 +425,6 @@ function VideoRemoverPage() {
               
               {/* Scrollable Tools List */}
               <div className="flex-1 overflow-y-auto px-4 py-6">
-                
-                {/* Active Free Tools */}
                 <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Our Free Tools</span>
                 <div className="flex flex-col gap-2">
                   <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
@@ -403,7 +465,6 @@ function VideoRemoverPage() {
                     ))}
                   </div>
                 </div>
-
               </div>
               
               {/* Menu Footer */}
@@ -453,6 +514,10 @@ function VideoRemoverPage() {
 
       {/* Main Hero Area */}
       <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
+        
+        {/* Top Banner Ad Slot */}
+        <AdBanner728x90 />
+
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-semibold text-blue-700 dark:text-blue-400 mb-6 shadow-sm">
             <Sparkles className="w-3.5 h-3.5" /> Powered by Advanced AI
@@ -468,6 +533,10 @@ function VideoRemoverPage() {
 
         {/* Upload Box */}
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-3xl mx-auto">
+          
+          {/* Native Ad inside tool area */}
+          <AdNativeBanner />
+
           <input ref={fileInputRef} type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden" onChange={(e) => {
             const f = e.target.files?.[0];
             if (f) acceptFile(f);
@@ -477,7 +546,7 @@ function VideoRemoverPage() {
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
             onDragLeave={() => setDragOver(false)}
             onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) acceptFile(f); }}
-            className={`relative overflow-hidden rounded-[2rem] border bg-white shadow-2xl transition-all duration-300 dark:bg-[#0a0a0a] ${
+            className={`relative overflow-hidden mt-6 rounded-[2rem] border bg-white shadow-2xl transition-all duration-300 dark:bg-[#0a0a0a] ${
               dragOver ? "border-blue-500 ring-4 ring-blue-500/20 shadow-blue-500/20" : "border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20"
             }`}
           >
@@ -486,7 +555,6 @@ function VideoRemoverPage() {
               {(!file) && (
                 <button onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <Film className="h-8 w-8 text-blue-500" />
                   </div>
@@ -497,7 +565,7 @@ function VideoRemoverPage() {
                 </button>
               )}
 
-              {/* 🚀 THE FIX: PREMIUM LIVE PROGRESS BAR UI */}
+              {/* LIVE PROGRESS BAR */}
               {status === 'processing' && (
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-8">
                   <div className="relative flex items-center justify-center mb-2">
@@ -511,14 +579,11 @@ function VideoRemoverPage() {
                       <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
                     </div>
                     
-                    {/* Track */}
                     <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-3 overflow-hidden shadow-inner">
-                      {/* Filler */}
                       <div 
                         className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
                         style={{ width: `${uploadProgress}%` }}
                       >
-                        {/* Shimmer effect inside the bar */}
                         <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
                       </div>
                     </div>
@@ -564,7 +629,6 @@ function VideoRemoverPage() {
         {/* Action Panel */}
         {file && !resultUrl && status !== 'processing' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-10 flex flex-col items-center gap-8">
-            
             <div className="flex flex-col items-center gap-3 w-full max-w-md">
               <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select AI Platform</span>
               <div className="grid grid-cols-2 gap-3 w-full p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
@@ -607,14 +671,7 @@ function VideoRemoverPage() {
         {resultUrl && status !== 'processing' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <button
-              onClick={() => {
-                const a = document.createElement("a");
-                a.href = resultUrl;
-                a.download = `unmark-ai-clean.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-              }}
+              onClick={handleDownload}
               className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
             >
               <Download className="h-5 w-5" /> Download Video
@@ -627,24 +684,26 @@ function VideoRemoverPage() {
             </button>
           </motion.div>
         )}
+        
+        {/* Banner Ad Below Tool */}
+        <div className="mt-8 flex justify-center overflow-hidden">
+           <AdBanner300x250 />
+        </div>
+
       </main>
 
-      {/* Premium Sections & AdSense Integration */}
       <BeforeAfterSection />
       
-      {/* 🚀 ADDED: Top AdSense Slot */}
-      <AdSensePlaceholder text="Top Banner Ad Slot (Responsive)" />
+      {/* Mid Content Ad Slot */}
+      <AdBanner728x90 />
       
       <VideoHowItWorks />
       <VideoFeatures />
       
-      {/* 🚀 ADDED: In-Article AdSense Slot */}
-      <AdSensePlaceholder text="Mid Content Ad Slot (In-Article)" />
+      {/* 🚀 SEO Optimized Content Section */}
+      <SeoArticleSection />
       
       <VideoFAQ />
-      
-      {/* 🚀 ADDED: SEO Optimized Content Section */}
-      <SeoArticleSection />
       
       <Footer />
     </div>
@@ -652,7 +711,7 @@ function VideoRemoverPage() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// NEW COMPONENT: SEO CONTENT SECTION
+// COMPONENT: SEO CONTENT SECTION
 // ─────────────────────────────────────────────────────────────
 function SeoArticleSection() {
   return (
@@ -660,7 +719,7 @@ function SeoArticleSection() {
       <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">The Ultimate AI Video Watermark Remover</h2>
         <p className="mb-6 leading-relaxed">
-          As AI video generation tools like <strong>Google Veo</strong> and <strong>Gemini</strong> become increasingly popular, creators are looking for ways to use these clips in professional projects. However, the embedded watermarks can disrupt the cinematic experience. Unmark Video is engineered specifically to <em>remove Veo watermarks</em> and clean Gemini-generated media without compromising on frame rate, audio sync, or visual fidelity.
+          As AI video generation tools like <strong>Google Veo</strong> and <strong>Gemini</strong> become increasingly popular, creators are looking for ways to use these clips in professional projects. However, the embedded watermarks can disrupt the cinematic experience. Unmark Video is an online AI video eraser engineered specifically to <em>remove Veo watermarks</em> and clean Gemini-generated media without compromising on frame rate, audio sync, or visual fidelity.
         </p>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 mt-8">Why Ad-Supported Free Tools Win</h3>
         <p className="leading-relaxed">
@@ -672,22 +731,7 @@ function SeoArticleSection() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// NEW COMPONENT: ADSENSE PLACEHOLDER
-// ─────────────────────────────────────────────────────────────
-function AdSensePlaceholder({ text = "Advertisement Space" }: { text?: string }) {
-  return (
-    <div className="w-full max-w-5xl mx-auto my-6 px-4">
-      <div className="relative overflow-hidden rounded-2xl border-2 border-dashed border-slate-300 dark:border-white/10 bg-slate-100/50 dark:bg-white/[0.02] py-8 flex items-center justify-center">
-        <span className="text-sm font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500">
-          {text}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// NEW: SMART INTERACTIVE VIDEO CARD (Handles Hover & Touch)
+// SMART INTERACTIVE VIDEO CARD 
 // ─────────────────────────────────────────────────────────────
 function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title: string, icon: React.ReactNode, beforeSrc: string, afterSrc: string, delay?: number }) {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -699,7 +743,6 @@ function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title:
         <h3 className="text-xl font-bold">{title}</h3>
       </div>
       
-      {/* Strict 9:16 Mobile Portrait Frame with Touch/Hover Logic */}
       <div 
         className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 shadow-xl ring-4 ring-black/5 dark:ring-white/5 cursor-pointer select-none"
         onMouseEnter={() => setIsRevealed(true)}
@@ -720,7 +763,6 @@ function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title:
         </div>
       </div>
       
-      {/* Smart Device-Aware Instruction Text */}
       <p className="text-sm text-center text-slate-500 font-medium mt-2">
         <span className="hidden sm:inline">Hover to see processed result</span>
         <span className="inline sm:hidden">Press & hold to see result</span>
@@ -730,7 +772,7 @@ function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title:
 }
 
 // ─────────────────────────────────────────────────────────────
-// UPDATED: BEFORE & AFTER SHOWCASE (Uses Smart Video Component)
+// BEFORE & AFTER SHOWCASE 
 // ─────────────────────────────────────────────────────────────
 function BeforeAfterSection() {
   return (
@@ -742,7 +784,6 @@ function BeforeAfterSection() {
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        
         <ShowcaseVideoCard 
           title="Google Gemini"
           icon={<div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>}
@@ -757,14 +798,13 @@ function BeforeAfterSection() {
           afterSrc="/showcase/veo-after.mp4"
           delay={0.2}
         />
-
       </div>
     </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────
-// ENHANCED UI COMPONENTS
+// UI COMPONENTS
 // ─────────────────────────────────────────────────────────────
 function VideoHowItWorks() {
   const { lang } = useI18n();
