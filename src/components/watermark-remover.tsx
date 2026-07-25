@@ -113,6 +113,47 @@ function AdNativeBanner() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
+// ─────────────────────────────────────────────────────────────
+function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
+  return (
+    <div className="flex justify-center mb-8 relative z-20">
+      <div className="inline-flex items-center p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+        
+        {/* Image Tool Link */}
+        <Link
+          to="/"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'image'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <ImageIcon className="w-4 h-4" /> Image
+        </Link>
+
+        {/* Video Tool Link */}
+        <Link
+          to="/video-remover"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'video'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <Film className="w-4 h-4" /> Video
+          {/* Competitor Style 'New' Badge */}
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-red-500/30 bg-red-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-red-600 dark:text-red-400 animate-pulse">
+            New
+          </span>
+        </Link>
+        
+      </div>
+    </div>
+  );
+}
+
 // ==========================================
 // 🌍 MULTI-LANGUAGE DICTIONARY
 // ==========================================
@@ -606,17 +647,13 @@ function WatermarkRemoverPage() {
             <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-700 bg-clip-text text-transparent">{vt.heroAccent}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">{vt.heroSub}</p>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/video-remover" className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-105 hover:shadow-indigo-500/40">
-              <Film className="w-4 h-4" /> Try Video Watermark Remover
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
         </motion.div>
 
+        {/* 🚀 ADD TABS HERE 🚀 */}
+        <ToolSwitcher current="image" />
+
         {/* UPLOAD / RESULT SECTION */}
-        <div className="relative mx-auto max-w-4xl mt-8">
+        <div className="relative mx-auto max-w-4xl mt-4">
           
           {/* Native Ad Banner - Placed perfectly above tool */}
           <AdNativeBanner />

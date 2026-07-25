@@ -110,6 +110,47 @@ function AdNativeBanner() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
+// ─────────────────────────────────────────────────────────────
+function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
+  return (
+    <div className="flex justify-center mb-8 relative z-20">
+      <div className="inline-flex items-center p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+        
+        {/* Image Tool Link */}
+        <Link
+          to="/"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'image'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <ImageIcon className="w-4 h-4" /> Image
+        </Link>
+
+        {/* Video Tool Link */}
+        <Link
+          to="/video-remover"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'video'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <Film className="w-4 h-4" /> Video
+          {/* Competitor Style 'New' Badge */}
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-red-500/30 bg-red-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-red-600 dark:text-red-400 animate-pulse">
+            New
+          </span>
+        </Link>
+        
+      </div>
+    </div>
+  );
+}
+
 // ==========================================
 // 🌍 MULTI-LANGUAGE DICTIONARY
 // ==========================================
@@ -605,6 +646,9 @@ function VideoRemoverPage() {
           </p>
         </motion.div>
 
+        {/* 🚀 ADD TABS HERE 🚀 */}
+        <ToolSwitcher current="video" />
+
         {/* Upload Box */}
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-3xl mx-auto">
           
@@ -972,7 +1016,7 @@ function VideoFAQ() {
           {faqs.map((it, i) => (
             <AccordionItem key={it.q} value={`item-${i}`} className={i === faqs.length - 1 ? "border-0 px-8 py-2" : "border-b border-slate-200 px-8 py-2 dark:border-white/10"}>
               <AccordionTrigger className="text-base font-bold hover:no-underline hover:text-blue-600 transition-colors py-5">{it.q}</AccordionTrigger>
-              <AccordionContent className="text-base text-slate-500 dark:text-slate-400 pb-6 leading-relaxed">{it.a}</AccordionContent>
+              <AccordionContent className="text-base text-slate-500 dark:text-slate-400 pb-6 leading-relaxed text-sm">{it.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
