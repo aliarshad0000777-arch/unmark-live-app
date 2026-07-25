@@ -15,35 +15,14 @@ import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // ==========================================
-// 🎯 CUSTOM HOOK: PERFECT AD RESPONSIVENESS
+// 📢 ADSTERRA AD COMPONENTS (SPA-SAFE & RESPONSIVE)
 // ==========================================
-function useResponsiveScale(baseWidth: number) {
-  const [scale, setScale] = useState(1);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const updateScale = () => {
-      const containerWidth = Math.min(window.innerWidth - 32, 1200); 
-      if (containerWidth < baseWidth) {
-        setScale(containerWidth / baseWidth);
-      } else {
-        setScale(1);
-      }
-    };
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, [baseWidth]);
-  return scale;
-}
 
-// ==========================================
-// 📢 ADSTERRA AD COMPONENTS
-// ==========================================
+// 1. 728x90 Banner - Fixed Mobile Scaling (No more microscopic ads)
 function AdBanner728x90() {
-  const scale = useResponsiveScale(728);
   return (
-    <div className="flex justify-center items-center w-full my-6 overflow-hidden transition-all duration-300" style={{ height: 90 * scale }}>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 728, height: 90 }}>
+    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
+      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
         <iframe
           title="Adsterra 728x90"
           width="728"
@@ -62,18 +41,18 @@ function AdBanner728x90() {
               </body>
             </html>
           `}
-          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+          className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
     </div>
   );
 }
 
+// 2. 300x250 Banner - Perfect for all devices
 function AdBanner300x250() {
-  const scale = useResponsiveScale(300);
   return (
-    <div className="flex justify-center items-center w-full my-4 overflow-hidden transition-all duration-300" style={{ height: 250 * scale }}>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: 300, height: 250 }}>
+    <div className="flex justify-center items-center w-full min-h-[250px] my-4 overflow-hidden">
+      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
         <iframe
           title="Adsterra 300x250"
           width="300"
@@ -92,27 +71,41 @@ function AdBanner300x250() {
               </body>
             </html>
           `}
-          className="bg-slate-50/50 dark:bg-white/5 rounded-lg overflow-hidden"
+          className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
     </div>
   );
 }
 
+// 3. Native Banner - Fixed SPA Routing Bug via Dynamic Injection
 function AdNativeBanner() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (!document.getElementById("adsterra-native")) {
-      const script = document.createElement("script");
-      script.id = "adsterra-native";
-      script.async = true;
-      script.dataset.cfasync = "false";
-      script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
-      document.body.appendChild(script);
-    }
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Har baar naya component mount hone par DOM refresh karega
+    container.innerHTML = '';
+
+    const adDiv = document.createElement('div');
+    adDiv.id = "container-b2f92a8142955a57ae630862cf29f00e";
+    container.appendChild(adDiv);
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.dataset.cfasync = "false";
+    script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
+    
+    container.appendChild(script);
+
   }, []);
+
   return (
     <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
-      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
+      <div ref={containerRef} className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm flex justify-center" />
     </div>
   );
 }
@@ -162,7 +155,88 @@ const VIDEO_DICT = {
     faq3q: "Does it reduce video quality or drop audio?",
     faq3a: "No, our smart engine removes the watermark while strictly copying your original audio and preserving the exact resolution."
   },
-  // Keep your ES and FR translations here...
+  es: {
+    heroTitle: "Elimina marcas de agua de IA en",
+    heroAccent: "un clic",
+    heroSub: "Motor profesional para eliminar sin problemas las marcas de agua de Veo y Gemini. Procesado a la velocidad del rayo.",
+    dropTitle: "Suelta el video aquí o",
+    dropBrowse: "examina",
+    dropHint: "MP4, WebM, MOV — hasta 100MB",
+    processing: "Procesando video en el servidor...",
+    btnRemove: "Eliminar Marca",
+    btnCancel: "Cancelar",
+    badgePro: "100% GRATIS",
+    menuImage: "Eliminador de Marcas (Imagen)",
+    menuVideo: "Eliminador de Marcas (Video)",
+    hiwTag: "FLUJO DE TRABAJO",
+    hiwTitle: "Cómo funciona",
+    hiwSub: "Tres pasos. Calidad absoluta. Velocidad de la luz.",
+    s1Title: "Sube tu video",
+    s1Desc: "Suelta un archivo MP4, WebM o MOV. Funciona con cualquier formato.",
+    s2Title: "Procesamiento mágico",
+    s2Desc: "Nuestro potente motor procesa los fotogramas al instante sin bloqueos.",
+    s3Title: "Descarga en alta resolución",
+    s3Desc: "Obtén un video nítido sin marcas de agua al instante sin perder calidad.",
+    featTag: "POR QUÉ ELEGIRNOS",
+    featTitle: "Construido para creadores de IA",
+    f1Title: "Estabilidad Sólida",
+    f1Desc: "Se acabaron los bloqueos. Nuestro servidor maneja videos pesados fácilmente.",
+    f2Title: "Completamente Gratis",
+    f2Desc: "Sin muros de pago engañosos, sin límites ocultos, sin necesidad de registro.",
+    f3Title: "Sin pérdida de calidad",
+    f3Desc: "Conserva la velocidad de fotogramas y la resolución original perfectamente.",
+    f4Title: "Todos los formatos",
+    f4Desc: "Funciona perfectamente con formatos horizontales (16:9) y verticales (9:16).",
+    faqTag: "PREGUNTAS",
+    faqTitle: "Preguntas frecuentes",
+    faq1q: "¿Es realmente gratis?",
+    faq1a: "¡Sí! Creemos en las herramientas accesibles. Puedes procesar tantos videos como quieras, totalmente gratis.",
+    faq2q: "¿Funciona con Google Veo y Gemini?",
+    faq2a: "¡Absolutamente! Calibrado matemáticamente para Veo y Gemini.",
+    faq3q: "¿Reduce la calidad o elimina el audio?",
+    faq3a: "No, conservamos el audio original y la resolución exacta."
+  },
+  fr: {
+    heroTitle: "Supprimez les filigranes IA en",
+    heroAccent: "un clic",
+    heroSub: "Moteur professionnel pour supprimer facilement les filigranes Veo et Gemini. Traitement ultra-rapide.",
+    dropTitle: "Déposez la vidéo ici ou",
+    dropBrowse: "parcourir",
+    dropHint: "MP4, WebM, MOV — jusqu'à 100 Mo",
+    processing: "Traitement de la vidéo en cours...",
+    btnRemove: "Supprimer le filigrane",
+    btnCancel: "Annuler",
+    badgePro: "100% GRATUIT",
+    menuImage: "Suppresseur de Filigrane (Image)",
+    menuVideo: "Suppresseur de Filigrane (Vidéo)",
+    hiwTag: "FLUX DE TRAVAIL",
+    hiwTitle: "Comment ça marche",
+    hiwSub: "Trois étapes. Qualité absolue. Vitesse éclair.",
+    s1Title: "Téléchargez votre vidéo",
+    s1Desc: "Déposez un fichier MP4, WebM ou MOV. Fonctionne avec tout format.",
+    s2Title: "Traitement magique",
+    s2Desc: "Notre moteur backend puissant traite les images instantanément.",
+    s3Title: "Téléchargement haute résolution",
+    s3Desc: "Obtenez une vidéo claire instantanément sans perte de qualité.",
+    featTag: "POURQUOI NOUS CHOISIR",
+    featTitle: "Conçu pour les créateurs IA",
+    f1Title: "Stabilité à toute épreuve",
+    f1Desc: "Fini les plantages du navigateur. Notre serveur gère facilement les vidéos lourdes.",
+    f2Title: "Totalement Gratuit",
+    f2Desc: "Pas de péage sournois, pas de limites cachées, aucune inscription requise.",
+    f3Title: "Aucune perte de qualité",
+    f3Desc: "Préserve parfaitement la fréquence d'images et la résolution d'origine.",
+    f4Title: "Tous les formats",
+    f4Desc: "Fonctionne parfaitement avec les formats paysage (16:9) et portrait (9:16).",
+    faqTag: "FAQ",
+    faqTitle: "Questions fréquentes",
+    faq1q: "Est-ce vraiment gratuit ?",
+    faq1a: "Oui ! Nous croyons aux outils accessibles. Vous pouvez traiter autant de vidéos que vous le souhaitez, gratuitement.",
+    faq2q: "Cela fonctionne-t-il avec Google Veo et Gemini ?",
+    faq2a: "Absolument ! Calibré mathématiquement pour détecter Veo et Gemini.",
+    faq3q: "Cela réduit-il la qualité ou supprime-t-il l'audio ?",
+    faq3a: "No, nous conservons votre audio d'origine et la résolution exacte."
+  }
 };
 
 const getTranslation = (langCode: string | undefined) => {
