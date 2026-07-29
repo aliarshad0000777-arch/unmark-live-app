@@ -116,10 +116,10 @@ function AdNativeBanner() {
 // ─────────────────────────────────────────────────────────────
 // 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
 // ─────────────────────────────────────────────────────────────
-function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
+function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
   return (
     <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
         
         {/* Image Tool Link */}
         <Link
@@ -143,8 +143,19 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
           }`}
         >
           <Film className="w-4 h-4" /> Video
-          {/* Competitor Style 'New' Badge */}
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-red-500/30 bg-red-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-red-600 dark:text-red-400 animate-pulse">
+        </Link>
+
+        {/* Text-to-Image Tool Link */}
+        <Link
+          to="/text-to-image"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'text-to-image'
+              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <Type className="w-4 h-4" /> Text to Image
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
             New
           </span>
         </Link>
@@ -175,6 +186,7 @@ const IMAGE_DICT = {
     badgeFree: "100% FREE",
     menuImage: "Image Watermark Remover",
     menuVideo: "Video Watermark Remover",
+    menuTextToImage: "Text to Image Generator",
     toggleBefore: "Original",
     toggleAfter: "Cleaned",
     hiwTag: "WORKFLOW",
@@ -224,6 +236,7 @@ const IMAGE_DICT = {
     badgeFree: "100% GRATIS",
     menuImage: "Eliminador (Imagen)",
     menuVideo: "Eliminador (Video)",
+    menuTextToImage: "Generador de Texto a Imagen",
     toggleBefore: "Original",
     toggleAfter: "Limpia",
     hiwTag: "FLUJO DE TRABAJO",
@@ -273,6 +286,7 @@ const IMAGE_DICT = {
     badgeFree: "100% GRATUIT",
     menuImage: "Suppresseur (Image)",
     menuVideo: "Suppresseur (Vidéo)",
+    menuTextToImage: "Générateur de Texte en Image",
     toggleBefore: "Originale",
     toggleAfter: "Nettoyée",
     hiwTag: "FLUX DE TRAVAIL",
@@ -319,8 +333,8 @@ type ProcessedImage = {
   name: string;
 };
 
+// Removed Text to Image from upcoming since it's active now
 const UPCOMING_TOOLS = [
-  { name: "Text to Image", icon: Type, color: "text-pink-500", bg: "bg-pink-500/10" },
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
   { name: "Text to Video", icon: Clapperboard, color: "text-purple-500", bg: "bg-purple-500/10" },
   { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
@@ -586,7 +600,14 @@ function WatermarkRemoverPage() {
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
                   </Link>
+                  <Link to="/text-to-image" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><Type className="h-4 w-4" /></div>{vt.menuTextToImage}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </div>
+                
                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
                   <div className="flex items-center justify-between px-3 mb-4">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Coming Soon</span>
@@ -602,6 +623,12 @@ function WatermarkRemoverPage() {
                       </div>
                     ))}
                   </div>
+                </div>
+
+                {/* Privacy & Speed text for Sidebar */}
+                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex items-center justify-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  Engineered for privacy and speed
                 </div>
               </div>
             </motion.div>
@@ -649,7 +676,7 @@ function WatermarkRemoverPage() {
           <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">{vt.heroSub}</p>
         </motion.div>
 
-        {/* 🚀 ADD TABS HERE 🚀 */}
+        {/* 🚀 TAB SWITCHER 🚀 */}
         <ToolSwitcher current="image" />
 
         {/* UPLOAD / RESULT SECTION */}

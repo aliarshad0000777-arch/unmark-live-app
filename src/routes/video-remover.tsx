@@ -7,7 +7,7 @@ import axios from "axios";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
   Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play,
-  Type, FileText, Clapperboard, PlaySquare, Zap, Lock
+  Type, FileText, Clapperboard, PlaySquare, Zap, Lock, ArrowRight
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
@@ -18,7 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 // 📢 ADSTERRA AD COMPONENTS (SPA-SAFE & RESPONSIVE)
 // ==========================================
 
-// 1. 728x90 Banner - Fixed Mobile Scaling (No more microscopic ads)
 function AdBanner728x90() {
   return (
     <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
@@ -48,7 +47,6 @@ function AdBanner728x90() {
   );
 }
 
-// 2. 300x250 Banner - Perfect for all devices
 function AdBanner300x250() {
   return (
     <div className="flex justify-center items-center w-full min-h-[250px] my-4 overflow-hidden">
@@ -78,7 +76,6 @@ function AdBanner300x250() {
   );
 }
 
-// 3. Native Banner - Fixed SPA Routing Bug via Dynamic Injection
 function AdNativeBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -86,9 +83,7 @@ function AdNativeBanner() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Har baar naya component mount hone par DOM refresh karega
     container.innerHTML = '';
-
     const adDiv = document.createElement('div');
     adDiv.id = "container-b2f92a8142955a57ae630862cf29f00e";
     container.appendChild(adDiv);
@@ -113,12 +108,11 @@ function AdNativeBanner() {
 // ─────────────────────────────────────────────────────────────
 // 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
 // ─────────────────────────────────────────────────────────────
-function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
+function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
   return (
     <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
         
-        {/* Image Tool Link */}
         <Link
           to="/"
           className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
@@ -130,7 +124,6 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
           <ImageIcon className="w-4 h-4" /> Image
         </Link>
 
-        {/* Video Tool Link */}
         <Link
           to="/video-remover"
           className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
@@ -140,8 +133,18 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' }) {
           }`}
         >
           <Film className="w-4 h-4" /> Video
-          {/* Competitor Style 'New' Badge */}
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-red-500/30 bg-red-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-red-600 dark:text-red-400 animate-pulse">
+        </Link>
+
+        <Link
+          to="/text-to-image"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'text-to-image'
+              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <Sparkles className="w-4 h-4" /> Text to Image
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
             New
           </span>
         </Link>
@@ -168,6 +171,9 @@ const VIDEO_DICT = {
     badgePro: "100% FREE", 
     menuImage: "Image Watermark Remover",
     menuVideo: "Video Watermark Remover",
+    menuTextToImage: "Text to Image Generator",
+    popupTitle: "New Feature",
+    popupDesc: "Try our new AI Image generator for free!",
     hiwTag: "WORKFLOW",
     hiwTitle: "How it works",
     hiwSub: "Three steps. Absolute quality. Lightning speed.",
@@ -209,6 +215,9 @@ const VIDEO_DICT = {
     badgePro: "100% GRATIS",
     menuImage: "Eliminador de Marcas (Imagen)",
     menuVideo: "Eliminador de Marcas (Video)",
+    menuTextToImage: "Generador de Texto a Imagen",
+    popupTitle: "Nueva Función",
+    popupDesc: "¡Prueba nuestro nuevo generador de imágenes con IA gratis!",
     hiwTag: "FLUJO DE TRABAJO",
     hiwTitle: "Cómo funciona",
     hiwSub: "Tres pasos. Calidad absoluta. Velocidad de la luz.",
@@ -250,6 +259,9 @@ const VIDEO_DICT = {
     badgePro: "100% GRATUIT",
     menuImage: "Suppresseur de Filigrane (Image)",
     menuVideo: "Suppresseur de Filigrane (Vidéo)",
+    menuTextToImage: "Générateur Texte en Image",
+    popupTitle: "Nouvelle Fonctionnalité",
+    popupDesc: "Essayez notre nouveau générateur d'images IA gratuitement !",
     hiwTag: "FLUX DE TRAVAIL",
     hiwTitle: "Comment ça marche",
     hiwSub: "Trois étapes. Qualité absolue. Vitesse éclair.",
@@ -289,7 +301,6 @@ type WatermarkType = 'veo' | 'gemini';
 interface VideoMeta { width: number; height: number; }
 
 const UPCOMING_TOOLS = [
-  { name: "Text to Image", icon: Type, color: "text-pink-500", bg: "bg-pink-500/10" },
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
   { name: "Text to Video", icon: Clapperboard, color: "text-purple-500", bg: "bg-purple-500/10" },
   { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
@@ -338,6 +349,7 @@ function VideoRemoverPage() {
   const vt = getTranslation(lang);
   
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showPromo, setShowPromo] = useState(true);
   const [dragOver, setDragOver] = useState(false);
   const [status, setStatus] = useState<'idle' | 'processing' | 'done' | 'error'>('idle');
   
@@ -403,7 +415,7 @@ function VideoRemoverPage() {
   const triggerPicker = () => fileInputRef.current?.click();
 
   const reset = () => {
-    triggerSmartlink(); // Open smartlink on click
+    triggerSmartlink();
     if (videoUrl) URL.revokeObjectURL(videoUrl);
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     setFile(null);
@@ -466,19 +478,15 @@ function VideoRemoverPage() {
 
   const handleDownload = () => {
     if (!resultUrl) return;
-    // 1. Download video
     const a = document.createElement("a");
     a.href = resultUrl;
     a.download = `unmark-ai-clean.mp4`;
     document.body.appendChild(a);
     a.click();
     a.remove();
-
-    // 2. Trigger smartlink
     triggerSmartlink();
   };
 
-  // Structured Data (JSON-LD) for Force Indexing
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -497,10 +505,8 @@ function VideoRemoverPage() {
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
-      {/* Inject Structured Data for SEO / Force Indexing */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Premium Background Grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
         style={{
           backgroundImage: "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
@@ -511,7 +517,33 @@ function VideoRemoverPage() {
       />
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[800px] rounded-full blur-[150px] bg-blue-500/10 dark:bg-blue-600/20" />
 
-      {/* 🚀 PREMIUM HAMBURGER MENU (SIDE DRAWER) 🚀 */}
+      {/* PROMO POPUP (Text to Image) */}
+      <AnimatePresence>
+        {showPromo && (
+          <motion.div initial={{ opacity: 0, y: 50, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 50, scale: 0.9 }} transition={{ type: "spring", stiffness: 400, damping: 25, delay: 1.5 }} className="fixed bottom-6 right-6 z-[100] max-w-sm w-[calc(100%-3rem)]">
+            <div className="relative overflow-hidden rounded-2xl bg-white p-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-200 dark:bg-[#111] dark:border-white/10 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]">
+              <div className="absolute -right-10 -top-10 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl pointer-events-none" />
+              <button onClick={() => setShowPromo(false)} className="absolute top-3 right-3 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-400 transition-colors">
+                <X className="w-3.5 h-3.5" />
+              </button>
+              <div className="flex items-start gap-4 pr-6">
+                <div className="flex shrink-0 h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 text-white shadow-lg shadow-pink-500/30">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 mb-1">{vt.popupTitle}</span>
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 leading-snug mb-3">{vt.popupDesc}</p>
+                  <Link to="/text-to-image" className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors w-fit">
+                    Try it now <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 🚀 PREMIUM HAMBURGER MENU */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -525,7 +557,6 @@ function VideoRemoverPage() {
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
               className="fixed left-0 top-0 bottom-0 w-80 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col"
             >
-              {/* Menu Header */}
               <div className="flex shrink-0 items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30">
@@ -538,7 +569,6 @@ function VideoRemoverPage() {
                 </button>
               </div>
               
-              {/* Scrollable Tools List */}
               <div className="flex-1 overflow-y-auto px-4 py-6">
                 <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Our Free Tools</span>
                 <div className="flex flex-col gap-2">
@@ -556,9 +586,15 @@ function VideoRemoverPage() {
                     </div>
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
                   </Link>
+                  <Link to="/text-to-image" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><Sparkles className="h-4 w-4" /></div>
+                      {vt.menuTextToImage}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </div>
 
-                {/* Professional 'Coming Soon' Section */}
                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
                   <div className="flex items-center justify-between px-3 mb-4">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Coming Soon</span>
@@ -582,7 +618,6 @@ function VideoRemoverPage() {
                 </div>
               </div>
               
-              {/* Menu Footer */}
               <div className="shrink-0 p-6 text-center border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
                  <div className="flex items-center justify-center gap-2 mb-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
@@ -630,7 +665,6 @@ function VideoRemoverPage() {
       {/* Main Hero Area */}
       <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
         
-        {/* Top Banner Ad Slot */}
         <AdBanner728x90 />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
@@ -646,13 +680,12 @@ function VideoRemoverPage() {
           </p>
         </motion.div>
 
-        {/* 🚀 ADD TABS HERE 🚀 */}
+        {/* 🚀 TOOL SWITCHER TABS 🚀 */}
         <ToolSwitcher current="video" />
 
         {/* Upload Box */}
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-3xl mx-auto">
           
-          {/* Native Ad inside tool area */}
           <AdNativeBanner />
 
           <input ref={fileInputRef} type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden" onChange={(e) => {
@@ -818,7 +851,6 @@ function VideoRemoverPage() {
       <VideoHowItWorks />
       <VideoFeatures />
       
-      {/* 🚀 SEO Optimized Content Section */}
       <SeoArticleSection />
       
       <VideoFAQ />

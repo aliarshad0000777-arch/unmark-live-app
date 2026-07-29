@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VideoRemoverRouteImport } from './routes/video-remover'
+import { Route as TextToImageRouteImport } from './routes/text-to-image'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VideoRemoverRoute = VideoRemoverRouteImport.update({
   id: '/video-remover',
   path: '/video-remover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TextToImageRoute = TextToImageRouteImport.update({
+  id: '/text-to-image',
+  path: '/text-to-image',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
+  '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy-policy' | '/terms' | '/video-remover'
+  fullPaths:
+    | '/'
+    | '/privacy-policy'
+    | '/terms'
+    | '/text-to-image'
+    | '/video-remover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy-policy' | '/terms' | '/video-remover'
-  id: '__root__' | '/' | '/privacy-policy' | '/terms' | '/video-remover'
+  to: '/' | '/privacy-policy' | '/terms' | '/text-to-image' | '/video-remover'
+  id:
+    | '__root__'
+    | '/'
+    | '/privacy-policy'
+    | '/terms'
+    | '/text-to-image'
+    | '/video-remover'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsRoute: typeof TermsRoute
+  TextToImageRoute: typeof TextToImageRoute
   VideoRemoverRoute: typeof VideoRemoverRoute
 }
 
@@ -76,6 +97,13 @@ declare module '@tanstack/react-router' {
       path: '/video-remover'
       fullPath: '/video-remover'
       preLoaderRoute: typeof VideoRemoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/text-to-image': {
+      id: '/text-to-image'
+      path: '/text-to-image'
+      fullPath: '/text-to-image'
+      preLoaderRoute: typeof TextToImageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -106,6 +134,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsRoute: TermsRoute,
+  TextToImageRoute: TextToImageRoute,
   VideoRemoverRoute: VideoRemoverRoute,
 }
 export const routeTree = rootRouteImport
