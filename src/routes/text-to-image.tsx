@@ -14,8 +14,29 @@ import { LanguageProvider, useI18n } from "@/lib/i18n";
 import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-// 🚀 TANSTACK ROUTER REGISTRATION
+// 🚀 TANSTACK ROUTER REGISTRATION WITH HIGH-END SEO
 export const Route = createFileRoute('/text-to-image')({
+  head: () => ({
+    meta: [
+      { title: "Free AI Text to Image Generator | Create AI Art Instantly" },
+      { name: "description", content: "Transform your words into stunning, high-fidelity AI art with our free online text-to-image generator powered by advanced cloud engines. 100% free, unlimited, and private!" },
+      { name: "keywords", content: "AI image generator, text to image AI, free AI art generator, generate images from text, Unmark AI, create AI art online, stable diffusion free, AI picture maker" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
+      { name: "author", content: "Unmark AI" },
+      { property: "og:title", content: "Free AI Text to Image Generator | Unmark AI" },
+      { property: "og:description", content: "Turn your imagination into reality. Generate ultra-realistic AI images from text for free with zero limits." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.unmark-ai.com/text-to-image" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Free AI Text to Image Generator | Unmark AI" },
+      { name: "twitter:description", content: "Turn your imagination into reality. Generate ultra-realistic AI images from text for free with zero limits." },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.unmark-ai.com/text-to-image" }
+    ]
+  }),
   component: TextToImage,
 });
 
@@ -333,7 +354,6 @@ function TextToImagePage() {
     };
   }, []);
 
-  // 🚀 SMARTLINK: Only called on post-generation actions
   const triggerSmartlink = () => {
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
@@ -351,7 +371,6 @@ function TextToImagePage() {
     setLoading(true);
     setProgress(0);
 
-    // 🚀 SAFE PROMPT ENHANCER (No risky words that trigger CSAM filters)
     const safeEnhancedPrompt = `${prompt.trim()}, highly detailed, 8k resolution`;
 
     let width = 1024, height = 1024;
@@ -483,10 +502,28 @@ function TextToImagePage() {
     handleDownload();
   };
 
+  // 🚀 SEO: STRUCTURED DATA (JSON-LD)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Unmark AI Text-to-Image Generator",
+    "url": "https://www.unmark-ai.com/text-to-image",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "All",
+    "description": "Free online AI art generator that transforms text prompts into high-quality, ultra-realistic images using advanced cloud engines.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
-      {/* Background Styling */}
+      {/* 🚀 SEO: Inject Structured Data for Force Indexing */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
         style={{
           backgroundImage: "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
@@ -497,7 +534,6 @@ function TextToImagePage() {
       />
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[800px] rounded-full blur-[150px] bg-pink-500/10 dark:bg-pink-600/20" />
 
-      {/* Promo Popup */}
       <AnimatePresence>
         {showPromo && (
           <motion.div initial={{ opacity: 0, y: 50, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 50, scale: 0.9 }} transition={{ type: "spring", stiffness: 400, damping: 25, delay: 1.5 }} className="fixed bottom-6 right-6 z-[100] max-w-sm w-[calc(100%-3rem)]">
@@ -523,7 +559,6 @@ function TextToImagePage() {
         )}
       </AnimatePresence>
 
-      {/* Header & Sidebar */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -593,7 +628,6 @@ function TextToImagePage() {
               <Menu className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </button>
             <div className="hidden sm:flex items-center gap-2.5">
-              {/* 🚀 FIXED LOGO ICON: Swapped T (Type) for professional Sparkles */}
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/30"><Sparkles className="h-4 w-4" /></div>
               <span className="text-base font-bold tracking-tight">Unmark <span className="text-pink-600 dark:text-pink-500">Image</span></span>
               <span className="ml-2 rounded-full border border-pink-500/30 bg-pink-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400">{vt.badgeFree}</span>
@@ -808,6 +842,9 @@ function TextToImagePage() {
           </div>
         </div>
 
+        {/* 🚀 NEW SEO CONTENT SECTION */}
+        <SeoArticleSection />
+
         <div className="mx-auto mt-32 max-w-3xl">
           <div className="mb-12 text-center">
             <span className="text-xs font-extrabold uppercase tracking-widest text-pink-600 dark:text-pink-400">{vt.faqTag}</span>
@@ -830,5 +867,25 @@ function TextToImagePage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// 🚀 COMPONENT: SEO CONTENT SECTION
+// ─────────────────────────────────────────────────────────────
+function SeoArticleSection() {
+  return (
+    <section className="relative mx-auto max-w-4xl px-4 mt-32 text-slate-600 dark:text-slate-400">
+      <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">The Best Free AI Text to Image Generator Online</h2>
+        <p className="mb-6 leading-relaxed">
+          Welcome to Unmark AI's latest innovation: a completely free, unlimited <strong>AI image generator</strong>. Whether you are an artist looking for inspiration, a marketer needing quick assets, or just a creator exploring the digital frontier, our tool empowers you to <em>generate images from text</em> effortlessly. Powered by the incredibly advanced <strong>AlbedoBase XL</strong> engine, we guarantee high-fidelity, photorealistic, and cinematic outputs that rival premium paid software.
+        </p>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 mt-8">Create AI Art Instantly Without Limits</h3>
+        <p className="leading-relaxed">
+          Forget about daily credits, hidden paywalls, or restrictive subscriptions. Our <strong>text to image AI</strong> tool is supported by a community-driven network, allowing you to create stunning artwork in multiple aspect ratios (1:1, 16:9, and 9:16) completely free of charge. Experience the true power of an <em>unblocked AI image generator</em> and turn your imagination into high-resolution reality today.
+        </p>
+      </div>
+    </section>
   );
 }
