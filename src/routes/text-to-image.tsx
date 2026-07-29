@@ -18,18 +18,18 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute('/text-to-image')({
   head: () => ({
     meta: [
-      { title: "Free AI Text to Image Generator | Create AI Art Instantly" },
+      { title: "Free AI Text to Image Generator | Unlimited Generation, No Sign-Up Needed" },
       { name: "description", content: "Transform your words into stunning, high-fidelity AI art with our free online text-to-image generator powered by advanced cloud engines. 100% free, unlimited, and private!" },
       { name: "keywords", content: "AI image generator, text to image AI, free AI art generator, generate images from text, Unmark AI, create AI art online, stable diffusion free, AI picture maker" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { name: "author", content: "Unmark AI" },
-      { property: "og:title", content: "Free AI Text to Image Generator | Unmark AI" },
+      { property: "og:title", content: "Free AI Text to Image Generator | Unlimited Generation, No Sign-Up Needed" },
       { property: "og:description", content: "Turn your imagination into reality. Generate ultra-realistic AI images from text for free with zero limits." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.unmark-ai.com/text-to-image" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Free AI Text to Image Generator | Unmark AI" },
+      { name: "twitter:title", content: "Free AI Text to Image Generator | Unlimited Generation, No Sign-Up Needed" },
       { name: "twitter:description", content: "Turn your imagination into reality. Generate ultra-realistic AI images from text for free with zero limits." },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec8f95a-ef5e-4572-804a-ee910b2879ae/id-preview-5bbfc39b--81eed2ad-8689-4c48-8e24-475a3806bec4.lovable.app-1781780839087.png" },
     ],
@@ -142,16 +142,16 @@ function AdNativeBanner() {
 function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
   return (
     <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
-        <Link to="/" className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1 sm:p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md max-w-full overflow-x-auto custom-scrollbar">
+        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
           <ImageIcon className="w-4 h-4" /> Image
         </Link>
-        <Link to="/video-remover" className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
           <Film className="w-4 h-4" /> Video
         </Link>
-        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <Sparkles className="w-4 h-4" /> Text to Image
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
+        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Sparkles className="w-4 h-4 shrink-0" /> <span className="whitespace-nowrap">Text to Image</span>
+          <span className="absolute -top-2 -right-1 sm:-right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
         </Link>
       </div>
     </div>
@@ -354,6 +354,7 @@ function TextToImagePage() {
     };
   }, []);
 
+  // 🚀 SMARTLINK TRIGGER
   const triggerSmartlink = () => {
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
@@ -467,8 +468,8 @@ function TextToImagePage() {
     setProgress(0);
   };
 
+  // 🚀 FIXED: Download completes first, then Adsterra opens
   const handleDownload = async () => {
-    triggerSmartlink();
     if (!resultUrl) return;
     try {
       const response = await fetch(resultUrl);
@@ -479,13 +480,15 @@ function TextToImagePage() {
       document.body.appendChild(a);
       a.click();
       a.remove();
+      
+      // Fire smartlink immediately after the download initiates
+      triggerSmartlink();
     } catch (e) {
       console.error("Download failed", e);
     }
   };
 
   const handleCopy = async () => {
-    triggerSmartlink();
     if (!resultUrl) return;
     try {
       const response = await fetch(resultUrl);
@@ -493,13 +496,16 @@ function TextToImagePage() {
       await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
+      
+      // Fire smartlink after copy completes
+      triggerSmartlink();
     } catch (e) {
       setError("Clipboard access denied by browser.");
     }
   };
 
   const handleDownloadZip = () => {
-    handleDownload();
+    handleDownload(); // This naturally fires the smartlink as updated above
   };
 
   // 🚀 SEO: STRUCTURED DATA (JSON-LD)
@@ -662,14 +668,15 @@ function TextToImagePage() {
 
         <ToolSwitcher current="text-to-image" />
 
+        {/* 🚀 OPTIMIZED FOR MOBILE: Fixed padding & layouts */}
         <div className="relative mx-auto max-w-6xl mt-4">
           <AdNativeBanner />
 
-          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-4 lg:p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0a]/80 mt-6">
-            <div className="flex flex-col lg:flex-row gap-6">
+          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-3 sm:p-4 lg:p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0a]/80 mt-6">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
               
               {/* LEFT PANEL: CONTROLS */}
-              <div className="w-full lg:w-[400px] shrink-0 flex flex-col gap-6 rounded-2xl bg-white p-6 border border-slate-100 shadow-sm dark:border-white/5 dark:bg-[#111]">
+              <div className="w-full lg:w-[400px] shrink-0 flex flex-col gap-4 sm:gap-6 rounded-2xl bg-white p-4 sm:p-6 border border-slate-100 shadow-sm dark:border-white/5 dark:bg-[#111]">
                 
                 {error && (
                   <div className="flex items-center gap-3 rounded-xl bg-red-50 p-4 text-red-600 dark:bg-red-500/10 dark:text-red-400">
@@ -687,7 +694,7 @@ function TextToImagePage() {
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder={vt.placeholder}
-                    className="w-full h-40 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 focus:border-pink-500 focus:outline-none focus:ring-4 focus:ring-pink-500/10 dark:border-white/10 dark:bg-black/50 dark:text-white dark:focus:border-pink-500 dark:focus:ring-pink-500/20 transition-all shadow-inner custom-scrollbar"
+                    className="w-full h-32 sm:h-40 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 focus:border-pink-500 focus:outline-none focus:ring-4 focus:ring-pink-500/10 dark:border-white/10 dark:bg-black/50 dark:text-white dark:focus:border-pink-500 dark:focus:ring-pink-500/20 transition-all shadow-inner custom-scrollbar"
                   />
                 </div>
 
@@ -722,12 +729,12 @@ function TextToImagePage() {
               </div>
 
               {/* RIGHT PANEL: OUTPUT CANVAS */}
-              <div className="flex-1 flex flex-col rounded-2xl bg-slate-50/50 border border-slate-200 dark:border-white/10 dark:bg-black/30 overflow-hidden relative min-h-[400px] lg:min-h-[550px]">
+              <div className="flex-1 flex flex-col rounded-2xl bg-slate-50/50 border border-slate-200 dark:border-white/10 dark:bg-black/30 overflow-hidden relative min-h-[300px] sm:min-h-[400px] lg:min-h-[550px]">
                 
                 {!loading && !resultUrl && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-6 text-center">
-                    <div className="w-24 h-24 mb-6 rounded-[2rem] bg-pink-50 dark:bg-pink-500/5 flex items-center justify-center border border-pink-100 dark:border-pink-500/10 shadow-sm">
-                      <Palette className="w-12 h-12 text-pink-400 dark:text-pink-500/40" />
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 mb-6 rounded-[2rem] bg-pink-50 dark:bg-pink-500/5 flex items-center justify-center border border-pink-100 dark:border-pink-500/10 shadow-sm">
+                      <Palette className="w-10 h-10 sm:w-12 sm:h-12 text-pink-400 dark:text-pink-500/40" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300">AI Canvas</h3>
                     <p className="mt-2 max-w-sm text-sm">Enter your prompt on the left and hit generate. Your masterpiece will appear here.</p>
@@ -735,14 +742,14 @@ function TextToImagePage() {
                 )}
 
                 {loading && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-white/60 dark:bg-black/60 backdrop-blur-md z-10">
-                    <div className="relative mb-8">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-8 text-center bg-white/60 dark:bg-black/60 backdrop-blur-md z-10">
+                    <div className="relative mb-6 sm:mb-8">
                       <div className="absolute inset-0 rounded-full blur-xl bg-pink-500/20 animate-pulse" />
-                      <RefreshCw className="h-14 w-14 animate-spin text-pink-600 dark:text-pink-500 relative z-10" />
+                      <RefreshCw className="h-12 w-12 sm:h-14 sm:w-14 animate-spin text-pink-600 dark:text-pink-500 relative z-10" />
                     </div>
-                    <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{vt.processing}</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">{vt.processing}</h3>
                     
-                    <div className="mt-8 w-full max-w-xs sm:max-w-md">
+                    <div className="mt-6 sm:mt-8 w-full max-w-xs sm:max-w-md">
                       <div className="flex justify-between text-sm font-bold text-pink-600 dark:text-pink-400 mb-2">
                         <span>Generating Model</span>
                         <span>{progress}%</span>
@@ -756,20 +763,20 @@ function TextToImagePage() {
 
                 {resultUrl && (
                   <div className="flex flex-col h-full w-full">
-                    <div className="flex-1 flex items-center justify-center p-4 sm:p-8 relative">
+                    <div className="flex-1 flex items-center justify-center p-3 sm:p-8 relative">
                       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 dark:opacity-10">
                         <img src={resultUrl} alt="background blur" className="w-full h-full object-cover blur-3xl" />
                       </div>
-                      <img src={resultUrl} alt="Generated AI Art" className="w-full h-auto max-h-[500px] object-contain drop-shadow-2xl rounded-lg relative z-10" />
+                      <img src={resultUrl} alt="Generated AI Art" className="w-full h-auto max-h-[450px] sm:max-h-[600px] object-contain drop-shadow-2xl rounded-lg relative z-10" />
                     </div>
                     
                     <div className="shrink-0 bg-white border-t border-slate-200 dark:bg-[#0a0a0a] dark:border-white/5 p-4 sm:p-6">
-                      <div className="flex flex-wrap gap-3 justify-center lg:justify-between items-center">
-                        <div className="flex flex-wrap justify-center gap-2">
-                          <button onClick={handleDownload} className="flex items-center gap-2 rounded-xl bg-pink-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:bg-pink-700">
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-between items-center">
+                        <div className="flex flex-row w-full sm:w-auto justify-center gap-2 sm:gap-3">
+                          <button onClick={handleDownload} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:bg-pink-700">
                             <Download className="h-4 w-4" /> {vt.btnDownload}
                           </button>
-                          <button onClick={handleCopy} className="flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-2.5 text-sm font-bold text-slate-700 border border-slate-200 transition-all hover:bg-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                          <button onClick={handleCopy} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-slate-700 border border-slate-200 transition-all hover:bg-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
                             {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                             {copied ? vt.btnCopied : vt.btnCopy}
                           </button>
@@ -777,7 +784,7 @@ function TextToImagePage() {
                             <FileArchive className="h-4 w-4" /> {vt.btnZip}
                           </button>
                         </div>
-                        <button onClick={reset} className="flex items-center gap-2 rounded-xl bg-slate-800 px-5 py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-900 dark:bg-white dark:text-black dark:hover:bg-slate-200">
+                        <button onClick={reset} className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-slate-800 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-900 dark:bg-white dark:text-black dark:hover:bg-slate-200">
                           <Plus className="h-4 w-4" /> {vt.btnAddMore}
                         </button>
                       </div>
@@ -842,7 +849,6 @@ function TextToImagePage() {
           </div>
         </div>
 
-        {/* 🚀 NEW SEO CONTENT SECTION */}
         <SeoArticleSection />
 
         <div className="mx-auto mt-32 max-w-3xl">
