@@ -338,6 +338,7 @@ function TextToImagePage() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
+  const [resultBlob, setResultBlob] = useState<Blob | null>(null); // 🚀 Local memory optimization for Copy/Download
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   
@@ -348,13 +349,12 @@ function TextToImagePage() {
 
   useEffect(() => {
     return () => {
-      if (progressIntervalRef.current) {
-        clearInterval(progressIntervalRef.current);
-      }
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
     };
-  }, []);
+  }, [resultUrl]);
 
-  // 🚀 SMARTLINK LOGIC
+  // 🚀 SMARTLINK TRIGGER
   const triggerSmartlink = () => {
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
@@ -369,10 +369,12 @@ function TextToImagePage() {
 
     setError(null);
     setResultUrl(null);
+    setResultBlob(null);
     setLoading(true);
     setProgress(0);
 
-    const safeEnhancedPrompt = `${prompt.trim()}, highly detailed, 8k resolution`;
+    // 🚀 CSAM & NSFW HOTFIX: Strict negative prompting to bypass Horde false positives
+    const safeEnhancedPrompt = `${prompt.trim()}, highly detailed, 8k resolution, masterpiece, cinematic lighting ### nsfw, nude, censored, deformed, bad anatomy, bad proportions, child, baby, kid, underage, explicit, text, watermark`;
 
     let width = 1024, height = 1024;
     if (aspectRatio === '16:9') { width = 1024; height = 576; }
@@ -430,25 +432,57 @@ function TextToImagePage() {
 
         if (statusData.faulted) {
           if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          throw new Error("The AI model failed to generate this image. Try another prompt.");
+          throw new Error("The AI model blocked this prompt. Please try different keywords.");
         }
 
         if (statusData.done || statusData.finished === 1) {
           isDone = true;
           if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          
           setProgress(100);
-          
-          // 🚀 ENSURING BASE64 IMAGES DISPLAY AND DOWNLOAD CORRECTLY
+
           let imgData = statusData.generations[0].img;
           if (!imgData.startsWith("http") && !imgData.startsWith("data:")) {
              imgData = "data:image/jpeg;base64," + imgData; 
           }
 
-          setTimeout(() => {
+          // 🚀 BACKGROUND IMAGE PROCESSING FOR PERFECT COPY & DOWNLOAD
+          try {
+            const res = await fetch(imgData);
+            const sourceBlob = await res.blob();
+            
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            const tempUrl = URL.createObjectURL(sourceBlob);
+            
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+                img.src = tempUrl;
+            });
+
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx?.drawImage(img, 0, 0);
+
+            canvas.toBlob((pngBlob) => {
+                URL.revokeObjectURL(tempUrl);
+                if (pngBlob) {
+                    setResultBlob(pngBlob);
+                    setResultUrl(URL.createObjectURL(pngBlob));
+                    setTimeout(() => setLoading(false), 400);
+                } else {
+                    setResultUrl(imgData);
+                    setLoading(false);
+                }
+            }, "image/png");
+
+          } catch (err) {
+            console.error("Image processing fallback", err);
             setResultUrl(imgData);
             setLoading(false);
-          }, 800);
+          }
           return;
         }
       }
@@ -470,66 +504,48 @@ function TextToImagePage() {
   const reset = () => {
     triggerSmartlink();
     setResultUrl(null);
+    setResultBlob(null);
     setPrompt("");
     setError(null);
     setProgress(0);
   };
 
-  // 🚀 FIXED: SYNCHRONOUS DOWNLOAD FIRST, THEN ADSTERRA TAB
+  // 🚀 FIXED: 100% SYNCHRONOUS DOWNLOAD (No popup blocks!)
   const handleDownload = () => {
     if (!resultUrl) return;
     
-    // 1. Instantly trigger local download
+    // Step 1: Instantly trigger local download from background memory
     const a = document.createElement("a");
     a.href = resultUrl;
-    a.download = "unmark-ai-art.jpg";
+    a.download = "unmark-ai-art.png"; 
     document.body.appendChild(a);
     a.click();
     a.remove();
     
-    // 2. Open Adsterra link synchronously (prevents popup blockers)
+    // Step 2: Open Adsterra link synchronously
     triggerSmartlink();
   };
 
-  // 🚀 FIXED: CANVAS CONVERSION TO BYPASS CHROME CLIPBOARD REJECTIONS
+  // 🚀 FIXED: PRE-PROCESSED CLIPBOARD (Browser Security Bypass)
   const handleCopy = async () => {
-    if (!resultUrl) return;
+    if (!resultBlob) {
+       setError("Image is not ready for copying yet.");
+       return;
+    }
     try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = resultUrl;
-      await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx?.drawImage(img, 0, 0);
-
-      canvas.toBlob(async (blob) => {
-        if (!blob) throw new Error("Conversion to Blob failed");
-        
-        // Browsers require explicitly 'image/png' format for clipboard writes
-        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-        
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-        
-        // Open Adsterra after successful copy
-        triggerSmartlink();
-      }, "image/png");
-
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": resultBlob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+      
+      triggerSmartlink();
     } catch (e) {
       console.error(e);
-      setError("Clipboard access denied by browser. Please use the Download button instead.");
+      setError("Clipboard access denied by browser. Please use the Download button.");
     }
   };
 
   const handleDownloadZip = () => {
-    handleDownload(); // Falls back to standard download which handles smartlink
+    handleDownload();
   };
 
   // 🚀 SEO: STRUCTURED DATA (JSON-LD)
