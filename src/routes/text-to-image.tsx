@@ -19,7 +19,7 @@ export const Route = createFileRoute('/text-to-image')({
   head: () => ({
     meta: [
       { title: "Free AI Text to Image Generator | Unlimited Generation, No Sign-Up Needed" },
-      { name: "description", content: "Transform your words into stunning, high-fidelity AI art with our free online text-to-image generator powered by advanced cloud engines. 100% free, unlimited, and private!" },
+      { name: "description", content: "Transform your words into stunning, high-fidelity AI art with our free online text-to-image generator powered by advanced cloud engines. Unlimited generation, no sign-up needed!" },
       { name: "keywords", content: "AI image generator, text to image AI, free AI art generator, generate images from text, Unmark AI, create AI art online, stable diffusion free, AI picture maker" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { name: "author", content: "Unmark AI" },
@@ -354,7 +354,7 @@ function TextToImagePage() {
     };
   }, []);
 
-  // 🚀 SMARTLINK TRIGGER
+  // 🚀 SMARTLINK LOGIC
   const triggerSmartlink = () => {
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
@@ -438,8 +438,15 @@ function TextToImagePage() {
           if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
           
           setProgress(100);
+          
+          // 🚀 ENSURING BASE64 IMAGES DISPLAY AND DOWNLOAD CORRECTLY
+          let imgData = statusData.generations[0].img;
+          if (!imgData.startsWith("http") && !imgData.startsWith("data:")) {
+             imgData = "data:image/jpeg;base64," + imgData; 
+          }
+
           setTimeout(() => {
-            setResultUrl(statusData.generations[0].img);
+            setResultUrl(imgData);
             setLoading(false);
           }, 800);
           return;
@@ -468,44 +475,61 @@ function TextToImagePage() {
     setProgress(0);
   };
 
-  // 🚀 FIXED: Download completes first, then Adsterra opens
-  const handleDownload = async () => {
+  // 🚀 FIXED: SYNCHRONOUS DOWNLOAD FIRST, THEN ADSTERRA TAB
+  const handleDownload = () => {
     if (!resultUrl) return;
-    try {
-      const response = await fetch(resultUrl);
-      const blob = await response.blob();
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "unmark-ai-art.jpg";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      
-      // Fire smartlink immediately after the download initiates
-      triggerSmartlink();
-    } catch (e) {
-      console.error("Download failed", e);
-    }
+    
+    // 1. Instantly trigger local download
+    const a = document.createElement("a");
+    a.href = resultUrl;
+    a.download = "unmark-ai-art.jpg";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    
+    // 2. Open Adsterra link synchronously (prevents popup blockers)
+    triggerSmartlink();
   };
 
+  // 🚀 FIXED: CANVAS CONVERSION TO BYPASS CHROME CLIPBOARD REJECTIONS
   const handleCopy = async () => {
     if (!resultUrl) return;
     try {
-      const response = await fetch(resultUrl);
-      const blob = await response.blob();
-      await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-      
-      // Fire smartlink after copy completes
-      triggerSmartlink();
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = resultUrl;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0);
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) throw new Error("Conversion to Blob failed");
+        
+        // Browsers require explicitly 'image/png' format for clipboard writes
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1800);
+        
+        // Open Adsterra after successful copy
+        triggerSmartlink();
+      }, "image/png");
+
     } catch (e) {
-      setError("Clipboard access denied by browser.");
+      console.error(e);
+      setError("Clipboard access denied by browser. Please use the Download button instead.");
     }
   };
 
   const handleDownloadZip = () => {
-    handleDownload(); // This naturally fires the smartlink as updated above
+    handleDownload(); // Falls back to standard download which handles smartlink
   };
 
   // 🚀 SEO: STRUCTURED DATA (JSON-LD)
@@ -676,7 +700,7 @@ function TextToImagePage() {
             <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
               
               {/* LEFT PANEL: CONTROLS */}
-              <div className="w-full lg:w-[400px] shrink-0 flex flex-col gap-4 sm:gap-6 rounded-2xl bg-white p-4 sm:p-6 border border-slate-100 shadow-sm dark:border-white/5 dark:bg-[#111]">
+              <div className="w-full lg:w-[400px] shrink-0 flex flex-col gap-4 sm:gap-6 rounded-2xl bg-white p-5 sm:p-6 border border-slate-100 shadow-sm dark:border-white/5 dark:bg-[#111]">
                 
                 {error && (
                   <div className="flex items-center gap-3 rounded-xl bg-red-50 p-4 text-red-600 dark:bg-red-500/10 dark:text-red-400">
@@ -694,7 +718,7 @@ function TextToImagePage() {
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder={vt.placeholder}
-                    className="w-full h-32 sm:h-40 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 focus:border-pink-500 focus:outline-none focus:ring-4 focus:ring-pink-500/10 dark:border-white/10 dark:bg-black/50 dark:text-white dark:focus:border-pink-500 dark:focus:ring-pink-500/20 transition-all shadow-inner custom-scrollbar"
+                    className="w-full h-40 sm:h-48 resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 focus:border-pink-500 focus:outline-none focus:ring-4 focus:ring-pink-500/10 dark:border-white/10 dark:bg-black/50 dark:text-white dark:focus:border-pink-500 dark:focus:ring-pink-500/20 transition-all shadow-inner custom-scrollbar"
                   />
                 </div>
 
@@ -707,7 +731,7 @@ function TextToImagePage() {
                       <button
                         key={ratio}
                         onClick={() => setAspectRatio(ratio)}
-                        className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${aspectRatio === ratio ? 'bg-white text-pink-600 shadow-sm dark:bg-white/10 dark:text-pink-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}
+                        className={`flex-1 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 ${aspectRatio === ratio ? 'bg-white text-pink-600 shadow-sm dark:bg-white/10 dark:text-pink-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}
                       >
                         {ratio}
                       </button>
@@ -729,7 +753,7 @@ function TextToImagePage() {
               </div>
 
               {/* RIGHT PANEL: OUTPUT CANVAS */}
-              <div className="flex-1 flex flex-col rounded-2xl bg-slate-50/50 border border-slate-200 dark:border-white/10 dark:bg-black/30 overflow-hidden relative min-h-[300px] sm:min-h-[400px] lg:min-h-[550px]">
+              <div className="flex-1 flex flex-col rounded-2xl bg-slate-50/50 border border-slate-200 dark:border-white/10 dark:bg-black/30 overflow-hidden relative min-h-[350px] sm:min-h-[450px] lg:min-h-[550px]">
                 
                 {!loading && !resultUrl && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-6 text-center">
@@ -767,16 +791,16 @@ function TextToImagePage() {
                       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 dark:opacity-10">
                         <img src={resultUrl} alt="background blur" className="w-full h-full object-cover blur-3xl" />
                       </div>
-                      <img src={resultUrl} alt="Generated AI Art" className="w-full h-auto max-h-[450px] sm:max-h-[600px] object-contain drop-shadow-2xl rounded-lg relative z-10" />
+                      <img src={resultUrl} alt="Generated AI Art" className="w-full h-auto max-h-[400px] sm:max-h-[600px] object-contain drop-shadow-2xl rounded-lg relative z-10" />
                     </div>
                     
                     <div className="shrink-0 bg-white border-t border-slate-200 dark:bg-[#0a0a0a] dark:border-white/5 p-4 sm:p-6">
-                      <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-between items-center">
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-between items-center">
                         <div className="flex flex-row w-full sm:w-auto justify-center gap-2 sm:gap-3">
-                          <button onClick={handleDownload} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:bg-pink-700">
+                          <button onClick={handleDownload} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-pink-600 px-4 py-3.5 sm:px-5 sm:py-2.5 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:bg-pink-700">
                             <Download className="h-4 w-4" /> {vt.btnDownload}
                           </button>
-                          <button onClick={handleCopy} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-slate-700 border border-slate-200 transition-all hover:bg-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                          <button onClick={handleCopy} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3.5 sm:px-5 sm:py-2.5 text-sm font-bold text-slate-700 border border-slate-200 transition-all hover:bg-slate-200 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
                             {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                             {copied ? vt.btnCopied : vt.btnCopy}
                           </button>
@@ -784,7 +808,7 @@ function TextToImagePage() {
                             <FileArchive className="h-4 w-4" /> {vt.btnZip}
                           </button>
                         </div>
-                        <button onClick={reset} className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-slate-800 px-4 sm:px-5 py-3 sm:py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-900 dark:bg-white dark:text-black dark:hover:bg-slate-200">
+                        <button onClick={reset} className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-slate-800 px-4 py-3.5 sm:px-5 sm:py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-900 dark:bg-white dark:text-black dark:hover:bg-slate-200">
                           <Plus className="h-4 w-4" /> {vt.btnAddMore}
                         </button>
                       </div>
