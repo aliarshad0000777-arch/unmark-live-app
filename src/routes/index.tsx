@@ -133,9 +133,22 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  // 🚀 SEO: FORCE GOOGLE TO REGISTER YOUR BRAND NAME AS "UNMARK AI"
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Unmark AI",
+    "alternateName": "Unmark",
+    "url": "https://www.unmark-ai.com/"
+  };
+
   return (
     <ThemeProvider>
       <LanguageProvider>
+        
+        {/* 🚀 JSON-LD SCHEMA INJECTION */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+
         {/* Global Injector (Handles Adsterra Social Bar + Adcash Interstitial & Video Ads) */}
         <GlobalAdScripts />
         
