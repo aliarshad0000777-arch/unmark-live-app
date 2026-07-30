@@ -338,7 +338,7 @@ function TextToImagePage() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
-  const [resultBlob, setResultBlob] = useState<Blob | null>(null); // 🚀 Local memory optimization for Copy/Download
+  const [resultBlob, setResultBlob] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   
@@ -354,11 +354,14 @@ function TextToImagePage() {
     };
   }, [resultUrl]);
 
-  // 🚀 SMARTLINK TRIGGER
+  // 🚀 ADSTERRA SMARTLINK TEMPORARILY DISABLED FOR BETTER UX 
+  // Jab website par traffic aaye, tab is block ko uncomment kar lein
   const triggerSmartlink = () => {
+    /*
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
     }
+    */
   };
 
   const generateImage = async () => {
@@ -373,7 +376,6 @@ function TextToImagePage() {
     setLoading(true);
     setProgress(0);
 
-    // 🚀 CSAM & NSFW HOTFIX: Strict negative prompting to bypass Horde false positives
     const safeEnhancedPrompt = `${prompt.trim()}, highly detailed, 8k resolution, masterpiece, cinematic lighting ### nsfw, nude, censored, deformed, bad anatomy, bad proportions, child, baby, kid, underage, explicit, text, watermark`;
 
     let width = 1024, height = 1024;
@@ -445,7 +447,6 @@ function TextToImagePage() {
              imgData = "data:image/jpeg;base64," + imgData; 
           }
 
-          // 🚀 BACKGROUND IMAGE PROCESSING FOR PERFECT COPY & DOWNLOAD
           try {
             const res = await fetch(imgData);
             const sourceBlob = await res.blob();
@@ -510,11 +511,8 @@ function TextToImagePage() {
     setProgress(0);
   };
 
-  // 🚀 FIXED: 100% SYNCHRONOUS DOWNLOAD (No popup blocks!)
   const handleDownload = () => {
     if (!resultUrl) return;
-    
-    // Step 1: Instantly trigger local download from background memory
     const a = document.createElement("a");
     a.href = resultUrl;
     a.download = "unmark-ai-art.png"; 
@@ -522,11 +520,9 @@ function TextToImagePage() {
     a.click();
     a.remove();
     
-    // Step 2: Open Adsterra link synchronously
     triggerSmartlink();
   };
 
-  // 🚀 FIXED: PRE-PROCESSED CLIPBOARD (Browser Security Bypass)
   const handleCopy = async () => {
     if (!resultBlob) {
        setError("Image is not ready for copying yet.");
@@ -548,7 +544,6 @@ function TextToImagePage() {
     handleDownload();
   };
 
-  // 🚀 SEO: STRUCTURED DATA (JSON-LD)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -567,7 +562,6 @@ function TextToImagePage() {
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
-      {/* 🚀 SEO: Inject Structured Data for Force Indexing */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
@@ -708,7 +702,6 @@ function TextToImagePage() {
 
         <ToolSwitcher current="text-to-image" />
 
-        {/* 🚀 OPTIMIZED FOR MOBILE: Fixed padding & layouts */}
         <div className="relative mx-auto max-w-6xl mt-4">
           <AdNativeBanner />
 
