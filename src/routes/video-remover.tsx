@@ -111,44 +111,17 @@ function AdNativeBanner() {
 function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
   return (
     <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
-        
-        <Link
-          to="/"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'image'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
+      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1 sm:p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md max-w-full overflow-x-auto custom-scrollbar">
+        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
           <ImageIcon className="w-4 h-4" /> Image
         </Link>
-
-        <Link
-          to="/video-remover"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'video'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
+        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
           <Film className="w-4 h-4" /> Video
         </Link>
-
-        <Link
-          to="/text-to-image"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'text-to-image'
-              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <Sparkles className="w-4 h-4" /> Text to Image
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
-            New
-          </span>
+        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Sparkles className="w-4 h-4 shrink-0" /> <span className="whitespace-nowrap">Text to Image</span>
+          <span className="absolute -top-2 -right-1 sm:-right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
         </Link>
-        
       </div>
     </div>
   );
@@ -366,12 +339,14 @@ function VideoRemoverPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // ─────────────────────────────────────────────────────────────
-  // 🚀 SMARTLINK LOGIC 🚀
+  // 🚀 ADSTERRA SMARTLINK TEMPORARILY DISABLED FOR BETTER UX 
   // ─────────────────────────────────────────────────────────────
   const triggerSmartlink = () => {
+    /*
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
     }
+    */
   };
 
   const readMeta = (f: File): Promise<VideoMeta> =>
@@ -901,9 +876,10 @@ function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title:
         onTouchEnd={() => setIsRevealed(false)}
         onTouchCancel={() => setIsRevealed(false)}
       >
-        <video src={beforeSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+        {/* 🚀 SEO & PERFORMANCE UPDATE: preload="metadata" added to prevent Googlebot timeout */}
+        <video src={beforeSrc} autoPlay loop muted playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
         <div className={`absolute inset-0 bg-black/60 transition-opacity duration-500 z-10 ${isRevealed ? "opacity-100" : "opacity-0"}`} />
-        <video src={afterSrc} autoPlay loop muted playsInline className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`} />
+        <video src={afterSrc} autoPlay loop muted playsInline preload="metadata" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`} />
         
         <div className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`}>
           <div className={`flex flex-col items-center gap-2 transform transition-transform duration-500 ${isRevealed ? "translate-y-0" : "translate-y-4"}`}>
@@ -930,23 +906,16 @@ function BeforeAfterSection() {
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 text-center">
         <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">The Magic</span>
         <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">See it in action</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">Interact with the videos below to see how we perfectly detect and erase watermarks without degrading your masterpiece.</p>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">Interact with the video below to see how we perfectly detect and erase watermarks without degrading your masterpiece.</p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      {/* 🚀 FIXED: Removed Grid Layout to center the single Gemini showcase */}
+      <div className="flex justify-center w-full">
         <ShowcaseVideoCard 
           title="Google Gemini"
           icon={<div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>}
           beforeSrc="/showcase/gemini-before.mp4"
           afterSrc="/showcase/gemini-after.mp4"
-        />
-
-        <ShowcaseVideoCard 
-          title="Google Veo"
-          icon={<div className="p-2 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-lg"><Video className="w-5 h-5" /></div>}
-          beforeSrc="/showcase/veo-before.mp4"
-          afterSrc="/showcase/veo-after.mp4"
-          delay={0.2}
         />
       </div>
     </section>
