@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Play,
-  Type, FileText, Clapperboard, PlaySquare, Zap, Lock, ArrowRight
+  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight,
+  FileText, Clapperboard, PlaySquare, Zap, Lock, ArrowRight
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
@@ -106,22 +106,50 @@ function AdNativeBanner() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher Fixed)
 // ─────────────────────────────────────────────────────────────
 function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
   return (
     <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1 sm:p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md max-w-full overflow-x-auto custom-scrollbar">
-        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+      {/* 🚀 FIXED: Removed overflow-x-auto to match Text-to-Image style perfectly */}
+      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+        
+        <Link
+          to="/"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'image'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
           <ImageIcon className="w-4 h-4" /> Image
         </Link>
-        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+
+        <Link
+          to="/video-remover"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'video'
+              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
           <Film className="w-4 h-4" /> Video
         </Link>
-        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <Sparkles className="w-4 h-4 shrink-0" /> <span className="whitespace-nowrap">Text to Image</span>
-          <span className="absolute -top-2 -right-1 sm:-right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
+
+        <Link
+          to="/text-to-image"
+          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+            current === 'text-to-image'
+              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+          }`}
+        >
+          <Sparkles className="w-4 h-4" /> Text to Image
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
+            New
+          </span>
         </Link>
+        
       </div>
     </div>
   );
@@ -658,8 +686,8 @@ function VideoRemoverPage() {
         {/* 🚀 TOOL SWITCHER TABS 🚀 */}
         <ToolSwitcher current="video" />
 
-        {/* Upload Box */}
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-3xl mx-auto">
+        {/* 🚀 PREMIUM GLASSMORPHIC UPLOAD BOX 🚀 */}
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-4xl mx-auto">
           
           <AdNativeBanner />
 
@@ -668,157 +696,157 @@ function VideoRemoverPage() {
             if (f) acceptFile(f);
           }} />
 
-          <div
-            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) acceptFile(f); }}
-            className={`relative overflow-hidden mt-6 rounded-[2rem] border bg-white shadow-2xl transition-all duration-300 dark:bg-[#0a0a0a] ${
-              dragOver ? "border-blue-500 ring-4 ring-blue-500/20 shadow-blue-500/20" : "border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20"
-            }`}
-          >
-            <div className="relative aspect-[16/9] w-full flex flex-col items-center justify-center bg-slate-50/50 dark:bg-white/[0.02] p-6">
-              
-              {(!file) && (
-                <button onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Film className="h-8 w-8 text-blue-500" />
-                  </div>
-                  <div className="text-lg font-semibold">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-400 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></div>
-                  <div className="text-sm flex items-center gap-2 text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-1.5 rounded-full">
-                    <Video className="h-4 w-4" /> {vt.dropHint}
-                  </div>
-                </button>
-              )}
-
-              {/* LIVE PROGRESS BAR */}
-              {status === 'processing' && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-8">
-                  <div className="relative flex items-center justify-center mb-2">
-                    <div className="absolute w-20 h-20 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                    <Loader2 className="h-10 w-10 animate-spin text-blue-500 relative z-10" />
-                  </div>
-                  
-                  <div className="w-full max-w-[300px]">
-                    <div className="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
-                      <span>{uploadProgress < 100 ? 'Uploading securely...' : 'Removing Watermark...'}</span>
-                      <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
-                    </div>
-                    
-                    <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-3 overflow-hidden shadow-inner">
-                      <div 
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
-                        style={{ width: `${uploadProgress}%` }}
-                      >
-                        <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
-                      </div>
-                    </div>
-                    
-                    <p className="text-xs text-center text-slate-500 dark:text-slate-400 font-medium">
-                      {uploadProgress < 100 
-                        ? 'Please keep this tab open during upload.' 
-                        : 'Our AI engine is processing your video...'}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <AnimatePresence mode="wait">
-                {videoUrl && !resultUrl && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center py-4">
-                    <video src={videoUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10" />
-                  </motion.div>
-                )}
+          {/* Premium Blur Wrapper Match Text-To-Image */}
+          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-4 sm:p-6 lg:p-8 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0a]/80 mt-6">
+            <div
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) acceptFile(f); }}
+              className={`relative overflow-hidden rounded-[2rem] border bg-white shadow-sm transition-all duration-300 dark:bg-[#111] ${
+                dragOver ? "border-blue-500 ring-4 ring-blue-500/20 shadow-blue-500/20" : "border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10"
+              }`}
+            >
+              <div className="relative aspect-[16/9] w-full flex flex-col items-center justify-center bg-slate-50/50 dark:bg-white/[0.02] p-6">
                 
-                {resultUrl && (
-                  <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full h-full flex flex-col items-center justify-center py-4">
-                    <div className="absolute top-6 left-6 z-20 flex items-center gap-2 bg-emerald-500/10 backdrop-blur-md text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-xl border border-emerald-500/20 text-sm font-bold shadow-lg shadow-emerald-500/10">
-                      <CheckCircle2 className="w-5 h-5" /> Cleaned by Unmark
+                {(!file) && (
+                  <button onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
+                    <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
+                      <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Film className="h-8 w-8 text-blue-500" />
                     </div>
-                    <video src={resultUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-emerald-500/30" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </motion.div>
-
-        {error && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex flex-col items-start gap-2 max-w-3xl mx-auto rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm text-red-700 dark:text-red-400 shadow-sm">
-            <div className="flex items-center gap-2 font-bold text-base">
-              <AlertTriangle className="h-5 w-5 shrink-0" /> Processing Interrupted
-            </div>
-            <span className="opacity-90 leading-relaxed">{error}</span>
-          </motion.div>
-        )}
-
-        {/* Action Panel */}
-        {file && !resultUrl && status !== 'processing' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-10 flex flex-col items-center gap-8">
-            <div className="flex flex-col items-center gap-3 w-full max-w-md">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select AI Platform</span>
-              <div className="grid grid-cols-2 gap-3 w-full p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
-                {(['veo', 'gemini'] as WatermarkType[]).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setWatermark(t)}
-                    className={`rounded-xl py-3.5 text-sm font-bold capitalize transition-all duration-300 flex items-center justify-center gap-2 ${
-                      watermark === t 
-                      ? 'bg-white text-blue-600 shadow-md dark:bg-blue-600 dark:text-white ring-1 ring-black/5 dark:ring-white/10' 
-                      : 'text-slate-600 hover:bg-slate-100/50 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white'
-                    }`}
-                  >
-                    {t === 'gemini' ? <Sparkles className="w-4 h-4" /> : <Video className="w-4 h-4" />}
-                    {t}
+                    <div className="text-lg font-semibold">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-400 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></div>
+                    <div className="text-sm flex items-center gap-2 text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-1.5 rounded-full">
+                      <Video className="h-4 w-4" /> {vt.dropHint}
+                    </div>
                   </button>
-                ))}
+                )}
+
+                {/* LIVE PROGRESS BAR */}
+                {status === 'processing' && (
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-8">
+                    <div className="relative flex items-center justify-center mb-2">
+                      <div className="absolute w-20 h-20 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                      <Loader2 className="h-10 w-10 animate-spin text-blue-500 relative z-10" />
+                    </div>
+                    
+                    <div className="w-full max-w-[300px]">
+                      <div className="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
+                        <span>{uploadProgress < 100 ? 'Uploading securely...' : 'Removing Watermark...'}</span>
+                        <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
+                      </div>
+                      
+                      <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-3 overflow-hidden shadow-inner">
+                        <div 
+                          className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
+                          style={{ width: `${uploadProgress}%` }}
+                        >
+                          <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-xs text-center text-slate-500 dark:text-slate-400 font-medium">
+                        {uploadProgress < 100 
+                          ? 'Please keep this tab open during upload.' 
+                          : 'Our AI engine is processing your video...'}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <AnimatePresence mode="wait">
+                  {videoUrl && !resultUrl && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center py-4">
+                      <video src={videoUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10" />
+                    </motion.div>
+                  )}
+                  
+                  {resultUrl && (
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full h-full flex flex-col items-center justify-center py-4">
+                      <div className="absolute top-6 left-6 z-20 flex items-center gap-2 bg-emerald-500/10 backdrop-blur-md text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-xl border border-emerald-500/20 text-sm font-bold shadow-lg shadow-emerald-500/10">
+                        <CheckCircle2 className="w-5 h-5" /> Cleaned by Unmark
+                      </div>
+                      <video src={resultUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-emerald-500/30" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
-            <div className="flex w-full flex-col sm:flex-row justify-center gap-4">
-              <button
-                onClick={process}
-                className="group relative flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.02] hover:shadow-blue-600/40 active:scale-95 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <Wand2 className="h-5 w-5" /> Process on Secure Server
-              </button>
-              <button
-                onClick={reset}
-                className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
-              >
-                {vt.btnCancel}
-              </button>
-            </div>
-          </motion.div>
-        )}
+            {error && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex flex-col items-start gap-2 w-full rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm text-red-700 dark:text-red-400 shadow-sm">
+                <div className="flex items-center gap-2 font-bold text-base">
+                  <AlertTriangle className="h-5 w-5 shrink-0" /> Processing Interrupted
+                </div>
+                <span className="opacity-90 leading-relaxed">{error}</span>
+              </motion.div>
+            )}
 
-        {/* Download Panel */}
-        {resultUrl && status !== 'processing' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <button
-              onClick={handleDownload}
-              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
-            >
-              <Download className="h-5 w-5" /> Download Video
-            </button>
-            <button
-              onClick={reset}
-              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
-            >
-              Process Another
-            </button>
-          </motion.div>
-        )}
-        
-        {/* Banner Ad Below Tool */}
-        <div className="mt-8 flex justify-center overflow-hidden">
-           <AdBanner300x250 />
-        </div>
+            {/* Action Panel */}
+            {file && !resultUrl && status !== 'processing' && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex flex-col items-center gap-6">
+                <div className="flex flex-col items-center gap-3 w-full max-w-md">
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select AI Platform</span>
+                  <div className="grid grid-cols-2 gap-3 w-full p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
+                    {(['veo', 'gemini'] as WatermarkType[]).map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => setWatermark(t)}
+                        className={`rounded-xl py-3.5 text-sm font-bold capitalize transition-all duration-300 flex items-center justify-center gap-2 ${
+                          watermark === t 
+                          ? 'bg-white text-blue-600 shadow-md dark:bg-blue-600 dark:text-white ring-1 ring-black/5 dark:ring-white/10' 
+                          : 'text-slate-600 hover:bg-slate-100/50 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white'
+                        }`}
+                      >
+                        {t === 'gemini' ? <Sparkles className="w-4 h-4" /> : <Video className="w-4 h-4" />}
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
+                <div className="flex w-full flex-col sm:flex-row justify-center gap-4">
+                  <button
+                    onClick={process}
+                    className="group relative flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.02] hover:shadow-blue-600/40 active:scale-95 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    <Wand2 className="h-5 w-5" /> Process on Secure Server
+                  </button>
+                  <button
+                    onClick={reset}
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
+                  >
+                    {vt.btnCancel}
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Download Panel */}
+            {resultUrl && status !== 'processing' && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <button
+                  onClick={handleDownload}
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
+                >
+                  <Download className="h-5 w-5" /> Download Video
+                </button>
+                <button
+                  onClick={reset}
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
+                >
+                  Process Another
+                </button>
+              </motion.div>
+            )}
+          </div>
+          
+          {/* Banner Ad Below Tool */}
+          <div className="mt-8 flex justify-center overflow-hidden">
+             <AdBanner300x250 />
+          </div>
+        </motion.div>
       </main>
-
-      <BeforeAfterSection />
       
       {/* Mid Content Ad Slot */}
       <AdBanner728x90 />
@@ -840,7 +868,7 @@ function VideoRemoverPage() {
 // ─────────────────────────────────────────────────────────────
 function SeoArticleSection() {
   return (
-    <section className="relative mx-auto max-w-4xl px-4 py-16 text-slate-600 dark:text-slate-400">
+    <section className="relative mx-auto max-w-4xl px-4 py-16 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-white/5">
       <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">The Ultimate AI Video Watermark Remover</h2>
         <p className="mb-6 leading-relaxed">
@@ -850,73 +878,6 @@ function SeoArticleSection() {
         <p className="leading-relaxed">
           We believe in keeping premium AI utilities accessible to everyone. By supporting our platform through non-intrusive advertisements, we can offer robust backend processing completely free of charge. No subscriptions, no hidden limits—just seamless <strong>AI video watermark removal</strong> directly in your browser.
         </p>
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// SMART INTERACTIVE VIDEO CARD 
-// ─────────────────────────────────────────────────────────────
-function ShowcaseVideoCard({ title, icon, beforeSrc, afterSrc, delay }: { title: string, icon: React.ReactNode, beforeSrc: string, afterSrc: string, delay?: number }) {
-  const [isRevealed, setIsRevealed] = useState(false);
-
-  return (
-    <motion.div initial={{ opacity: 0, x: delay ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: delay || 0 }} className="flex flex-col gap-4 items-center">
-      <div className="flex items-center gap-3 mb-2 w-full max-w-[300px] justify-center">
-        {icon}
-        <h3 className="text-xl font-bold">{title}</h3>
-      </div>
-      
-      <div 
-        className="relative aspect-[9/16] w-full max-w-[300px] mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 shadow-xl ring-4 ring-black/5 dark:ring-white/5 cursor-pointer select-none"
-        onMouseEnter={() => setIsRevealed(true)}
-        onMouseLeave={() => setIsRevealed(false)}
-        onTouchStart={() => setIsRevealed(true)}
-        onTouchEnd={() => setIsRevealed(false)}
-        onTouchCancel={() => setIsRevealed(false)}
-      >
-        {/* 🚀 SEO & PERFORMANCE UPDATE: preload="metadata" added to prevent Googlebot timeout */}
-        <video src={beforeSrc} autoPlay loop muted playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-        <div className={`absolute inset-0 bg-black/60 transition-opacity duration-500 z-10 ${isRevealed ? "opacity-100" : "opacity-0"}`} />
-        <video src={afterSrc} autoPlay loop muted playsInline preload="metadata" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`} />
-        
-        <div className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center z-30 pointer-events-none ${isRevealed ? "opacity-100" : "opacity-0"}`}>
-          <div className={`flex flex-col items-center gap-2 transform transition-transform duration-500 ${isRevealed ? "translate-y-0" : "translate-y-4"}`}>
-            <div className="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg"><CheckCircle2 className="w-7 h-7" /></div>
-            <span className="font-bold text-white text-lg tracking-wide drop-shadow-md">Watermark Removed</span>
-          </div>
-        </div>
-      </div>
-      
-      <p className="text-sm text-center text-slate-500 font-medium mt-2">
-        <span className="hidden sm:inline">Hover to see processed result</span>
-        <span className="inline sm:hidden">Press & hold to see result</span>
-      </p>
-    </motion.div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// BEFORE & AFTER SHOWCASE 
-// ─────────────────────────────────────────────────────────────
-function BeforeAfterSection() {
-  return (
-    <section className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28 border-t border-slate-200 dark:border-white/5 bg-white/40 dark:bg-white/[0.01]">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 text-center">
-        <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">The Magic</span>
-        <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">See it in action</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400">Interact with the video below to see how we perfectly detect and erase watermarks without degrading your masterpiece.</p>
-      </motion.div>
-
-      {/* 🚀 FIXED: Removed Grid Layout to center the single Gemini showcase */}
-      <div className="flex justify-center w-full">
-        <ShowcaseVideoCard 
-          title="Google Gemini"
-          icon={<div className="p-2 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg"><Sparkles className="w-5 h-5" /></div>}
-          beforeSrc="/showcase/gemini-before.mp4"
-          afterSrc="/showcase/gemini-after.mp4"
-        />
       </div>
     </section>
   );
