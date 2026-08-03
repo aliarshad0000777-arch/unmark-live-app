@@ -379,12 +379,14 @@ function WatermarkRemoverPage() {
   }, [image?.beforeUrl]);
 
   // ==========================================
-  // 💸 SMARTLINK TRIGGER LOGIC
+  // 🚀 ADSTERRA SMARTLINK TEMPORARILY DISABLED FOR BETTER UX 
   // ==========================================
   const triggerSmartlink = () => {
+    /*
     if (typeof window !== "undefined") {
       window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
     }
+    */
   };
 
   const handleFiles = useCallback((files: FileList | File[] | null) => {
@@ -492,7 +494,7 @@ function WatermarkRemoverPage() {
   }, []);
 
   const reset = () => {
-    triggerSmartlink(); // Open smartlink on click
+    triggerSmartlink(); // Function is disabled, safe to leave
     if (image) {
       URL.revokeObjectURL(image.beforeUrl);
       URL.revokeObjectURL(image.afterUrl);
@@ -507,7 +509,7 @@ function WatermarkRemoverPage() {
   const triggerPicker = () => fileInputRef.current?.click();
 
   const handleDownload = () => {
-    triggerSmartlink(); // Open smartlink on click
+    triggerSmartlink(); // Function is disabled, safe to leave
     if (!image) return;
     const a = document.createElement("a");
     a.href = image.afterUrl;
@@ -518,7 +520,7 @@ function WatermarkRemoverPage() {
   };
 
   const handleCopy = async () => {
-    triggerSmartlink(); // Open smartlink on click
+    triggerSmartlink(); // Function is disabled, safe to leave
     if (!image) return;
     try {
       await navigator.clipboard.write([new ClipboardItem({ [image.blob.type]: image.blob })]);
@@ -531,7 +533,7 @@ function WatermarkRemoverPage() {
   };
 
   const handleDownloadZip = () => {
-    triggerSmartlink(); // Open smartlink on click
+    triggerSmartlink(); // Function is disabled, safe to leave
     handleDownload(); // Falls back to standard download
   };
 
