@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WatermarkRemoverRouteImport } from './routes/watermark-remover'
 import { Route as VideoRemoverRouteImport } from './routes/video-remover'
 import { Route as TextToImageRouteImport } from './routes/text-to-image'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WatermarkRemoverRoute = WatermarkRemoverRouteImport.update({
+  id: '/watermark-remover',
+  path: '/watermark-remover',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VideoRemoverRoute = VideoRemoverRouteImport.update({
   id: '/video-remover',
   path: '/video-remover',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
+  '/watermark-remover': typeof WatermarkRemoverRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
+  '/watermark-remover': typeof WatermarkRemoverRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/text-to-image': typeof TextToImageRoute
   '/video-remover': typeof VideoRemoverRoute
+  '/watermark-remover': typeof WatermarkRemoverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,8 +80,15 @@ export interface FileRouteTypes {
     | '/terms'
     | '/text-to-image'
     | '/video-remover'
+    | '/watermark-remover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy-policy' | '/terms' | '/text-to-image' | '/video-remover'
+  to:
+    | '/'
+    | '/privacy-policy'
+    | '/terms'
+    | '/text-to-image'
+    | '/video-remover'
+    | '/watermark-remover'
   id:
     | '__root__'
     | '/'
@@ -80,6 +96,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/text-to-image'
     | '/video-remover'
+    | '/watermark-remover'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,10 +105,18 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   TextToImageRoute: typeof TextToImageRoute
   VideoRemoverRoute: typeof VideoRemoverRoute
+  WatermarkRemoverRoute: typeof WatermarkRemoverRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/watermark-remover': {
+      id: '/watermark-remover'
+      path: '/watermark-remover'
+      fullPath: '/watermark-remover'
+      preLoaderRoute: typeof WatermarkRemoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/video-remover': {
       id: '/video-remover'
       path: '/video-remover'
@@ -136,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   TextToImageRoute: TextToImageRoute,
   VideoRemoverRoute: VideoRemoverRoute,
+  WatermarkRemoverRoute: WatermarkRemoverRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

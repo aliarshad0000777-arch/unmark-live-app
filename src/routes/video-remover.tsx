@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight,
-  FileText, Clapperboard, PlaySquare, Zap, Lock, ArrowRight
+  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, FileArchive, Plus, ArrowRight,
+  Type, FileText, Clapperboard, PlaySquare, Zap, Lock // ⬅️ FIXED: 'Type' icon imported here
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
@@ -28,18 +28,7 @@ function AdBanner728x90() {
           height="90"
           frameBorder="0"
           scrolling="no"
-          srcDoc={`
-            <!DOCTYPE html>
-            <html>
-              <head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head>
-              <body>
-                <script type="text/javascript">
-                  atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script>
-              </body>
-            </html>
-          `}
+          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script></body></html>`}
           className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
@@ -49,26 +38,15 @@ function AdBanner728x90() {
 
 function AdBanner300x250() {
   return (
-    <div className="flex justify-center items-center w-full min-h-[250px] my-4 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
+    <div className="flex justify-center items-center w-full min-h-[250px] my-10 overflow-hidden">
+      <div className="max-w-full overflow-hidden rounded-lg flex justify-center">
         <iframe
           title="Adsterra 300x250"
           width="300"
           height="250"
           frameBorder="0"
           scrolling="no"
-          srcDoc={`
-            <!DOCTYPE html>
-            <html>
-              <head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head>
-              <body>
-                <script type="text/javascript">
-                  atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script>
-              </body>
-            </html>
-          `}
+          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script></body></html>`}
           className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
@@ -77,77 +55,50 @@ function AdBanner300x250() {
 }
 
 function AdNativeBanner() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    container.innerHTML = '';
-    const adDiv = document.createElement('div');
-    adDiv.id = "container-b2f92a8142955a57ae630862cf29f00e";
-    container.appendChild(adDiv);
-
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = true;
-    script.dataset.cfasync = "false";
-    script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
-    
-    container.appendChild(script);
-
+    if (!document.getElementById("adsterra-native")) {
+      const script = document.createElement("script");
+      script.id = "adsterra-native";
+      script.async = true;
+      script.dataset.cfasync = "false";
+      script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
+      document.body.appendChild(script);
+    }
   }, []);
-
   return (
     <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
-      <div ref={containerRef} className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm flex justify-center" />
+      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────
-// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher Fixed)
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
 // ─────────────────────────────────────────────────────────────
-function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
+function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' | 'text-to-video' }) {
   return (
-    <div className="flex justify-center mb-8 relative z-20">
-      {/* 🚀 FIXED: Removed overflow-x-auto to match Text-to-Image style perfectly */}
-      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+    <div className="flex justify-center mb-8 relative z-20 w-full overflow-x-auto px-4 py-2 custom-scrollbar">
+      <div className="inline-flex items-center flex-nowrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md min-w-max">
         
-        <Link
-          to="/"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'image'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <ImageIcon className="w-4 h-4" /> Image
+        {/* 1. Text to Video */}
+        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-video' ? 'bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Clapperboard className="w-4 h-4" /> Text to Video
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 animate-pulse">New</span>
         </Link>
 
-        <Link
-          to="/video-remover"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'video'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <Film className="w-4 h-4" /> Video
+        {/* 2. Text to Image */}
+        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Type className="w-4 h-4" /> Text to Image
         </Link>
 
-        <Link
-          to="/text-to-image"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'text-to-image'
-              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <Sparkles className="w-4 h-4" /> Text to Image
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
-            New
-          </span>
+        {/* 3. Image Remover */}
+        <Link to="/watermark-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <ImageIcon className="w-4 h-4" /> Image Remover
+        </Link>
+
+        {/* 4. Video Remover (Active - Emerald Color Match) */}
+        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-emerald-600 text-emerald-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Film className="w-4 h-4" /> Video Remover
         </Link>
         
       </div>
@@ -156,7 +107,7 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image
 }
 
 // ==========================================
-// 🌍 MULTI-LANGUAGE DICTIONARY
+// 🌍 MULTI-LANGUAGE DICTIONARY (EN, ES, FR)
 // ==========================================
 const VIDEO_DICT = {
   en: {
@@ -173,6 +124,7 @@ const VIDEO_DICT = {
     menuImage: "Image Watermark Remover",
     menuVideo: "Video Watermark Remover",
     menuTextToImage: "Text to Image Generator",
+    menuTextToVideo: "Text to Video Generator",
     popupTitle: "New Feature",
     popupDesc: "Try our new AI Image generator for free!",
     hiwTag: "WORKFLOW",
@@ -216,7 +168,8 @@ const VIDEO_DICT = {
     badgePro: "100% GRATIS",
     menuImage: "Eliminador de Marcas (Imagen)",
     menuVideo: "Eliminador de Marcas (Video)",
-    menuTextToImage: "Generador de Texto a Imagen",
+    menuTextToImage: "Generador Texto a Imagen",
+    menuTextToVideo: "Generador Texto a Video",
     popupTitle: "Nueva Función",
     popupDesc: "¡Prueba nuestro nuevo generador de imágenes con IA gratis!",
     hiwTag: "FLUJO DE TRABAJO",
@@ -258,9 +211,10 @@ const VIDEO_DICT = {
     btnRemove: "Supprimer le filigrane",
     btnCancel: "Annuler",
     badgePro: "100% GRATUIT",
-    menuImage: "Suppresseur de Filigrane (Image)",
-    menuVideo: "Suppresseur de Filigrane (Vidéo)",
+    menuImage: "Suppresseur (Image)",
+    menuVideo: "Suppresseur (Vidéo)",
     menuTextToImage: "Générateur Texte en Image",
+    menuTextToVideo: "Générateur Texte en Vidéo",
     popupTitle: "Nouvelle Fonctionnalité",
     popupDesc: "Essayez notre nouveau générateur d'images IA gratuitement !",
     hiwTag: "FLUX DE TRAVAIL",
@@ -289,7 +243,7 @@ const VIDEO_DICT = {
     faq2q: "Cela fonctionne-t-il avec Google Veo et Gemini ?",
     faq2a: "Absolument ! Calibré mathématiquement pour détecter Veo et Gemini.",
     faq3q: "Cela réduit-il la qualité ou supprime-t-il l'audio ?",
-    faq3a: "No, nous conservons votre audio d'origine et la résolution exacte."
+    faq3a: "Non, nous conservons votre audio d'origine et la résolution exacte."
   }
 };
 
@@ -303,7 +257,6 @@ interface VideoMeta { width: number; height: number; }
 
 const UPCOMING_TOOLS = [
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
-  { name: "Text to Video", icon: Clapperboard, color: "text-purple-500", bg: "bg-purple-500/10" },
   { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
   { name: "AI Image Enhancer", icon: Zap, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "AI Video Enhancer", icon: Wand2, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10" },
@@ -335,9 +288,25 @@ export const Route = createFileRoute('/video-remover')({
 });
 
 function VideoRemoverRoute() {
+  const toolSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Unmark AI Video Watermark Remover",
+    "url": "https://www.unmark-ai.com/video-remover",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "description": "Free online tool to remove watermarks from AI-generated videos like Google Gemini and Veo.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <ThemeProvider>
       <LanguageProvider>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }} />
         <VideoRemoverPage />
       </LanguageProvider>
     </ThemeProvider>
@@ -366,16 +335,7 @@ function VideoRemoverPage() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ─────────────────────────────────────────────────────────────
-  // 🚀 ADSTERRA SMARTLINK TEMPORARILY DISABLED FOR BETTER UX 
-  // ─────────────────────────────────────────────────────────────
-  const triggerSmartlink = () => {
-    /*
-    if (typeof window !== "undefined") {
-      window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
-    }
-    */
-  };
+  const triggerSmartlink = () => {};
 
   const readMeta = (f: File): Promise<VideoMeta> =>
     new Promise((resolve, reject) => {
@@ -490,26 +450,9 @@ function VideoRemoverPage() {
     triggerSmartlink();
   };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Unmark AI Video Watermark Remover",
-    "url": "https://www.unmark-ai.com/video-remover",
-    "applicationCategory": "MultimediaApplication",
-    "operatingSystem": "All",
-    "description": "Free online tool to remove watermarks from AI-generated videos like Google Gemini and Veo.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
-    }
-  };
-
   return (
     <div className="relative min-h-screen bg-slate-50 text-slate-900 dark:bg-[#050505] dark:text-slate-100 transition-colors overflow-x-hidden">
       
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
         style={{
           backgroundImage: "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
@@ -546,7 +489,7 @@ function VideoRemoverPage() {
         )}
       </AnimatePresence>
 
-      {/* 🚀 PREMIUM HAMBURGER MENU */}
+      {/* 🚀 PREMIUM HAMBURGER MENU (Updated Order) */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -558,14 +501,14 @@ function VideoRemoverPage() {
             <motion.div 
               initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="fixed left-0 top-0 bottom-0 w-80 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col"
+              className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col"
             >
               <div className="flex shrink-0 items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30">
-                    <Sparkles className="h-4 w-4" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-500/30">
+                    <Film className="h-4 w-4" />
                   </div>
-                  <span className="text-lg font-bold tracking-tight">Unmark <span className="text-blue-600 dark:text-blue-500">AI</span></span>
+                  <span className="text-lg font-bold tracking-tight">Unmark <span className="text-emerald-600 dark:text-emerald-500">AI</span></span>
                 </div>
                 <button onClick={() => setMenuOpen(false)} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition">
                   <X className="w-5 h-5 text-slate-500 dark:text-slate-400" />
@@ -575,29 +518,45 @@ function VideoRemoverPage() {
               <div className="flex-1 overflow-y-auto px-4 py-6">
                 <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Our Free Tools</span>
                 <div className="flex flex-col gap-2">
+                  
+                  {/* 1. Text to Video */}
                   <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><ImageIcon className="h-4 w-4" /></div>
-                      {vt.menuImage}
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400"><Clapperboard className="h-4 w-4" /></div>
+                      {vt.menuTextToVideo}
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-purple-500 transition-transform group-hover:translate-x-1" />
                   </Link>
-                  <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 transition">
-                    <div className="flex items-center gap-3 text-sm font-medium text-blue-700 dark:text-blue-400">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/20 text-blue-600 dark:text-blue-400"><Film className="h-4 w-4" /></div>
-                      {vt.menuVideo}
-                    </div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                  </Link>
+
+                  {/* 2. Text to Image */}
                   <Link to="/text-to-image" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><Sparkles className="h-4 w-4" /></div>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><Type className="h-4 w-4" /></div>
                       {vt.menuTextToImage}
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1" />
                   </Link>
-                </div>
 
+                  {/* 3. Image Remover */}
+                  <Link to="/watermark-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400"><ImageIcon className="h-4 w-4" /></div>
+                      {vt.menuImage}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
+                  </Link>
+
+                  {/* 4. Video Remover (Active) */}
+                  <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"><Film className="h-4 w-4" /></div>
+                      {vt.menuVideo}
+                    </div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  </Link>
+
+                </div>
+                
                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
                   <div className="flex items-center justify-between px-3 mb-4">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Coming Soon</span>
@@ -644,18 +603,18 @@ function VideoRemoverPage() {
               <Menu className="h-5 w-5 text-slate-700 dark:text-slate-200" />
             </button>
             <div className="hidden sm:flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30">
-                <Sparkles className="h-4 w-4" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-500/30">
+                <Film className="h-4 w-4" />
               </div>
-              <span className="text-base font-bold tracking-tight">Unmark <span className="text-blue-600 dark:text-blue-500">Video</span></span>
-              <span className="ml-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+              <span className="text-base font-bold tracking-tight">Unmark <span className="text-emerald-600 dark:text-emerald-500">Video</span></span>
+              <span className="ml-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                 {vt.badgePro}
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
-            <div className="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
+            <div className="hidden sm:block w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
             <button onClick={toggleTheme} className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition">
               <motion.span key={theme} initial={{ rotate: -90, opacity: 0, scale: 0.6 }} animate={{ rotate: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.25 }} className="flex">
                 {theme === "dark" ? <Sun className="h-4 w-4 text-slate-200" /> : <Moon className="h-4 w-4 text-slate-700" />}
@@ -666,19 +625,19 @@ function VideoRemoverPage() {
       </header>
 
       {/* Main Hero Area */}
-      <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
+      <main className="relative mx-auto max-w-5xl px-4 pt-12 pb-24 sm:pt-20">
         
         <AdBanner728x90 />
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-semibold text-blue-700 dark:text-blue-400 mb-6 shadow-sm">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 sm:mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-xs font-semibold text-emerald-700 dark:text-emerald-400 mb-6 shadow-sm">
             <Sparkles className="w-3.5 h-3.5" /> Powered by Advanced AI
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
             {vt.heroTitle} <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-700 bg-clip-text text-transparent">{vt.heroAccent}</span>
+            <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-700 bg-clip-text text-transparent">{vt.heroAccent}</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">
+          <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg px-2">
             {vt.heroSub}
           </p>
         </motion.div>
@@ -687,7 +646,7 @@ function VideoRemoverPage() {
         <ToolSwitcher current="video" />
 
         {/* 🚀 PREMIUM GLASSMORPHIC UPLOAD BOX 🚀 */}
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-4xl mx-auto">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative z-10 max-w-4xl mx-auto mt-4">
           
           <AdNativeBanner />
 
@@ -697,25 +656,25 @@ function VideoRemoverPage() {
           }} />
 
           {/* Premium Blur Wrapper Match Text-To-Image */}
-          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-4 sm:p-6 lg:p-8 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0a]/80 mt-6">
+          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-2 sm:p-3 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/50 mt-6">
             <div
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) acceptFile(f); }}
-              className={`relative overflow-hidden rounded-[2rem] border bg-white shadow-sm transition-all duration-300 dark:bg-[#111] ${
-                dragOver ? "border-blue-500 ring-4 ring-blue-500/20 shadow-blue-500/20" : "border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10"
+              className={`relative overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-300 dark:bg-[#0a0a0a] ${
+                dragOver ? "border-emerald-500 ring-4 ring-emerald-500/20 shadow-emerald-500/20" : "border-slate-100 dark:border-white/5"
               }`}
             >
-              <div className="relative aspect-[16/9] w-full flex flex-col items-center justify-center bg-slate-50/50 dark:bg-white/[0.02] p-6">
+              <div className="relative w-full flex flex-col items-center justify-center bg-slate-50/50 dark:bg-white/[0.02] p-4 sm:p-6 min-h-[300px] sm:min-h-[450px]">
                 
                 {(!file) && (
                   <button onClick={triggerPicker} className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white group">
-                    <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
-                      <div className="absolute inset-0 rounded-3xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <Film className="h-8 w-8 text-blue-500" />
+                    <div className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#111] group-hover:scale-105 transition-transform duration-300">
+                      <div className="absolute inset-0 rounded-3xl bg-emerald-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <Film className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500" />
                     </div>
-                    <div className="text-lg font-semibold">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-400 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></div>
-                    <div className="text-sm flex items-center gap-2 text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-1.5 rounded-full">
+                    <div className="text-base sm:text-lg font-semibold">{vt.dropTitle} <span className="text-emerald-600 dark:text-emerald-400 underline decoration-emerald-500/30 underline-offset-4">{vt.dropBrowse}</span></div>
+                    <div className="text-xs sm:text-sm flex items-center gap-2 text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-1.5 rounded-full">
                       <Video className="h-4 w-4" /> {vt.dropHint}
                     </div>
                   </button>
@@ -723,28 +682,28 @@ function VideoRemoverPage() {
 
                 {/* LIVE PROGRESS BAR */}
                 {status === 'processing' && (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-8">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white/95 backdrop-blur-md dark:bg-[#0a0a0a]/95 px-6 sm:px-8">
                     <div className="relative flex items-center justify-center mb-2">
-                      <div className="absolute w-20 h-20 border-4 border-blue-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                      <Loader2 className="h-10 w-10 animate-spin text-blue-500 relative z-10" />
+                      <div className="absolute w-16 h-16 sm:w-20 sm:h-20 border-4 border-emerald-500/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                      <Loader2 className="h-8 w-8 sm:h-10 sm:w-10 animate-spin text-emerald-500 relative z-10" />
                     </div>
                     
-                    <div className="w-full max-w-[300px]">
-                      <div className="flex justify-between text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
+                    <div className="w-full max-w-[250px] sm:max-w-[300px]">
+                      <div className="flex justify-between text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 mb-3">
                         <span>{uploadProgress < 100 ? 'Uploading securely...' : 'Removing Watermark...'}</span>
-                        <span className="text-blue-600 dark:text-blue-400 font-extrabold">{uploadProgress}%</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{uploadProgress}%</span>
                       </div>
                       
-                      <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-3 mb-3 overflow-hidden shadow-inner">
+                      <div className="w-full bg-slate-200 dark:bg-white/10 rounded-full h-2 sm:h-3 mb-3 overflow-hidden shadow-inner">
                         <div 
-                          className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
+                          className="bg-gradient-to-r from-emerald-500 to-teal-500 h-full rounded-full transition-all duration-300 relative flex items-center justify-end pr-1"
                           style={{ width: `${uploadProgress}%` }}
                         >
                           <div className="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-[shimmer_1.5s_infinite]" style={{ backgroundSize: '200% 100%' }}></div>
                         </div>
                       </div>
                       
-                      <p className="text-xs text-center text-slate-500 dark:text-slate-400 font-medium">
+                      <p className="text-[10px] sm:text-xs text-center text-slate-500 dark:text-slate-400 font-medium">
                         {uploadProgress < 100 
                           ? 'Please keep this tab open during upload.' 
                           : 'Our AI engine is processing your video...'}
@@ -756,16 +715,16 @@ function VideoRemoverPage() {
                 <AnimatePresence mode="wait">
                   {videoUrl && !resultUrl && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center py-4">
-                      <video src={videoUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10" />
+                      <video src={videoUrl} controls playsInline className="max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] max-w-[95%] sm:max-w-[90%] rounded-xl sm:rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 object-contain" />
                     </motion.div>
                   )}
                   
                   {resultUrl && (
-                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full h-full flex flex-col items-center justify-center py-4">
-                      <div className="absolute top-6 left-6 z-20 flex items-center gap-2 bg-emerald-500/10 backdrop-blur-md text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-xl border border-emerald-500/20 text-sm font-bold shadow-lg shadow-emerald-500/10">
-                        <CheckCircle2 className="w-5 h-5" /> Cleaned by Unmark
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full h-full flex flex-col items-center justify-center py-4 relative">
+                      <div className="absolute top-2 left-2 sm:top-6 sm:left-6 z-20 flex items-center gap-1.5 sm:gap-2 bg-emerald-500/10 backdrop-blur-md text-emerald-700 dark:text-emerald-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-emerald-500/20 text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/10">
+                        <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> Cleaned by Unmark
                       </div>
-                      <video src={resultUrl} controls className="max-h-[80%] max-w-[90%] rounded-2xl shadow-2xl border border-emerald-500/30" />
+                      <video src={resultUrl} controls playsInline className="max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] max-w-[95%] sm:max-w-[90%] rounded-xl sm:rounded-2xl shadow-2xl border border-emerald-500/30 object-contain" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -773,9 +732,9 @@ function VideoRemoverPage() {
             </div>
 
             {error && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex flex-col items-start gap-2 w-full rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm text-red-700 dark:text-red-400 shadow-sm">
-                <div className="flex items-center gap-2 font-bold text-base">
-                  <AlertTriangle className="h-5 w-5 shrink-0" /> Processing Interrupted
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 sm:mt-6 flex flex-col items-start gap-2 w-full rounded-2xl border border-red-500/30 bg-red-500/10 px-4 sm:px-5 py-3 sm:py-4 text-xs sm:text-sm text-red-700 dark:text-red-400 shadow-sm mx-2">
+                <div className="flex items-center gap-2 font-bold text-sm sm:text-base">
+                  <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" /> Processing Interrupted
                 </div>
                 <span className="opacity-90 leading-relaxed">{error}</span>
               </motion.div>
@@ -783,38 +742,38 @@ function VideoRemoverPage() {
 
             {/* Action Panel */}
             {file && !resultUrl && status !== 'processing' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex flex-col items-center gap-6">
-                <div className="flex flex-col items-center gap-3 w-full max-w-md">
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select AI Platform</span>
-                  <div className="grid grid-cols-2 gap-3 w-full p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 sm:mt-8 flex flex-col items-center gap-4 sm:gap-6 px-2 sm:px-0">
+                <div className="flex flex-col items-center gap-2 sm:gap-3 w-full max-w-md">
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select AI Platform</span>
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full p-1.5 bg-slate-100 dark:bg-[#111] rounded-2xl border border-slate-200 dark:border-white/10">
                     {(['veo', 'gemini'] as WatermarkType[]).map((t) => (
                       <button
                         key={t}
                         onClick={() => setWatermark(t)}
-                        className={`rounded-xl py-3.5 text-sm font-bold capitalize transition-all duration-300 flex items-center justify-center gap-2 ${
+                        className={`rounded-xl py-2.5 sm:py-3.5 text-xs sm:text-sm font-bold capitalize transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 ${
                           watermark === t 
-                          ? 'bg-white text-blue-600 shadow-md dark:bg-blue-600 dark:text-white ring-1 ring-black/5 dark:ring-white/10' 
-                          : 'text-slate-600 hover:bg-slate-100/50 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white'
+                          ? 'bg-white text-emerald-600 shadow-md dark:bg-emerald-600 dark:text-white ring-1 ring-black/5 dark:ring-white/10' 
+                          : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white'
                         }`}
                       >
-                        {t === 'gemini' ? <Sparkles className="w-4 h-4" /> : <Video className="w-4 h-4" />}
+                        {t === 'gemini' ? <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                         {t}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex w-full flex-col sm:flex-row justify-center gap-4">
+                <div className="flex w-full flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none">
                   <button
                     onClick={process}
-                    className="group relative flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.02] hover:shadow-blue-600/40 active:scale-95 overflow-hidden"
+                    className="group relative flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition-all hover:scale-[1.02] hover:shadow-emerald-600/40 active:scale-95 overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    <Wand2 className="h-5 w-5" /> Process on Secure Server
+                    <Wand2 className="h-4 w-4 sm:h-5 sm:w-5" /> Process on Secure Server
                   </button>
                   <button
                     onClick={reset}
-                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
                   >
                     {vt.btnCancel}
                   </button>
@@ -824,16 +783,16 @@ function VideoRemoverPage() {
 
             {/* Download Panel */}
             {resultUrl && status !== 'processing' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 sm:mt-8 flex flex-col items-center gap-3 sm:gap-4 sm:flex-row sm:justify-center px-2 sm:px-0">
                 <button
                   onClick={handleDownload}
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white shadow-xl shadow-emerald-600/25 transition hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
                 >
-                  <Download className="h-5 w-5" /> Download Video
+                  <Download className="h-4 w-4 sm:h-5 sm:w-5" /> Download Video
                 </button>
                 <button
                   onClick={reset}
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-10 py-4 text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 bg-white px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-[#111] dark:text-slate-200 dark:hover:bg-white/5"
                 >
                   Process Another
                 </button>
@@ -868,14 +827,14 @@ function VideoRemoverPage() {
 // ─────────────────────────────────────────────────────────────
 function SeoArticleSection() {
   return (
-    <section className="relative mx-auto max-w-4xl px-4 py-16 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-white/5">
+    <section className="relative mx-auto max-w-4xl px-4 py-16 sm:py-20 text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-white/5">
       <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">The Ultimate AI Video Watermark Remover</h2>
-        <p className="mb-6 leading-relaxed">
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">The Ultimate AI Video Watermark Remover</h2>
+        <p className="mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
           As AI video generation tools like <strong>Google Veo</strong> and <strong>Gemini</strong> become increasingly popular, creators are looking for ways to use these clips in professional projects. However, the embedded watermarks can disrupt the cinematic experience. Unmark Video is an online AI video eraser engineered specifically to <em>remove Veo watermarks</em> and clean Gemini-generated media without compromising on frame rate, audio sync, or visual fidelity.
         </p>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 mt-8">Why Ad-Supported Free Tools Win</h3>
-        <p className="leading-relaxed">
+        <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 mt-6 sm:mt-8">Why Ad-Supported Free Tools Win</h3>
+        <p className="text-sm sm:text-base leading-relaxed">
           We believe in keeping premium AI utilities accessible to everyone. By supporting our platform through non-intrusive advertisements, we can offer robust backend processing completely free of charge. No subscriptions, no hidden limits—just seamless <strong>AI video watermark removal</strong> directly in your browser.
         </p>
       </div>
@@ -895,21 +854,21 @@ function VideoHowItWorks() {
     { title: vt.s3Title, desc: vt.s3Desc, icon: Download }
   ];
   return (
-    <section className="relative mx-auto max-w-6xl px-4 py-20 sm:py-32">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-        <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span>
-        <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-4xl">{vt.hiwTitle}</h2>
-        <p className="mx-auto mt-4 max-w-md text-base text-slate-500 dark:text-slate-400">{vt.hiwSub}</p>
+    <section className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16 text-center">
+        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">{vt.hiwTag}</span>
+        <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">{vt.hiwTitle}</h2>
+        <p className="mx-auto mt-3 sm:mt-4 max-w-md text-sm sm:text-base text-slate-500 dark:text-slate-400">{vt.hiwSub}</p>
       </motion.div>
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 sm:grid-cols-3">
         {steps.map((s, i) => (
-          <motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: i * 0.15 }} className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all hover:border-blue-200 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-white/20">
-            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 group-hover:scale-110 transition-transform">
-              <s.icon className="h-6 w-6" />
+          <motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: i * 0.15 }} className="group relative overflow-hidden rounded-3xl sm:rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-8 transition-all hover:border-emerald-200 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-white/20">
+            <div className="mb-4 sm:mb-6 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 group-hover:scale-110 transition-transform">
+              <s.icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div className="mb-2 text-xs font-bold uppercase tracking-wider text-blue-500">STEP {i + 1}</div>
-            <div className="text-xl font-bold mb-2">{s.title}</div>
-            <p className="text-base text-slate-500 dark:text-slate-400 leading-relaxed">{s.desc}</p>
+            <div className="mb-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-500">STEP {i + 1}</div>
+            <div className="text-lg sm:text-xl font-bold mb-2">{s.title}</div>
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed">{s.desc}</p>
           </motion.div>
         ))}
       </div>
@@ -922,39 +881,39 @@ function VideoFeatures() {
   const vt = getTranslation(lang);
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-transparent">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16 text-center">
-        <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.featTag}</span>
-        <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">{vt.featTitle}</h2>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-16 text-center">
+        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">{vt.featTag}</span>
+        <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">{vt.featTitle}</h2>
       </motion.div>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:grid-rows-2">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="sm:col-span-2 sm:row-span-2 group relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-gradient-to-br from-white to-blue-50/50 p-10 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01]">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30"><ShieldCheck className="h-6 w-6" /></div>
-          <h3 className="mt-8 text-3xl font-bold tracking-tight">{vt.f1Title}</h3>
-          <p className="mt-3 max-w-lg text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{vt.f1Desc}</p>
-          <div aria-hidden className="pointer-events-none absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-3 sm:grid-rows-2">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="sm:col-span-2 sm:row-span-2 group relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-slate-200 bg-gradient-to-br from-white to-emerald-50/50 p-6 sm:p-10 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01]">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white shadow-lg shadow-emerald-500/30"><ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6" /></div>
+          <h3 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-bold tracking-tight">{vt.f1Title}</h3>
+          <p className="mt-2 sm:mt-3 max-w-lg text-sm sm:text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{vt.f1Desc}</p>
+          <div aria-hidden className="pointer-events-none absolute -right-10 -bottom-10 sm:-right-20 sm:-bottom-20 h-60 w-60 sm:h-80 sm:w-80 rounded-full bg-emerald-500/10 blur-3xl transition-opacity group-hover:opacity-100 opacity-50" />
         </motion.div>
         
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Sparkles className="h-5 w-5 text-indigo-500" /></div>
-          <h3 className="mt-5 text-xl font-bold">{vt.f2Title}</h3>
-          <p className="mt-2 text-base text-slate-500 dark:text-slate-400">{vt.f2Desc}</p>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="rounded-3xl sm:rounded-[2.5rem] border border-slate-200 bg-white p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow">
+          <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-500" /></div>
+          <h3 className="mt-4 sm:mt-5 text-lg sm:text-xl font-bold">{vt.f2Title}</h3>
+          <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-slate-500 dark:text-slate-400">{vt.f2Desc}</p>
         </motion.div>
         
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Gauge className="h-5 w-5 text-emerald-500" /></div>
-          <h3 className="mt-5 text-xl font-bold">{vt.f3Title}</h3>
-          <p className="mt-2 text-base text-slate-500 dark:text-slate-400">{vt.f3Desc}</p>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="rounded-3xl sm:rounded-[2.5rem] border border-slate-200 bg-white p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.02] hover:shadow-lg transition-shadow">
+          <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5"><Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-teal-500" /></div>
+          <h3 className="mt-4 sm:mt-5 text-lg sm:text-xl font-bold">{vt.f3Title}</h3>
+          <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-slate-500 dark:text-slate-400">{vt.f3Desc}</p>
         </motion.div>
         
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="rounded-[2.5rem] border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] sm:col-span-3 hover:shadow-lg transition-shadow">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="rounded-3xl sm:rounded-[2.5rem] border border-slate-200 bg-white p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.02] sm:col-span-3 hover:shadow-lg transition-shadow">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
             <div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5 mb-5"><Frame className="h-5 w-5 text-blue-500" /></div>
-              <h3 className="text-xl font-bold">{vt.f4Title}</h3>
-              <p className="mt-2 max-w-xl text-base text-slate-500 dark:text-slate-400">{vt.f4Desc}</p>
+              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/5 mb-3 sm:mb-5"><Frame className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500" /></div>
+              <h3 className="text-lg sm:text-xl font-bold">{vt.f4Title}</h3>
+              <p className="mt-1.5 sm:mt-2 max-w-xl text-sm sm:text-base text-slate-500 dark:text-slate-400">{vt.f4Desc}</p>
             </div>
-            <div className="flex gap-3 flex-wrap">
-              {["MP4", "MOV", "WEBM"].map((r) => (<div key={r} className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">{r}</div>))}
+            <div className="flex gap-2 sm:gap-3 flex-wrap">
+              {["MP4", "MOV", "WEBM"].map((r) => (<div key={r} className="flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 text-[10px] sm:text-xs font-bold text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">{r}</div>))}
             </div>
           </div>
         </motion.div>
@@ -968,17 +927,17 @@ function VideoFAQ() {
   const vt = getTranslation(lang);
   const faqs = [{ q: vt.faq1q, a: vt.faq1a }, { q: vt.faq2q, a: vt.faq2a }, { q: vt.faq3q, a: vt.faq3a }];
   return (
-    <section className="relative mx-auto max-w-4xl px-4 py-20 sm:py-32">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14 text-center">
-        <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span>
-        <h2 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-5xl">{vt.faqTitle}</h2>
+    <section className="relative mx-auto max-w-4xl px-4 py-16 sm:py-24">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 sm:mb-14 text-center">
+        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">{vt.faqTag}</span>
+        <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">{vt.faqTitle}</h2>
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-        <Accordion type="single" collapsible className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.02]">
+        <Accordion type="single" collapsible className="overflow-hidden rounded-3xl sm:rounded-[2rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.02]">
           {faqs.map((it, i) => (
-            <AccordionItem key={it.q} value={`item-${i}`} className={i === faqs.length - 1 ? "border-0 px-8 py-2" : "border-b border-slate-200 px-8 py-2 dark:border-white/10"}>
-              <AccordionTrigger className="text-base font-bold hover:no-underline hover:text-blue-600 transition-colors py-5">{it.q}</AccordionTrigger>
-              <AccordionContent className="text-base text-slate-500 dark:text-slate-400 pb-6 leading-relaxed text-sm">{it.a}</AccordionContent>
+            <AccordionItem key={it.q} value={`item-${i}`} className={i === faqs.length - 1 ? "border-0 px-4 sm:px-8 py-1 sm:py-2" : "border-b border-slate-200 px-4 sm:px-8 py-1 sm:py-2 dark:border-white/10"}>
+              <AccordionTrigger className="text-sm sm:text-base font-bold hover:no-underline hover:text-emerald-600 transition-colors py-4 sm:py-5 text-left">{it.q}</AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base text-slate-500 dark:text-slate-400 pb-4 sm:pb-6 leading-relaxed">{it.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

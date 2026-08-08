@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import {
   Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, FileArchive, Plus, ArrowRight,
+  Image as ImageIcon, Wand2, ShieldCheck, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, FileArchive, Plus, ArrowRight,
   Type, FileText, Clapperboard, PlaySquare, Zap, Lock
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
@@ -18,37 +18,17 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 // 📢 ADSTERRA AD COMPONENTS (FULLY OPTIMIZED)
 // ==========================================
 
-// 1. 728x90 Banner - Made fully responsive for Mobile & Laptop
 function AdBanner728x90() {
   return (
     <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar">
+      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
         <iframe
           title="Adsterra 728x90"
           width="728"
           height="90"
           frameBorder="0"
           scrolling="no"
-          srcDoc={`
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
-              </head>
-              <body>
-                <script type="text/javascript">
-                  atOptions = {
-                    'key' : '9b8822b87a33da031aa2351cb92a123d',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                  };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script>
-              </body>
-            </html>
-          `}
+          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script></body></html>`}
           className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
@@ -56,37 +36,17 @@ function AdBanner728x90() {
   );
 }
 
-// 2. 300x250 Banner
 function AdBanner300x250() {
   return (
     <div className="flex justify-center items-center w-full min-h-[250px] my-10 overflow-hidden">
-      <div className="max-w-full overflow-hidden rounded-lg">
+      <div className="max-w-full overflow-hidden rounded-lg flex justify-center">
         <iframe
           title="Adsterra 300x250"
           width="300"
           height="250"
           frameBorder="0"
           scrolling="no"
-          srcDoc={`
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style>
-              </head>
-              <body>
-                <script type="text/javascript">
-                  atOptions = {
-                    'key' : '8334e8ec678967ec9dd522989d8d95ea',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                  };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script>
-              </body>
-            </html>
-          `}
+          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script></body></html>`}
           className="bg-slate-50/50 dark:bg-white/5"
         />
       </div>
@@ -94,7 +54,6 @@ function AdBanner300x250() {
   );
 }
 
-// 3. Native Banner (Perfect position above the tool)
 function AdNativeBanner() {
   useEffect(() => {
     if (!document.getElementById("adsterra-native")) {
@@ -114,59 +73,41 @@ function AdNativeBanner() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher Order Updated)
 // ─────────────────────────────────────────────────────────────
-function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' }) {
+function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' | 'text-to-video' }) {
   return (
-    <div className="flex justify-center mb-8 relative z-20">
-      <div className="inline-flex items-center flex-wrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md">
+    <div className="flex justify-center mb-8 relative z-20 w-full overflow-x-auto px-4 py-2 custom-scrollbar">
+      <div className="inline-flex items-center flex-nowrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md min-w-max">
         
-        {/* Image Tool Link */}
-        <Link
-          to="/"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'image'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <ImageIcon className="w-4 h-4" /> Image
+        {/* 1. Text to Video (Homepage) */}
+        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-video' ? 'bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Clapperboard className="w-4 h-4" /> Text to Video
+          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 animate-pulse">New</span>
         </Link>
 
-        {/* Video Tool Link */}
-        <Link
-          to="/video-remover"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'video'
-              ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
-          <Film className="w-4 h-4" /> Video
-        </Link>
-
-        {/* Text-to-Image Tool Link */}
-        <Link
-          to="/text-to-image"
-          className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-            current === 'text-to-image'
-              ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
-          }`}
-        >
+        {/* 2. Text to Image */}
+        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
           <Type className="w-4 h-4" /> Text to Image
-          <span className="absolute -top-2 -right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">
-            New
-          </span>
         </Link>
-        
+
+        {/* 3. Image Remover */}
+        <Link to="/watermark-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <ImageIcon className="w-4 h-4" /> Image Remover
+        </Link>
+
+        {/* 4. Video Remover */}
+        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Film className="w-4 h-4" /> Video Remover
+        </Link>
+
       </div>
     </div>
   );
 }
 
 // ==========================================
-// 🌍 MULTI-LANGUAGE DICTIONARY
+// 🌍 MULTI-LANGUAGE DICTIONARY (EN, ES, FR)
 // ==========================================
 const IMAGE_DICT = {
   en: {
@@ -187,6 +128,7 @@ const IMAGE_DICT = {
     menuImage: "Image Watermark Remover",
     menuVideo: "Video Watermark Remover",
     menuTextToImage: "Text to Image Generator",
+    menuTextToVideo: "Text to Video Generator",
     toggleBefore: "Original",
     toggleAfter: "Cleaned",
     hiwTag: "WORKFLOW",
@@ -217,7 +159,7 @@ const IMAGE_DICT = {
     faq3q: "Are my personal images safe?",
     faq3a: "Absolutely! Image inpainting is executed 100% locally on your machine's hardware via the browser client. Your data stays securely on your device.",
     popupTitle: "New Feature",
-    popupDesc: "Try our new AI Video Watermark Remover for free!"
+    popupDesc: "Try our new AI Video Generator for free!"
   },
   es: {
     heroTitle: "Elimina marcas de Gemini en",
@@ -237,6 +179,7 @@ const IMAGE_DICT = {
     menuImage: "Eliminador (Imagen)",
     menuVideo: "Eliminador (Video)",
     menuTextToImage: "Generador de Texto a Imagen",
+    menuTextToVideo: "Generador de Texto a Video",
     toggleBefore: "Original",
     toggleAfter: "Limpia",
     hiwTag: "FLUJO DE TRABAJO",
@@ -267,7 +210,7 @@ const IMAGE_DICT = {
     faq3q: "¿Están seguras mis imágenes?",
     faq3a: "¡Por supuesto! El procesamiento ocurre al 100% en tu máquina. Tus datos permanecen privados.",
     popupTitle: "Nueva Función",
-    popupDesc: "¡Prueba nuestro nuevo Eliminador de Marcas de Video con IA gratis!"
+    popupDesc: "¡Prueba nuestro nuevo Generador de Video IA gratis!"
   },
   fr: {
     heroTitle: "Supprimez les filigranes Gemini en",
@@ -287,9 +230,10 @@ const IMAGE_DICT = {
     menuImage: "Suppresseur (Image)",
     menuVideo: "Suppresseur (Vidéo)",
     menuTextToImage: "Générateur de Texte en Image",
+    menuTextToVideo: "Générateur de Texte en Vidéo",
     toggleBefore: "Originale",
     toggleAfter: "Nettoyée",
-    hiwTag: "FLUX DE TRAVAIL",
+    hiwTag: "FONCTIONNEMENT",
     hiwTitle: "Comment ça marche",
     hiwSub: "Trois étapes. Pixel-perfection. Résultats instantanés.",
     s1Title: "Téléchargez votre image",
@@ -304,12 +248,12 @@ const IMAGE_DICT = {
     f1Desc: "Notre système ne floute pas seulement le coin, il recrée intelligemment l'arrière-plan.",
     f2Title: "Totalement Gratuit",
     f2Desc: "Pas d'abonnement caché, pas de limites, aucune inscription requise.",
-    f3Title: "Confidentialité Absolue",
+    f3Title: "Confidentialité Absolute",
     f3Desc: "Vos fichiers sont traités localement et ne quittent jamais votre navigateur.",
     f4Title: "Tous les formats",
     f4Desc: "Compatible avec tous les formats générés par les outils d'IA modernes.",
     faqTag: "FAQ",
-    faqTitle: "Questions fréquentes",
+    faqTitle: "Questions fréquemment posées",
     faq1q: "Est-ce vraiment gratuit ?",
     faq1a: "Oui ! Vous pouvez traiter autant d'images que vous le souhaitez, gratuitement.",
     faq2q: "Comment supprime-t-il le filigrane ?",
@@ -317,7 +261,7 @@ const IMAGE_DICT = {
     faq3q: "Mes images sont-elles envoyées sur un serveur ?",
     faq3a: "Non ! Le traitement est 100% local dans votre navigateur.",
     popupTitle: "Nouvelle Fonctionnalité",
-    popupDesc: "Essayez notre nouveau suppresseur de filigrane vidéo IA gratuitement !"
+    popupDesc: "Essayez notre nouveau Générateur de Vidéo IA gratuitement !"
   }
 };
 
@@ -333,30 +277,73 @@ type ProcessedImage = {
   name: string;
 };
 
-// Removed Text to Image from upcoming since it's active now
 const UPCOMING_TOOLS = [
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
-  { name: "Text to Video", icon: Clapperboard, color: "text-purple-500", bg: "bg-purple-500/10" },
   { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
   { name: "AI Image Enhancer", icon: Zap, color: "text-yellow-500", bg: "bg-yellow-500/10" },
   { name: "AI Video Enhancer", icon: Wand2, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10" },
 ];
 
-export function WatermarkRemover() {
+// ==========================================
+// 🚀 DEDICATED SEO ROUTE SETUP
+// ==========================================
+export const Route = createFileRoute('/watermark-remover')({
+  head: () => ({
+    meta: [
+      { title: "Free Gemini Watermark Remover | Remove Star Logo - Unmark AI" },
+      { name: "description", content: "Easily remove Gemini AI watermarks and the Nano Banana star logo from your images. 100% free, processed locally in your browser with zero quality loss. No signup required." },
+      { name: "keywords", content: "Gemini watermark remover, remove star logo online, free AI watermark eraser, remove Gemini AI watermark, clean AI generated images, local inpainting watermark removal, Unmark AI, Nano Banana Star Watermark Remover" },
+      { name: "author", content: "Unmark AI" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { property: "og:title", content: "Free Gemini Watermark Remover | Unmark AI" },
+      { property: "og:description", content: "Remove Gemini AI watermarks instantly directly in your browser. 100% free and private. No signup required." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.unmark-ai.com/watermark-remover" },
+      { property: "og:site_name", content: "Unmark AI" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Free Gemini Watermark Remover | Unmark AI" },
+      { name: "twitter:description", content: "Remove Gemini AI watermarks instantly directly in your browser. 100% free and private." }
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.unmark-ai.com/watermark-remover" }
+    ],
+  }),
+  component: WatermarkRemoverPageWrapper,
+});
+
+function WatermarkRemoverPageWrapper() {
+  const toolSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gemini Watermark Remover",
+    "url": "https://www.unmark-ai.com/watermark-remover",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD",
+      "description": "100% Free tool to remove Gemini watermarks."
+    },
+    "description": "Easily remove Gemini AI watermarks and the Nano Banana star logo from your images. 100% free, processed locally in your browser."
+  };
+
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <WatermarkRemoverPage />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }} />
+        <WatermarkRemoverContent />
       </LanguageProvider>
     </ThemeProvider>
   );
 }
 
-function WatermarkRemoverPage() {
+function WatermarkRemoverContent() {
   const { theme, toggleTheme } = useTheme();
   const { lang } = useI18n();
   const vt = getTranslation(lang);
   
+  // Default to showing the cleaned (after) image
   const [view, setView] = useState<"before" | "after">("after");
   const [image, setImage] = useState<ProcessedImage | null>(null);
   const [loading, setLoading] = useState(false);
@@ -378,16 +365,7 @@ function WatermarkRemoverPage() {
     };
   }, [image?.beforeUrl]);
 
-  // ==========================================
-  // 🚀 ADSTERRA SMARTLINK TEMPORARILY DISABLED FOR BETTER UX 
-  // ==========================================
-  const triggerSmartlink = () => {
-    /*
-    if (typeof window !== "undefined") {
-      window.open("https://www.effectivecpmnetwork.com/wxpd3qmr1?key=2e44c931ff39db8328abbdb5a0862867", "_blank", "noopener,noreferrer");
-    }
-    */
-  };
+  const triggerSmartlink = () => {};
 
   const handleFiles = useCallback((files: FileList | File[] | null) => {
     if (!files || files.length === 0) return;
@@ -453,6 +431,8 @@ function WatermarkRemoverPage() {
               }
              return { beforeUrl, afterUrl, blob: cleanedBlob, name: file.name };
             });
+            
+            // 🔥 FIXED: Ensures Cleaned (After) Image is displayed by default upon completion
             setView("after");
             setUploadProgress(100);
 
@@ -465,9 +445,7 @@ function WatermarkRemoverPage() {
                try {
                  const parsed = JSON.parse(errorMessage);
                  if (parsed.error) errorMessage = parsed.error;
-               } catch (jsonErr) {
-                 // Fallback to text
-               }
+               } catch (jsonErr) {}
             } else if (e.message) {
                errorMessage = e.message;
             }
@@ -494,7 +472,7 @@ function WatermarkRemoverPage() {
   }, []);
 
   const reset = () => {
-    triggerSmartlink(); // Function is disabled, safe to leave
+    triggerSmartlink(); 
     if (image) {
       URL.revokeObjectURL(image.beforeUrl);
       URL.revokeObjectURL(image.afterUrl);
@@ -509,7 +487,7 @@ function WatermarkRemoverPage() {
   const triggerPicker = () => fileInputRef.current?.click();
 
   const handleDownload = () => {
-    triggerSmartlink(); // Function is disabled, safe to leave
+    triggerSmartlink(); 
     if (!image) return;
     const a = document.createElement("a");
     a.href = image.afterUrl;
@@ -520,7 +498,7 @@ function WatermarkRemoverPage() {
   };
 
   const handleCopy = async () => {
-    triggerSmartlink(); // Function is disabled, safe to leave
+    triggerSmartlink(); 
     if (!image) return;
     try {
       await navigator.clipboard.write([new ClipboardItem({ [image.blob.type]: image.blob })]);
@@ -533,8 +511,8 @@ function WatermarkRemoverPage() {
   };
 
   const handleDownloadZip = () => {
-    triggerSmartlink(); // Function is disabled, safe to leave
-    handleDownload(); // Falls back to standard download
+    triggerSmartlink(); 
+    handleDownload(); 
   };
 
   return (
@@ -560,12 +538,12 @@ function WatermarkRemoverPage() {
               </button>
               <div className="flex items-start gap-4 pr-6">
                 <div className="flex shrink-0 h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
-                  <Film className="h-6 w-6" />
+                  <Clapperboard className="h-6 w-6" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-1">{vt.popupTitle}</span>
                   <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 leading-snug mb-3">{vt.popupDesc}</p>
-                  <Link to="/video-remover" className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors w-fit">
+                  <Link to="/" className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors w-fit">
                     Try it now <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -575,11 +553,12 @@ function WatermarkRemoverPage() {
         )}
       </AnimatePresence>
 
+      {/* 🚀 HAMBURGER MENU (Order Updated) */}
       <AnimatePresence>
         {menuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] dark:bg-black/60" />
-            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: "spring", bounce: 0, duration: 0.4 }} className="fixed left-0 top-0 bottom-0 w-80 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col">
+            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: "spring", bounce: 0, duration: 0.4 }} className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl z-[70] shadow-2xl border-r border-slate-200 dark:border-white/10 flex flex-col">
               <div className="flex shrink-0 items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30"><Sparkles className="h-4 w-4" /></div>
@@ -590,24 +569,39 @@ function WatermarkRemoverPage() {
               <div className="flex-1 overflow-y-auto px-4 py-6">
                 <span className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Our Free Tools</span>
                 <div className="flex flex-col gap-2">
-                  <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 transition">
-                    <div className="flex items-center gap-3 text-sm font-medium text-blue-700 dark:text-blue-400">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/20 text-blue-600 dark:text-blue-400"><ImageIcon className="h-4 w-4" /></div>{vt.menuImage}
-                    </div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                  </Link>
-                  <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                  
+                  {/* 1. Text to Video */}
+                  <Link to="/" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><Film className="h-4 w-4" /></div>{vt.menuVideo}
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400"><Clapperboard className="h-4 w-4" /></div>{vt.menuTextToVideo}
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-transform group-hover:translate-x-1" />
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-purple-500 transition-transform group-hover:translate-x-1" />
                   </Link>
+
+                  {/* 2. Text to Image */}
                   <Link to="/text-to-image" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
                       <div className="flex h-8 w-8 items-center justify-center rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400"><Type className="h-4 w-4" /></div>{vt.menuTextToImage}
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1" />
                   </Link>
+
+                  {/* 3. Image Remover (Active) */}
+                  <Link to="/watermark-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-blue-700 dark:text-blue-400">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-500/20 text-blue-600 dark:text-blue-400"><ImageIcon className="h-4 w-4" /></div>{vt.menuImage}
+                    </div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                  </Link>
+
+                  {/* 4. Video Remover */}
+                  <Link to="/video-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><Film className="h-4 w-4" /></div>{vt.menuVideo}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-500 transition-transform group-hover:translate-x-1" />
+                  </Link>
+
                 </div>
                 
                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
@@ -627,7 +621,6 @@ function WatermarkRemoverPage() {
                   </div>
                 </div>
 
-                {/* Privacy & Speed text for Sidebar */}
                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex items-center justify-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
                   Engineered for privacy and speed
@@ -650,9 +643,9 @@ function WatermarkRemoverPage() {
               <span className="ml-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{vt.badgeFree}</span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
-            <div className="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
+            <div className="hidden sm:block w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
             <button onClick={toggleTheme} className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition">
               <motion.span key={theme} initial={{ rotate: -90, opacity: 0, scale: 0.6 }} animate={{ rotate: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.25 }} className="flex">
                 {theme === "dark" ? <Sun className="h-4 w-4 text-slate-200" /> : <Moon className="h-4 w-4 text-slate-700" />}
@@ -662,12 +655,11 @@ function WatermarkRemoverPage() {
         </nav>
       </header>
 
-      <main className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 sm:pt-24">
+      <main className="relative mx-auto max-w-5xl px-4 pt-12 pb-24 sm:pt-20">
         
-        {/* ADSTERRA 728x90 LEADERBOARD BANNER - Top */}
         <AdBanner728x90 />
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-10 text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 sm:mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-semibold text-blue-700 dark:text-blue-400 mb-6 shadow-sm">
             <ImageIcon className="w-3.5 h-3.5" /> High-Fidelity Local Processing
           </div>
@@ -675,7 +667,9 @@ function WatermarkRemoverPage() {
             {vt.heroTitle} <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-700 bg-clip-text text-transparent">{vt.heroAccent}</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg">{vt.heroSub}</p>
+          <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-400 sm:text-lg px-2">
+            {vt.heroSub}
+          </p>
         </motion.div>
 
         {/* 🚀 TAB SWITCHER 🚀 */}
@@ -684,16 +678,15 @@ function WatermarkRemoverPage() {
         {/* UPLOAD / RESULT SECTION */}
         <div className="relative mx-auto max-w-4xl mt-4">
           
-          {/* Native Ad Banner - Placed perfectly above tool */}
           <AdNativeBanner />
 
-          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-2 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/50 mt-6">
+          <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-2 sm:p-3 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#111]/50 mt-6">
             <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#0a0a0a] border border-slate-100 dark:border-white/5">
               
               {error && (
-                <div className="m-4 flex items-center gap-3 rounded-xl bg-red-50 p-4 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+                <div className="m-3 sm:m-4 flex items-center gap-3 rounded-xl bg-red-50 p-3 sm:p-4 text-red-600 dark:bg-red-500/10 dark:text-red-400">
                   <AlertTriangle className="h-5 w-5 shrink-0" />
-                  <p className="text-sm font-medium">{error}</p>
+                  <p className="text-xs sm:text-sm font-medium">{error}</p>
                   <button onClick={() => setError(null)} className="ml-auto"><X className="h-4 w-4" /></button>
                 </div>
               )}
@@ -704,59 +697,58 @@ function WatermarkRemoverPage() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }}
                   onClick={triggerPicker}
-                  className={`group flex min-h-[400px] cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] ${dragOver ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-500/10' : 'border-slate-200 dark:border-white/10'}`}
+                  className={`group flex min-h-[300px] sm:min-h-[400px] cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] ${dragOver ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-500/10' : 'border-slate-200 dark:border-white/10'}`}
                 >
-                  <div className="mb-6 rounded-full bg-slate-100 p-4 group-hover:scale-110 transition-transform dark:bg-white/5">
-                    <UploadCloud className="h-10 w-10 text-slate-400 dark:text-slate-500" />
+                  <div className="mb-4 sm:mb-6 rounded-full bg-slate-100 p-3 sm:p-4 group-hover:scale-110 transition-transform dark:bg-white/5">
+                    <UploadCloud className="h-8 w-8 sm:h-10 sm:w-10 text-slate-400 dark:text-slate-500" />
                   </div>
-                  <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-500 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></p>
-                  <p className="mt-2 text-sm text-slate-500">{vt.dropHint}</p>
+                  <p className="text-base sm:text-lg font-semibold text-slate-700 dark:text-slate-200 px-4 text-center">{vt.dropTitle} <span className="text-blue-600 dark:text-blue-500 underline decoration-blue-500/30 underline-offset-4">{vt.dropBrowse}</span></p>
+                  <p className="mt-2 text-xs sm:text-sm text-slate-500">{vt.dropHint}</p>
                   <input type="file" ref={fileInputRef} className="hidden" accept="image/jpeg,image/png,image/webp" onChange={(e) => handleFiles(e.target.files)} />
                 </div>
               ) : loading ? (
-                <div className="flex min-h-[400px] flex-col items-center justify-center p-8 text-center">
-                  <Loader2 className="mb-6 h-12 w-12 animate-spin text-blue-600 dark:text-blue-500" />
-                  <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{vt.processing}</p>
-                  <p className="mt-2 max-w-sm text-sm text-slate-500">{vt.processingSub}</p>
-                  <div className="mt-6 w-full max-w-xs overflow-hidden rounded-full bg-slate-100 dark:bg-white/10 h-2">
+                <div className="flex min-h-[300px] sm:min-h-[400px] flex-col items-center justify-center p-6 sm:p-8 text-center">
+                  <Loader2 className="mb-4 sm:mb-6 h-10 w-10 sm:h-12 sm:w-12 animate-spin text-blue-600 dark:text-blue-500" />
+                  <p className="text-base sm:text-lg font-semibold text-slate-700 dark:text-slate-200">{vt.processing}</p>
+                  <p className="mt-2 max-w-sm text-xs sm:text-sm text-slate-500">{vt.processingSub}</p>
+                  <div className="mt-4 sm:mt-6 w-full max-w-xs overflow-hidden rounded-full bg-slate-100 dark:bg-white/10 h-2">
                     <div className="h-full bg-blue-600 transition-all duration-300 dark:bg-blue-500" style={{ width: `${uploadProgress}%` }} />
                   </div>
-                  <p className="mt-2 text-xs font-medium text-slate-400">{uploadProgress}%</p>
+                  <p className="mt-2 text-[10px] sm:text-xs font-medium text-slate-400">{uploadProgress}%</p>
                 </div>
               ) : image ? (
                 <div className="flex flex-col md:flex-row border-t border-slate-100 dark:border-white/5">
                   {/* Left: Image Viewer */}
-                  <div className="flex-1 p-6 flex flex-col overflow-hidden">
-                    <div className="mb-6 flex justify-center">
+                  <div className="flex-1 p-4 sm:p-6 flex flex-col overflow-hidden">
+                    <div className="mb-4 sm:mb-6 flex justify-center">
                       <div className="inline-flex rounded-xl bg-slate-100 p-1 dark:bg-white/5">
-                        <button onClick={() => setView("before")} className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${view === "before" ? 'bg-white text-slate-900 shadow-sm dark:bg-[#222] dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleBefore}</button>
-                        <button onClick={() => setView("after")} className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${view === "after" ? 'bg-white text-blue-600 shadow-sm dark:bg-[#222] dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleAfter}</button>
+                        <button onClick={() => setView("before")} className={`rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${view === "before" ? 'bg-white text-slate-900 shadow-sm dark:bg-[#222] dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleBefore}</button>
+                        <button onClick={() => setView("after")} className={`rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${view === "after" ? 'bg-white text-blue-600 shadow-sm dark:bg-[#222] dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}>{vt.toggleAfter}</button>
                       </div>
                     </div>
-                    <div className="relative mx-auto max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-black/50">
-                      <img src={view === "before" ? image.beforeUrl : image.afterUrl} alt="Processed result" className="w-full h-auto object-contain max-h-[500px]" />
+                    <div className="relative mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-black/50">
+                      <img src={view === "before" ? image.beforeUrl : image.afterUrl} alt="Processed result" className="w-full h-auto object-contain max-h-[350px] sm:max-h-[500px]" />
                     </div>
                   </div>
 
-                  {/* Right: Actions */}
-                  <div className="w-full md:w-80 border-t md:border-t-0 md:border-l border-slate-100 bg-slate-50/50 p-6 dark:border-white/5 dark:bg-black/20 flex flex-col gap-4">
-                    <button onClick={handleDownload} className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:bg-blue-700 hover:shadow-blue-500/40">
-                      <Download className="h-5 w-5" /> {vt.btnDownload}
+                  {/* Right: Actions (🔥 FIXED: Direct Translation Keys Used) */}
+                  <div className="w-full md:w-80 md:min-w-[320px] border-t md:border-t-0 md:border-l border-slate-100 bg-slate-50/50 p-4 sm:p-6 dark:border-white/5 dark:bg-black/20 flex flex-col gap-3 sm:gap-4">
+                    <button onClick={handleDownload} className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:bg-blue-700 hover:shadow-blue-500/40">
+                      <Download className="h-4 w-4 sm:h-5 sm:w-5" /> {vt.btnDownload}
                     </button>
-                    <button onClick={handleCopy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
-                      {copied ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> : <Copy className="h-5 w-5" />}
+                    <button onClick={handleCopy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                      {copied ? <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" /> : <Copy className="h-4 w-4 sm:h-5 sm:w-5" />}
                       {copied ? vt.btnCopied : vt.btnCopy}
                     </button>
-                    <button onClick={handleDownloadZip} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
-                      <FileArchive className="h-5 w-5" /> {vt.btnZip}
+                    <button onClick={handleDownloadZip} className="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-slate-700 transition-all hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10">
+                      <FileArchive className="h-4 w-4 sm:h-5 sm:w-5" /> {vt.btnZip}
                     </button>
-                    <div className="my-2 h-px w-full bg-slate-200 dark:bg-white/10" />
-                    <button onClick={reset} className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3.5 text-sm font-bold text-slate-600 transition-all hover:bg-slate-200 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20">
-                      <Plus className="h-5 w-5" /> {vt.btnAddMore}
+                    <div className="my-1 sm:my-2 h-px w-full bg-slate-200 dark:bg-white/10" />
+                    <button onClick={reset} className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-slate-600 transition-all hover:bg-slate-200 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20">
+                      <Plus className="h-4 w-4 sm:h-5 sm:w-5" /> {vt.btnAddMore}
                     </button>
                     
-                    {/* Ad Banner inside results sidebar */}
-                    <div className="mt-auto pt-4 flex justify-center w-full overflow-hidden">
+                    <div className="mt-4 sm:mt-auto pt-4 flex justify-center w-full overflow-hidden">
                       <AdBanner300x250 />
                     </div>
                   </div>
@@ -766,53 +758,50 @@ function WatermarkRemoverPage() {
           </div>
         </div>
 
-        {/* ============================================================== */}
-        {/* NEW AD PLACEMENT: Below Tool, Above How It Works               */}
-        {/* ============================================================== */}
-        <div className="mt-12 mb-8">
+        <div className="mt-10 sm:mt-12 mb-8">
           <AdBanner728x90 />
         </div>
 
         {/* HOW IT WORKS */}
-        <div className="mt-16 border-t border-slate-200/50 pt-24 dark:border-white/5">
-          <div className="mb-16 text-center">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{vt.hiwTitle}</h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">{vt.hiwSub}</p>
+        <div className="mt-12 sm:mt-16 border-t border-slate-200/50 pt-16 sm:pt-24 dark:border-white/5">
+          <div className="mb-10 sm:mb-16 text-center">
+            <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span>
+            <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{vt.hiwTitle}</h2>
+            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400">{vt.hiwSub}</p>
           </div>
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 sm:grid-cols-3">
             {[
               { icon: UploadCloud, title: vt.s1Title, desc: vt.s1Desc },
               { icon: Wand2, title: vt.s2Title, desc: vt.s2Desc },
               { icon: Download, title: vt.s3Title, desc: vt.s3Desc },
             ].map((step, i) => (
-              <div key={i} className="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111]">
-                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"><step.icon className="h-6 w-6" /></div>
-                <h3 className="mb-3 text-lg font-bold">{step.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{step.desc}</p>
+              <div key={i} className="relative rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm dark:border-white/10 dark:bg-[#111]">
+                <div className="mb-4 sm:mb-6 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"><step.icon className="h-5 w-5 sm:h-6 sm:w-6" /></div>
+                <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-bold">{step.title}</h3>
+                <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-400">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* FEATURES */}
-        <div className="mt-32 rounded-3xl bg-slate-900 px-6 py-24 text-center sm:px-16 overflow-hidden relative">
+        <div className="mt-20 sm:mt-32 rounded-3xl bg-slate-900 px-4 py-16 sm:px-16 sm:py-24 text-center overflow-hidden relative">
           <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at center, #3b82f6 0%, transparent 70%)" }} />
           <div className="relative z-10">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-400">{vt.featTag}</span>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">{vt.featTitle}</h2>
-            <div className="mt-16 grid gap-8 sm:grid-cols-2 text-left">
+            <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-blue-400">{vt.featTag}</span>
+            <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">{vt.featTitle}</h2>
+            <div className="mt-10 sm:mt-16 grid gap-4 sm:gap-8 sm:grid-cols-2 text-left">
               {[
                 { icon: Frame, title: vt.f1Title, desc: vt.f1Desc },
                 { icon: Zap, title: vt.f2Title, desc: vt.f2Desc },
                 { icon: ShieldCheck, title: vt.f3Title, desc: vt.f3Desc },
                 { icon: ImageIcon, title: vt.f4Title, desc: vt.f4Desc },
               ].map((feat, i) => (
-                <div key={i} className="flex gap-4 rounded-2xl bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
-                  <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400"><feat.icon className="h-6 w-6" /></div>
+                <div key={i} className="flex flex-col sm:flex-row gap-4 rounded-2xl bg-white/5 p-5 sm:p-6 border border-white/10 backdrop-blur-sm">
+                  <div className="shrink-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400"><feat.icon className="h-5 w-5 sm:h-6 sm:w-6" /></div>
                   <div>
-                    <h3 className="mb-2 text-lg font-bold text-white">{feat.title}</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">{feat.desc}</p>
+                    <h3 className="mb-1 sm:mb-2 text-base sm:text-lg font-bold text-white">{feat.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{feat.desc}</p>
                   </div>
                 </div>
               ))}
@@ -820,21 +809,35 @@ function WatermarkRemoverPage() {
           </div>
         </div>
 
-        {/* FAQ - (728x90 Banner removed from here) */}
-        <div className="mx-auto mt-32 max-w-3xl">
-          <div className="mb-12 text-center">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{vt.faqTitle}</h2>
+        {/* SEO ARTICLE */}
+        <section className="relative mx-auto max-w-4xl px-2 sm:px-4 mt-20 sm:mt-32 text-slate-600 dark:text-slate-400">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-center sm:text-left">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">Free Gemini Watermark Remover Online (No Signup)</h2>
+            <p className="mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
+              Welcome to Unmark AI, your premier destination for completely free, unlimited AI image cleaning. If you generate stunning images using Google Gemini, you are likely familiar with the small, intrusive star logo watermark placed in the bottom corner. Our advanced <strong>Gemini Watermark Remover</strong> is specifically engineered to eliminate that Nano Banana logo with a single click, completely free of charge, with absolutely no signup required.
+            </p>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 mt-6 sm:mt-8">Remove the Star Logo without Quality Loss</h3>
+            <p className="text-sm sm:text-base leading-relaxed">
+              Unlike generic eraser tools that simply blur the corner, our specialized local inpainting engine intelligently reads the surrounding pixels to magically reconstruct the background. Furthermore, your privacy is our priority. Your creative assets are processed entirely locally inside your browser cache. This means your images never touch our servers, ensuring your unreleased artwork stays safe and private. Remove the Gemini star watermark instantly today.
+            </p>
           </div>
-          <Accordion type="single" collapsible className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-2 shadow-sm dark:border-white/10 dark:bg-[#111]">
+        </section>
+
+        {/* FAQ */}
+        <div className="mx-auto mt-20 sm:mt-32 max-w-3xl">
+          <div className="mb-8 sm:mb-12 text-center">
+            <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.faqTag}</span>
+            <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{vt.faqTitle}</h2>
+          </div>
+          <Accordion type="single" collapsible className="w-full rounded-2xl border border-slate-200 bg-white px-4 sm:px-6 py-2 shadow-sm dark:border-white/10 dark:bg-[#111]">
             {[
               { q: vt.faq1q, a: vt.faq1a, val: "item-1" },
               { q: vt.faq2q, a: vt.faq2a, val: "item-2" },
               { q: vt.faq3q, a: vt.faq3a, val: "item-3" },
             ].map((faq) => (
               <AccordionItem key={faq.val} value={faq.val} className="border-b-slate-100 dark:border-b-white/5 last:border-0">
-                <AccordionTrigger className="text-left text-base font-semibold hover:no-underline py-6 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{faq.q}</AccordionTrigger>
-                <AccordionContent className="text-slate-600 dark:text-slate-400 pb-6 leading-relaxed text-sm">{faq.a}</AccordionContent>
+                <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:no-underline py-4 sm:py-6 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{faq.q}</AccordionTrigger>
+                <AccordionContent className="text-slate-600 dark:text-slate-400 pb-4 sm:pb-6 leading-relaxed text-xs sm:text-sm">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
