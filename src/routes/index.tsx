@@ -506,24 +506,40 @@ function TextToVideoPage() {
 
   const handleDownload = async () => {
     if (!resultUrl) return;
+    
     try {
       const response = await fetch(resultUrl);
       const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
+      const blobUrl = window.URL.createObjectURL(blob);
       
       const a = document.createElement("a");
+      a.style.display = "none";
       a.href = blobUrl;
-      a.download = `unmark-video-${Date.now()}.mp4`; 
+      a.download = `unmark-video-${Date.now()}.mp4`;
       document.body.appendChild(a);
+      
       a.click();
       
-      a.remove();
-      URL.revokeObjectURL(blobUrl);
+      // 🔥 THE MOBILE FIX: 
+      // Mobile OS ko download stream pakarne ke liye thora time chahiye hota hai.
+      // 2 seconds ka delay dene se iOS aur Android par download kabhi fail nahi hoga.
+      setTimeout(() => {
+        a.remove();
+        window.URL.revokeObjectURL(blobUrl);
+      }, 2000);
+      
     } catch (error) {
-      window.open(resultUrl, "_blank");
+      console.warn("Blob method failed, using instant fallback:", error);
+      // 🔥 INSTANT FALLBACK FOR STRICT DEVICES
+      const fallbackAnchor = document.createElement("a");
+      fallbackAnchor.href = resultUrl;
+      fallbackAnchor.download = `unmark-video-${Date.now()}.mp4`;
+      fallbackAnchor.target = "_blank"; // Opens in new tab/native player natively
+      document.body.appendChild(fallbackAnchor);
+      fallbackAnchor.click();
+      fallbackAnchor.remove();
     }
   };
-
   useEffect(() => {
     return () => {
       clearTimers();
