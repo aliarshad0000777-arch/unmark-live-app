@@ -1,11 +1,12 @@
 "use client";
 
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useState, useEffect } from "react";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useCallback, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 import {
-  Sun, Moon, Sparkles, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Frame, AlertTriangle, X, Plus,
+  Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
+  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, FileArchive, Plus, ArrowRight,
   Type, FileText, Clapperboard, PlaySquare, Zap, Lock, RefreshCw, Server, Settings2, Clock, 
   BatteryCharging
 } from "lucide-react";
@@ -139,6 +140,7 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image
     </div>
   );
 }
+
 // ─────────────────────────────────────────────────────────────
 // 🌐 MULTI-LANGUAGE DICTIONARY (EN, ES, FR)
 // ─────────────────────────────────────────────────────────────
@@ -256,7 +258,7 @@ const T2V_DICT: Record<string, any> = {
     faq1q: "Est-ce vraiment gratuit et dois-je m'inscrire ?",
     faq1a: "Oui ! Aucune inscription n'est requise. Vous obtenez une limite quotidienne de crédits gratuits.",
     faq2q: "Y a-t-il des filigranes sur la vidéo finale ?",
-    faq2a: "Absolutamente pas. Nous fournissons des vidéos 100% propres.",
+    faq2a: "Absolument pas. Nous fournissons des vidéos 100% propres.",
     faq3q: "Qu'est-ce qui fait un bon texte pour la meilleure vidéo ?",
     faq3a: "Soyez descriptif ! Mentionnez le sujet, l'environnement, l'éclairage et le style de caméra."
   }
@@ -266,6 +268,7 @@ const getTranslation = (langCode: string | undefined) => {
   const safeLang = (langCode || "en").toLowerCase();
   return T2V_DICT[safeLang as keyof typeof T2V_DICT] || T2V_DICT["en"];
 };
+
 const UPCOMING_TOOLS = [
   { name: "Image to Text", icon: FileText, color: "text-amber-500", bg: "bg-amber-500/10" },
   { name: "Image to Video", icon: PlaySquare, color: "text-sky-500", bg: "bg-sky-500/10" },
@@ -352,7 +355,7 @@ function Index() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// 🚀 TEXT TO VIDEO MAIN COMPONENT (Rendered inside Index)
+// 🚀 TEXT TO VIDEO MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────
 function TextToVideoPage() {
   const { theme, toggleTheme } = useTheme();
@@ -370,6 +373,7 @@ function TextToVideoPage() {
   const [statusText, setStatusText] = useState(vt.processing);
   
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false); // 🔥 NEW: Spinner state for download
   
   // 🚀 Credit System State
   const [videosLeft, setVideosLeft] = useState(5);
@@ -504,10 +508,13 @@ function TextToVideoPage() {
     setProgress(0);
   };
 
+  // 🔥 FULLY OPTIMIZED MOBILE + DOUBLE-CLICK SAFE DOWNLOAD LOGIC
   const handleDownload = async () => {
-    if (!resultUrl) return;
+    if (!resultUrl || isDownloading) return;
     
     try {
+      setIsDownloading(true);
+      
       const response = await fetch(resultUrl);
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
@@ -520,9 +527,6 @@ function TextToVideoPage() {
       
       a.click();
       
-      // 🔥 THE MOBILE FIX: 
-      // Mobile OS ko download stream pakarne ke liye thora time chahiye hota hai.
-      // 2 seconds ka delay dene se iOS aur Android par download kabhi fail nahi hoga.
       setTimeout(() => {
         a.remove();
         window.URL.revokeObjectURL(blobUrl);
@@ -530,16 +534,18 @@ function TextToVideoPage() {
       
     } catch (error) {
       console.warn("Blob method failed, using instant fallback:", error);
-      // 🔥 INSTANT FALLBACK FOR STRICT DEVICES
       const fallbackAnchor = document.createElement("a");
       fallbackAnchor.href = resultUrl;
       fallbackAnchor.download = `unmark-video-${Date.now()}.mp4`;
-      fallbackAnchor.target = "_blank"; // Opens in new tab/native player natively
+      fallbackAnchor.target = "_blank"; 
       document.body.appendChild(fallbackAnchor);
       fallbackAnchor.click();
       fallbackAnchor.remove();
+    } finally {
+      setIsDownloading(false);
     }
   };
+
   useEffect(() => {
     return () => {
       clearTimers();
@@ -831,11 +837,16 @@ function TextToVideoPage() {
                     
                     <div className="shrink-0 bg-white border-t border-slate-200 dark:bg-[#0a0a0a] dark:border-white/5 p-4 sm:p-6">
                       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center sm:justify-between items-center">
-                        <button onClick={handleDownload} className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-3.5 sm:py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:bg-purple-700">
-                          <Download className="h-4 w-4" /> {vt.btnDownload}
+                        <button 
+                          onClick={handleDownload} 
+                          disabled={isDownloading}
+                          className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-3.5 sm:py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:bg-purple-700 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                        >
+                          {isDownloading ? <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> : <Download className="h-4 w-4 sm:h-5 sm:w-5" />} 
+                          {isDownloading ? "Downloading..." : vt.btnDownload}
                         </button>
                         <button onClick={reset} className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-slate-800 px-6 py-3.5 sm:py-2.5 text-sm font-bold text-white transition-all hover:bg-slate-900 dark:bg-white dark:text-black dark:hover:bg-slate-200">
-                          <Plus className="h-4 w-4" /> {vt.btnAddMore}
+                          <Plus className="h-4 w-4 sm:h-5 sm:w-5" /> {vt.btnAddMore}
                         </button>
                       </div>
 
