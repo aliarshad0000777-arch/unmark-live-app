@@ -98,25 +98,34 @@ function AdNativeBanner() {
 }
 
 // ==========================================
-// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher)
+// 🚀 SEO INTERNAL LINKING TABS (Tool Switcher - Fixed for Mobile)
 // ==========================================
 function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' | 'text-to-video' }) {
   return (
-    <div className="flex justify-center mb-8 relative z-20 w-full overflow-x-auto px-4 py-2 custom-scrollbar">
-      <div className="inline-flex items-center flex-nowrap justify-center gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md min-w-max">
-        <Link to="/" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-video' ? 'bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <Clapperboard className="w-4 h-4" /> Text to Video
+    <div className="flex justify-center mb-8 relative z-20 w-full px-3 sm:px-4">
+      <div className="grid grid-cols-2 lg:flex lg:flex-row items-center justify-center gap-1.5 lg:gap-1 p-1.5 bg-slate-200/50 dark:bg-white/5 rounded-2xl lg:rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-sm backdrop-blur-md w-full lg:w-auto">
+        
+        <Link to="/" className={`relative flex w-full lg:w-auto items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 rounded-xl lg:rounded-full text-[11px] sm:text-sm font-bold transition-all duration-300 ${current === 'text-to-video' ? 'bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Clapperboard className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+          <span className="truncate">Text to Video</span>
         </Link>
-        <Link to="/text-to-image" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <Type className="w-4 h-4" /> Text to Image
-          <span className="absolute -top-2 -right-1 sm:-right-2 flex h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1.5 text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
+        
+        <Link to="/text-to-image" className={`relative flex w-full lg:w-auto items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 rounded-xl lg:rounded-full text-[11px] sm:text-sm font-bold transition-all duration-300 ${current === 'text-to-image' ? 'bg-white dark:bg-pink-600 text-pink-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Type className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+          <span className="truncate">Text to Image</span>
+          <span className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 flex h-4 sm:h-5 items-center rounded-full border border-pink-500/30 bg-pink-500/10 px-1 sm:px-1.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400 animate-pulse">New</span>
         </Link>
-        <Link to="/watermark-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <ImageIcon className="w-4 h-4" /> Image Remover
+        
+        <Link to="/watermark-remover" className={`relative flex w-full lg:w-auto items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 rounded-xl lg:rounded-full text-[11px] sm:text-sm font-bold transition-all duration-300 ${current === 'image' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+          <span className="truncate">Image Remover</span>
         </Link>
-        <Link to="/video-remover" className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
-          <Film className="w-4 h-4" /> Video Remover
+        
+        <Link to="/video-remover" className={`relative flex w-full lg:w-auto items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 rounded-xl lg:rounded-full text-[11px] sm:text-sm font-bold transition-all duration-300 ${current === 'video' ? 'bg-white dark:bg-blue-600 text-blue-600 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'}`}>
+          <Film className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+          <span className="truncate">Video Remover</span>
         </Link>
+        
       </div>
     </div>
   );
