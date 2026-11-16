@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import {
-  Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
+  Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Film, Download,
   Image as ImageIcon, Wand2, ShieldCheck, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, Plus, ArrowRight,
   Type, FileText, Clapperboard, PlaySquare, Zap, Lock
 } from "lucide-react";
@@ -13,55 +13,6 @@ import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
 import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-// ==========================================
-// 📢 ADSTERRA AD COMPONENTS (SPA-SAFE & RESPONSIVE)
-// ==========================================
-
-function AdBanner728x90() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
-        <iframe
-          title="Adsterra 728x90"
-          width="728"
-          height="90"
-          frameBorder="0"
-          scrolling="no"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script></body></html>`}
-          className="bg-slate-50/50 dark:bg-white/5"
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdBanner300x250() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[250px] my-10 overflow-hidden">
-      <div className="max-w-full overflow-hidden rounded-lg flex justify-center">
-        <iframe
-          title="Adsterra 300x250"
-          width="300"
-          height="250"
-          frameBorder="0"
-          scrolling="no"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script></body></html>`}
-          className="bg-slate-50/50 dark:bg-white/5"
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdNativeBanner() {
-  // Native ad component (Optional loading logic here)
-  return (
-    <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
-      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────────────────────
 // 🚀 SEO INTERNAL LINKING TABS (Fully Responsive & Scroller Removed)
@@ -96,6 +47,7 @@ function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image
     </div>
   );
 }
+
 // ==========================================
 // 🌍 MULTI-LANGUAGE DICTIONARY (Universal Updates & SEO Keywords)
 // ==========================================
@@ -298,11 +250,6 @@ function WatermarkRemoverContent() {
   // 🚀 MODAL ENDPOINT FOR UNIVERSAL REMOVAL
   const API_URL = "https://ahmedlagend786--unmark-universal-watermark-remover-web-api.modal.run";
 
-  // FIX: Removed the strict `useEffect` that was prematurely revoking object URLs 
-  // causing the broken image icon issue on toggle. URL cleanup is now handled in `reset()`.
-
-  const triggerSmartlink = () => {};
-
   const handleFiles = useCallback((files: FileList | File[] | null) => {
     if (!files || files.length === 0) return;
     const f = Array.from(files).find((f) => f.type.startsWith("image/"));
@@ -413,7 +360,6 @@ function WatermarkRemoverContent() {
   };
 
   const reset = () => {
-    triggerSmartlink(); 
     // Secure URL cleanup
     if (beforeUrl) URL.revokeObjectURL(beforeUrl);
     if (afterUrl) URL.revokeObjectURL(afterUrl);
@@ -449,12 +395,10 @@ function WatermarkRemoverContent() {
       window.open(afterUrl, "_blank");
     } finally {
       setIsDownloading(false);
-      triggerSmartlink(); 
     }
   };
 
   const handleCopy = async () => {
-    triggerSmartlink(); 
     if (!resultBlob) return;
     try {
       await navigator.clipboard.write([new ClipboardItem({ [resultBlob.type]: resultBlob })]);
@@ -610,8 +554,6 @@ function WatermarkRemoverContent() {
 
       <main className="relative mx-auto max-w-5xl px-4 pt-8 pb-20 sm:pt-20 sm:pb-24">
         
-        <AdBanner728x90 />
-
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 sm:mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-[10px] sm:text-xs font-semibold text-blue-700 dark:text-blue-400 mb-4 sm:mb-6 shadow-sm">
             <ImageIcon className="w-3.5 h-3.5" /> High-Fidelity Universal Processing
@@ -631,8 +573,6 @@ function WatermarkRemoverContent() {
         {/* UPLOAD / RESULT SECTION */}
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="relative mx-auto max-w-4xl mt-4">
           
-          <AdNativeBanner />
-
           <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => {
             const f = e.target.files?.[0];
             if (f) handleFiles([f]);
@@ -780,19 +720,10 @@ function WatermarkRemoverContent() {
               </motion.div>
             )}
           </div>
-          
-          {/* Banner Ad Below Tool */}
-          <div className="mt-6 sm:mt-8 flex justify-center overflow-hidden">
-             <AdBanner300x250 />
-          </div>
         </motion.div>
 
-        <div className="mt-8 sm:mt-12 mb-6 sm:mb-8">
-          <AdBanner728x90 />
-        </div>
-
         {/* HOW IT WORKS */}
-        <div className="mt-10 sm:mt-16 border-t border-slate-200/50 pt-12 sm:pt-24 dark:border-white/5">
+        <div className="mt-12 sm:mt-20 border-t border-slate-200/50 pt-12 sm:pt-24 dark:border-white/5">
           <div className="mb-8 sm:mb-16 text-center">
             <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-blue-600 dark:text-blue-400">{vt.hiwTag}</span>
             <h2 className="mt-2 sm:mt-4 text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{vt.hiwTitle}</h2>

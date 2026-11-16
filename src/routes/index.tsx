@@ -1,111 +1,18 @@
 "use client";
 
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
 import {
-  Sun, Moon, Sparkles, UploadCloud, Loader2, Menu, Video, Film, Download,
-  Image as ImageIcon, Wand2, ShieldCheck, Gauge, Frame, CheckCircle2, AlertTriangle, X, ChevronRight, Copy, FileArchive, Plus, ArrowRight,
-  Type, FileText, Clapperboard, PlaySquare, Zap, Lock, RefreshCw, Server, Settings2, Clock, 
+  Sun, Moon, Sparkles, Loader2, Menu, Video, Film, Download,
+  Image as ImageIcon, ShieldCheck, Frame, AlertTriangle, X, Plus,
+  Type, FileText, Clapperboard, PlaySquare, Zap, Lock, Server, Settings2, Clock,
   BatteryCharging
 } from "lucide-react";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LanguageProvider, useI18n } from "@/lib/i18n";
 import { Footer, LanguageSwitcher } from "@/components/landing-sections";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-// ==========================================
-// 📢 PROFESSIONAL GLOBAL AD INJECTOR
-// ==========================================
-const GlobalAdScripts = () => {
-  useEffect(() => {
-    // 1. ADSTERRA SOCIAL BAR AD SCRIPT
-    const socialScriptSrc = "//pl30342756.effectivecpmnetwork.com/39/08/28/39082802d3120406758973a8b6e5b23b.js";
-    if (!document.querySelector(`script[src="${socialScriptSrc}"]`)) {
-      const socialScript = document.createElement("script");
-      socialScript.type = "text/javascript";
-      socialScript.src = socialScriptSrc;
-      socialScript.async = true;
-      document.body.appendChild(socialScript);
-    }
-
-    // 2. ADCASH MAIN LIBRARY SCRIPT (Engine)
-    if (!document.getElementById("aclib")) {
-      const aclibScript = document.createElement("script");
-      aclibScript.id = "aclib";
-      aclibScript.type = "text/javascript";
-      aclibScript.src = "//acscdn.com/script/aclib.js";
-      aclibScript.async = true;
-      document.head.appendChild(aclibScript);
-    }
-
-    // 3. ADCASH VIDEO SLIDER & INTERSTITIAL TAGS
-    if (!document.getElementById("adcash-tags")) {
-      const adcashTags = document.createElement("script");
-      adcashTags.id = "adcash-tags";
-      adcashTags.type = "text/javascript";
-      adcashTags.innerHTML = `
-        window.aclib = window.aclib || [];
-        // Trigger Video Slider Ad (Bottom Floating Video)
-        aclib.runVideoSlider({ zoneId: '11799942' });
-        // Trigger Interstitial Ad (Full Screen Overlay)
-        aclib.runInterstitial({ zoneId: '11799974' });
-      `;
-      document.body.appendChild(adcashTags);
-    }
-
-    return () => {};
-  }, []);
-
-  return null;
-};
-
-// ==========================================
-// 📢 LOCAL AD COMPONENTS
-// ==========================================
-function AdBanner728x90() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
-        <iframe title="Adsterra 728x90" width="728" height="90" frameBorder="0" scrolling="no" className="bg-slate-50/50 dark:bg-white/5"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script></body></html>`}
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdBanner300x250() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[250px] my-4 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar flex justify-center">
-        <iframe title="Adsterra 300x250" width="300" height="250" frameBorder="0" scrolling="no" className="bg-slate-50/50 dark:bg-white/5"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script></body></html>`}
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdNativeBanner() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!document.getElementById("adsterra-native")) {
-      const script = document.createElement("script");
-      script.id = "adsterra-native";
-      script.async = true;
-      script.dataset.cfasync = "false";
-      script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
-      document.body.appendChild(script);
-    }
-  }, []);
-  return (
-    <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
-      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm flex justify-center" />
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────────────────────
 // 🚀 SEO INTERNAL LINKING TABS (Tool Switcher - Fixed for Mobile)
@@ -351,7 +258,6 @@ function Index() {
     <ThemeProvider>
       <LanguageProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
-        <GlobalAdScripts />
         <TextToVideoPage />
       </LanguageProvider>
     </ThemeProvider>
@@ -377,7 +283,7 @@ function TextToVideoPage() {
   const [statusText, setStatusText] = useState(vt.processing);
   
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false); // 🔥 NEW: Spinner state for download
+  const [isDownloading, setIsDownloading] = useState(false);
   
   // 🚀 Credit System State
   const [videosLeft, setVideosLeft] = useState(5);
@@ -597,7 +503,7 @@ function TextToVideoPage() {
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200"><Type className="h-4 w-4 text-pink-500" /> Text to Image</div>
                   </Link>
 
-                  {/* 3. Image Remover (Gemini Watermark) */}
+                  {/* 3. Image Remover */}
                   <Link to="/watermark-remover" onClick={() => setMenuOpen(false)} className="group flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-200"><ImageIcon className="h-4 w-4 text-blue-500" /> Image Remover</div>
                   </Link>
@@ -660,8 +566,6 @@ function TextToVideoPage() {
 
       <main className="relative mx-auto max-w-6xl px-4 pt-12 pb-24 sm:pt-20">
         
-        <AdBanner728x90 />
-
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 sm:mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 text-xs font-semibold text-purple-700 dark:text-purple-400 mb-6 shadow-sm">
             <Server className="w-3.5 h-3.5" /> Fast Cloud Engine
@@ -679,8 +583,6 @@ function TextToVideoPage() {
 
         {/* 🚀 PREMIUM GLASSMORPHIC UI */}
         <div className="relative mx-auto max-w-6xl mt-4">
-          <AdNativeBanner />
-
           {/* 🌟 DAILY LIMIT BANNER */}
           <div className="mb-6 overflow-hidden rounded-2xl border border-purple-200 dark:border-purple-500/20 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/10 dark:to-indigo-900/10 p-1 shadow-sm">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-5 py-3">
@@ -770,7 +672,7 @@ function TextToVideoPage() {
                     type="range" 
                     min="1" 
                     max="6" 
-                    step="1"
+                    step="1" 
                     value={durationNum}
                     onChange={(e) => setDurationNum(parseInt(e.target.value))}
                     className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-white/10 accent-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500/30"
@@ -853,20 +755,12 @@ function TextToVideoPage() {
                           <Plus className="h-4 w-4 sm:h-5 sm:w-5" /> {vt.btnAddMore}
                         </button>
                       </div>
-
-                      <div className="mt-4 sm:mt-6 flex justify-center w-full overflow-hidden rounded-xl">
-                        <AdBanner300x250 />
-                      </div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-10 sm:mt-12 mb-8">
-          <AdBanner728x90 />
         </div>
 
         {/* HOW IT WORKS */}

@@ -76,30 +76,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
-      /* --- ONLY STRICT GLOBAL TECHNICAL METADATA --- */
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
       { name: "author", content: "Unmark AI" },
     ],
     links: [
-      /* --- FORCE GOOGLE TO UPDATE FAVICON (CACHE BUSTING) --- */
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
       { rel: "shortcut icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
       { rel: "apple-touch-icon", href: "/favicon.svg?v=2" },
-
-      /* --- GLOBAL STYLESHEET --- */
       { rel: "stylesheet", href: appCss },
-      
-      /* --- GOOGLE ADSENSE PRECONNECT SCRIPT --- */
-      { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
-    ],
-    scripts: [
-      /* --- GOOGLE ADSENSE VERIFICATION SCRIPT (APPLIES SITE-WIDE) --- */
-      {
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1857120699307089",
-        async: true,
-        crossOrigin: "anonymous",
-      },
     ],
   }),
   shellComponent: RootShell,

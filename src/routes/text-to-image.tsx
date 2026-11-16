@@ -41,63 +41,6 @@ export const Route = createFileRoute('/text-to-image')({
 });
 
 // ==========================================
-// 📢 ADSTERRA AD COMPONENTS
-// ==========================================
-function AdBanner728x90() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[90px] my-6 overflow-hidden">
-      <div className="max-w-full overflow-x-auto rounded-lg custom-scrollbar">
-        <iframe
-          title="Adsterra 728x90"
-          width="728"
-          height="90"
-          frameBorder="0"
-          scrolling="no"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '9b8822b87a33da031aa2351cb92a123d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/9b8822b87a33da031aa2351cb92a123d/invoke.js"></script></body></html>`}
-          className="bg-slate-50/50 dark:bg-white/5"
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdBanner300x250() {
-  return (
-    <div className="flex justify-center items-center w-full min-h-[250px] my-4 overflow-hidden">
-      <div className="max-w-full overflow-hidden rounded-lg">
-        <iframe
-          title="Adsterra 300x250"
-          width="300"
-          height="250"
-          frameBorder="0"
-          scrolling="no"
-          srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;background:transparent;}</style></head><body><script type="text/javascript">atOptions = { 'key' : '8334e8ec678967ec9dd522989d8d95ea', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };</script><script type="text/javascript" src="//www.highperformanceformat.com/8334e8ec678967ec9dd522989d8d95ea/invoke.js"></script></body></html>`}
-          className="bg-slate-50/50 dark:bg-white/5"
-        />
-      </div>
-    </div>
-  );
-}
-
-function AdNativeBanner() {
-  useEffect(() => {
-    if (!document.getElementById("adsterra-native")) {
-      const script = document.createElement("script");
-      script.id = "adsterra-native";
-      script.async = true;
-      script.dataset.cfasync = "false";
-      script.src = "//pl30342541.effectivecpmnetwork.com/b2f92a8142955a57ae630862cf29f00e/invoke.js";
-      document.body.appendChild(script);
-    }
-  }, []);
-  return (
-    <div className="w-full flex justify-center items-center mt-8 mb-4 px-4 overflow-hidden">
-      <div id="container-b2f92a8142955a57ae630862cf29f00e" className="w-full max-w-4xl min-h-[100px] rounded-xl overflow-hidden shadow-sm" />
-    </div>
-  );
-}
-
-// ==========================================
 // 🚀 SEO INTERNAL LINKING TABS (Tool Switcher - Fixed for Mobile)
 // ==========================================
 function ToolSwitcher({ current }: { current: 'image' | 'video' | 'text-to-image' | 'text-to-video' }) {
@@ -425,8 +368,6 @@ function TextToImagePage() {
     };
   }, [resultUrl]);
 
-  const triggerSmartlink = () => {};
-
   const generateImage = async () => {
     if (!prompt.trim()) {
       setError("Please describe what you want to see.");
@@ -566,7 +507,6 @@ function TextToImagePage() {
   };
 
   const reset = () => {
-    triggerSmartlink();
     setResultUrl(null);
     setResultBlob(null);
     setPrompt("");
@@ -582,8 +522,6 @@ function TextToImagePage() {
     document.body.appendChild(a);
     a.click();
     a.remove();
-    
-    triggerSmartlink();
   };
 
   const handleCopy = async () => {
@@ -595,8 +533,6 @@ function TextToImagePage() {
       await navigator.clipboard.write([new ClipboardItem({ "image/png": resultBlob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
-      
-      triggerSmartlink();
     } catch (e) {
       console.error(e);
       setError("Clipboard access denied by browser. Please use the Download button.");
@@ -741,8 +677,6 @@ function TextToImagePage() {
 
       <main className="relative mx-auto max-w-6xl px-4 pt-12 pb-24 sm:pt-20">
         
-        <AdBanner728x90 />
-
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 sm:mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-50 dark:bg-pink-500/10 border border-pink-200 dark:border-pink-500/20 text-xs font-semibold text-pink-700 dark:text-pink-400 mb-6 shadow-sm">
             <Wand2 className="w-3.5 h-3.5" /> High-Fidelity AI Image Generation
@@ -759,8 +693,6 @@ function TextToImagePage() {
         <ToolSwitcher current="text-to-image" />
 
         <div className="relative mx-auto max-w-6xl mt-4">
-          <AdNativeBanner />
-
           <div className="rounded-3xl border border-slate-200/60 bg-white/50 p-3 sm:p-4 lg:p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0a]/80 mt-6">
             <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
               
@@ -877,20 +809,12 @@ function TextToImagePage() {
                           <Plus className="h-4 w-4" /> {vt.btnAddMore}
                         </button>
                       </div>
-
-                      <div className="mt-4 sm:mt-6 flex justify-center w-full overflow-hidden rounded-xl">
-                        <AdBanner300x250 />
-                      </div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-10 sm:mt-12 mb-8">
-          <AdBanner728x90 />
         </div>
 
         <div className="mt-12 sm:mt-16 border-t border-slate-200/50 pt-16 sm:pt-24 dark:border-white/5">
